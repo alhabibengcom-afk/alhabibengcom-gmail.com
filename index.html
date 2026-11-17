@@ -30,7 +30,7 @@
     --line:#DCE6E6;
     --bg:#EAF1F1;
     --card:#FFFFFF;
-    --wa:#128C4B;
+    --wa:#1A9A93;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
@@ -56,7 +56,7 @@
 
   /* ---------- Hero ---------- */
   .hero{position:relative;height:300px;background:var(--ink);overflow:hidden}
-  .hero img.cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+  .hero img.cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;filter:grayscale(1) contrast(1.05)}
   .hero::after{content:"";position:absolute;inset:0;
     background:linear-gradient(180deg,rgba(13,27,30,.35) 0%,rgba(13,27,30,.15) 40%,rgba(13,27,30,.95) 100%)}
   .hero .top{position:absolute;z-index:1;top:22px;inset-inline:22px;display:flex;justify-content:space-between;align-items:center}
