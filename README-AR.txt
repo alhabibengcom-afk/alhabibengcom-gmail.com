@@ -71,3 +71,8 @@ brands/assets/documents/      صور صفحات ملفات PDF المعروضة 
 • شريط تنقل سفلي على الموبايل: الرئيسية، الوحدات، جولة 360°، احجز معاينة.
 • ضغط الفيديوهات، والفيديوهات لا تُحمّل إلا عند التشغيل. الصفحة الرئيسية تُحمّل نحو 4.5 ميجابايت بدل 18.
 • تصميم الإصدار 14 في brands/pro.css ويُحمّل بعد باقي ملفات التصميم.
+• دليل الوحدات بالإنجليزي: brands/Happiness_Plaza_Leasing_EN.pdf (238 صفحة بنفس التصميم والروابط، وروابطه تفتح الدليل بالإنجليزي ?lang=en) وصور صفحاته في brands/assets/documents/leasing-en/.
+  في وضع EN يعرض قارئ المستندات والتنزيل النسخة الإنجليزية تلقائيًا.
+  لإعادة إنتاجه بعد تعديل الملف العربي: pip install PyMuPDF ثم
+  python tools/pdf-english/translate_pdf.py brands/Happiness_Plaza_Leasing.pdf brands/Happiness_Plaza_Leasing_EN.pdf tools/pdf-english/leasing-en.json
+  أي نص عربي جديد بلا ترجمة يُكتب في ملف ‎*.missing.json‎ بجوار الناتج؛ أضف ترجمته إلى leasing-en.json وأعد التشغيل.
