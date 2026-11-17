@@ -52,7 +52,7 @@ function showDocument(key,initialPage=1){
     const url=documentURL(key,page);
     if(url.href!==location.href){history.replaceState(history.state,'',url);lastRouteURL=location.href;}
     pageImage.alt=doc.title+' · صفحة '+page;
-    pageImage.src='assets/documents/'+key+'/p-'+String(page).padStart(doc.digits,'0')+'.jpg?v=13';
+    pageImage.src='assets/documents/'+(doc.dir||key)+'/p-'+String(page).padStart(doc.digits,'0')+'.jpg?v=13';
     previous.disabled=page===1;next.disabled=page===doc.pages;
     count.textContent='من '+doc.pages.toLocaleString('ar-EG');
     links.replaceChildren();unitLink.hidden=true;

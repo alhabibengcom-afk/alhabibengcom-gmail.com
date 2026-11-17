@@ -3,7 +3,7 @@
    Pages and code: network first, cached copy when offline.
    Images and fonts: cache first, filled as the visitor browses.
    Videos and PDFs are never cached (large files, range requests). */
-const VERSION = 'hp-v14-2';
+const VERSION = 'hp-v14-3';
 const SHELL = [
   './',
   'index.html',
@@ -23,7 +23,7 @@ const SHELL = [
   'document-links.js?v=13',
   'document-data.js?v=13',
   'site.js?v=13',
-  'documents.js?v=13',
+  'documents.js?v=14',
   'hospitality.js?v=13',
   'manifest.webmanifest',
   'app/icon-192.png',
