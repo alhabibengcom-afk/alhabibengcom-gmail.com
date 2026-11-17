@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-l="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Al-Habeeb Company Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@200;300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>
+  // ?lang=en switches the whole document to English / LTR
+  (function(){var l=new URLSearchParams(location.search).get('lang')==='en'?'en':'ar';
+   var h=document.documentElement;h.setAttribute('data-l',l);h.lang=l;h.dir=l==='en'?'ltr':'rtl';})();
+</script>
+<style>
+:root{
+  --ink:#121C1B; --deep:#0E3431; --teal:#1F9E94; --teal-2:#2DB7AA; --mint:#DCEFEC;
+  --paper:#F6F3EE; --sand:#ECE6DC; --stone:#CFC7BA; --graphite:#3B4246; --mute:#7A8285; --line:rgba(18,28,27,.14);
+  --m:16mm;
+}
+html[data-l=ar]{--body:'IBM Plex Sans Arabic',sans-serif;--display:'IBM Plex Sans Arabic',sans-serif;--dw:300;--track:0}
+html[data-l=en]{--body:'Inter',sans-serif;--display:'Instrument Serif',serif;--dw:400;--track:-.01em}
+html[data-l=ar] .e, html[data-l=en] .a{display:none!important}
+@page{size:297mm 210mm;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#9a9a9a}
+body{font-family:var(--body);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:9.6pt;line-height:1.6}
+html[data-l=ar] body{line-height:1.75}
+@media screen{.page{margin:10mm auto;box-shadow:0 6px 30px rgba(0,0,0,.25)}}
+.page{width:297mm;height:210mm;position:relative;overflow:hidden;background:var(--paper);break-after:page;page-break-after:always}
+.page.dark{background:var(--ink);color:#EDEBE6}
+.page.deep{background:var(--deep);color:#EDEBE6}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.abs{position:absolute}
+/* running header / footer */
+.hdr{position:absolute;top:10mm;inset-inline:var(--m);display:flex;justify-content:space-between;align-items:center;font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);z-index:5}
+html[data-l=ar] .hdr{letter-spacing:0;font-size:7.6pt}
+.hdr b{color:var(--teal);font-weight:600;margin-inline-end:3mm}
+.ftr{position:absolute;bottom:8.5mm;inset-inline:var(--m);display:flex;justify-content:space-between;font-size:6.8pt;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);z-index:5}
+html[data-l=ar] .ftr{letter-spacing:0;font-size:7.4pt}
+.dark .hdr,.dark .ftr,.deep .hdr,.deep .ftr,.on-img .hdr,.on-img .ftr{color:rgba(255,255,255,.7)}
+.pn{direction:ltr;unicode-bidi:isolate}
+.pn::before{content:attr(data-n)}
+.abs.ph{position:absolute}
+/* type */
+.kicker{font-size:7.2pt;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:600}
+html[data-l=ar] .kicker{letter-spacing:0;font-size:8.6pt}
+.h1{font-family:var(--display);font-weight:var(--dw);letter-spacing:var(--track);font-size:44pt;line-height:1.02}
+.h2{font-family:var(--display);font-weight:var(--dw);letter-spacing:var(--track);font-size:30pt;line-height:1.08}
+.h3{font-weight:600;font-size:11pt;line-height:1.35}
+html[data-l=ar] .h1{font-size:38pt;line-height:1.25}
+html[data-l=ar] .h2{font-size:26pt;line-height:1.3}
+.lead{font-size:12pt;line-height:1.55;font-weight:300}
+html[data-l=ar] .lead{font-size:12.5pt;line-height:1.8}
+.muted{color:var(--mute)}
+.rule{height:1px;background:var(--line)}
+.dark .rule,.deep .rule{background:rgba(255,255,255,.18)}
+.num{font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-.02em}
+.it{font-style:italic}
+.tag{display:inline-block;font-size:6.8pt;letter-spacing:.14em;text-transform:uppercase;border:1px solid currentColor;padding:1mm 2.4mm;border-radius:20mm;opacity:.85}
+html[data-l=ar] .tag{letter-spacing:0;font-size:7.6pt}
+.cap{font-size:7pt;color:var(--mute);margin-top:2mm;letter-spacing:.04em}
+html[data-l=ar] .cap{font-size:7.8pt;letter-spacing:0}
+ul.clean{list-style:none}
+ul.clean li{padding:1.6mm 0;border-top:1px solid var(--line)}
+ul.clean li:last-child{border-bottom:1px solid var(--line)}
+.dark ul.clean li,.deep ul.clean li{border-color:rgba(255,255,255,.16)}
+.grid{display:grid;gap:4mm}
+.ph{overflow:hidden;background:var(--sand);position:relative}
+.ph .lbl{position:absolute;inset-inline-start:3mm;bottom:2.6mm;color:#fff;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.5);font-weight:500}
+html[data-l=ar] .ph .lbl{letter-spacing:0;font-size:8pt}
+.shade::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,18,17,.55),rgba(10,18,17,0) 45%)}
+.fact{border-top:1px solid var(--line);padding-top:2.4mm}
+.fact .v{font-family:'Instrument Serif',serif;font-size:24pt;line-height:1}
+.fact .k{font-size:7.4pt;color:var(--mute);margin-top:1.4mm;letter-spacing:.06em;text-transform:uppercase}
+html[data-l=ar] .fact .k{letter-spacing:0;font-size:8.2pt;text-transform:none}
+.dark .fact,.deep .fact{border-color:rgba(255,255,255,.2)}
+.dark .fact .k,.deep .fact .k{color:rgba(255,255,255,.6)}
+.veil{background:linear-gradient(90deg,rgba(12,22,21,.8),rgba(12,22,21,.1) 72%)}
+html[dir=rtl] .veil{background:linear-gradient(270deg,rgba(12,22,21,.8),rgba(12,22,21,.1) 72%)}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+</style>
+</head>
+<body>
+
+<!-- ============ 01 COVER ============ -->
+<section class="page dark" id="cover">
+  <div class="abs" style="inset-block:0;inset-inline-end:0;width:52%"><img src="assets/img/hp-night.jpg" style="object-position:50% 60%"></div>
+  <div class="abs" style="inset-block:0;inset-inline-end:52%;width:1.2mm;background:var(--teal)"></div>
+  <div class="abs" style="top:16mm;inset-inline-start:var(--m);width:46mm"><img src="assets/logo-white.png" style="object-fit:contain;height:auto"></div>
+  <div class="abs" style="inset-inline-start:var(--m);top:70mm;width:120mm">
+    <div class="kicker" style="color:var(--teal-2)"><span class="a">الملف التعريفي للشركة · 2026</span><span class="e">Company Profile · 2026</span></div>
+    <div class="h1" style="margin-top:6mm;font-size:52pt"><span class="a">نبني<br>بجودة</span><span class="e">Building<br><span class="it">Quality.</span></span></div>
+    <p class="lead" style="margin-top:7mm;color:rgba(255,255,255,.78);max-width:105mm">
+      <span class="a">تصميم هندسي، ومقاولات عامة، وتطوير عقاري، من فريق واحد ومسؤولية واحدة.</span>
+      <span class="e">Engineering design, general contracting and real estate development, delivered by one accountable team.</span>
+    </p>
+  </div>
+  <div class="abs" style="bottom:12mm;inset-inline-start:var(--m);width:118mm;display:flex;justify-content:space-between;font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)">
+    <span><span class="a" style="letter-spacing:0;font-size:8.4pt">قنا الجديدة، مصر</span><span class="e">New Qena, Egypt</span></span>
+    <span><span class="a" style="letter-spacing:0;font-size:8.4pt">منذ 2008</span><span class="e">Est. 2008</span></span>
+  </div>
+  <div class="abs" style="bottom:10mm;inset-inline-end:8mm;color:rgba(255,255,255,.75);font-size:6.8pt;letter-spacing:.12em;text-transform:uppercase"><span class="a" style="letter-spacing:0;font-size:7.6pt">هابينيس بلازا، قنا الجديدة</span><span class="e">Happiness Plaza, New Qena</span></div>
+</section>
+
+<!-- ============ 02 CONTENTS + AT A GLANCE ============ -->
+<section class="page">
+  <div class="hdr"><span><span class="a">المحتويات</span><span class="e">Contents</span></span><span><span class="a">الحبيب للهندسة والمقاولات</span><span class="e">Al-Habeeb Engineering &amp; Contracting</span></span></div>
+  <div class="abs" style="top:30mm;inset-inline-start:var(--m);width:118mm">
+    <div class="h2"><span class="a">في هذا الملف</span><span class="e">In this profile</span></div>
+    <ul class="clean" style="margin-top:9mm;font-size:10.5pt" id="toc"></ul>
+  </div>
+  <div class="abs" style="top:30mm;inset-inline-end:var(--m);width:118mm">
+    <div class="kicker"><span class="a">الحبيب في أرقام</span><span class="e">At a glance</span></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:9mm 8mm;margin-top:8mm">
+      <div class="fact"><div class="v">2008</div><div class="k"><span class="a">سنة التأسيس، قنا</span><span class="e">Founded in Qena</span></div></div>
+      <div class="fact"><div class="v">3</div><div class="k"><span class="a">مجالات عمل متكاملة: تصميم، تنفيذ، تطوير</span><span class="e">Integrated business lines: design, build, develop</span></div></div>
+      <div class="fact"><div class="v">4+</div><div class="k"><span class="a">وحدات إنتاج وورش داخلية</span><span class="e">In-house production units &amp; workshops</span></div></div>
+      <div class="fact"><div class="v">20,000 <span style="font-size:13pt">m²</span></div><div class="k"><span class="a">مساحة أرض هابينيس بلازا، مشروعنا الرائد</span><span class="e">Happiness Plaza site, our flagship development</span></div></div>
+      <div class="fact"><div class="v">LOD 400</div><div class="k"><span class="a">نماذج BIM حتى مستوى التنفيذ</span><span class="e">BIM models developed to construction level</span></div></div>
+      <div class="fact"><div class="v">7</div><div class="k"><span class="a">قطاعات نخدمها</span><span class="e">Sectors served</span></div></div>
+    </div>
+  </div>
+  <div class="ftr"><span class="pn"></span><span>alhabeebconst.com</span></div>
+</section>
+
+<!-- ============ 03 CHAIRMAN ============ -->
+<section class="page" data-toc="ar:كلمة رئيس مجلس الإدارة|en:Chairman’s message">
+  <div class="abs" style="inset-block:0;inset-inline-start:0;width:40%"><img src="assets/img/silhouette.jpg" style="object-position:50% 30%"></div>
+  <div class="hdr" style="inset-inline-start:calc(40% + var(--m))"><span><b class="sec"></b><span class="a">كلمة رئيس مجلس الإدارة</span><span class="e">Chairman’s message</span></span></div>
+  <div class="abs" style="top:34mm;inset-inline-start:calc(40% + 18mm);inset-inline-end:22mm">
+    <div class="num" style="font-size:90pt;line-height:.6;color:var(--teal);height:22mm">“</div>
+    <p class="h2" style="font-size:22pt;line-height:1.3">
+      <span class="a" style="font-size:20pt;line-height:1.6">ثقة عملائنا هي المعيار الذي نقيس به أنفسنا في كل مشروع.</span>
+      <span class="e">The trust of our clients is the standard we measure ourselves against on every project.</span>
+    </p>
+    <div style="columns:2;column-gap:9mm;margin-top:9mm;color:var(--graphite)">
+      <p class="a">يسعدنا أن نقدّم لكم هذا الملف: سجلًا لما أنجزناه، ولما نعمل عليه اليوم، وللقدرات التي تدفع نموّنا المستمر.</p>
+      <p class="a" style="margin-top:3mm">تأسست الحبيب في قنا عام 2008، ونعمل اليوم في مجالات التصميم الهندسي والمقاولات والتطوير العقاري، ونقدّم مجموعة متنوعة من المشروعات والخدمات المتكاملة.</p>
+      <p class="a" style="margin-top:3mm">لم تكن بداية الطريق سهلة، لكن إصرار فريقنا والتزامه، بفضل الله، مكّنانا من تجاوز التحديات وتحقيق أهدافنا وكسب ثقة عملائنا. ونعدكم أن نحافظ على هذه الثقة في كل ما نبنيه.</p>
+      <p class="e">It is our pleasure to present this profile: a record of what we have achieved, what we are building today, and the capabilities that drive our continued growth.</p>
+      <p class="e" style="margin-top:3mm">Founded in Qena in 2008, Al-Habeeb works across engineering design, contracting and real estate development, delivering a broad portfolio of integrated projects and services.</p>
+      <p class="e" style="margin-top:3mm">The early years were not easy. The determination and commitment of our team carried us through, allowed us to reach our goals and earned the trust of our clients. We intend to keep that trust in everything we build.</p>
+    </div>
+    <div style="margin-top:10mm" class="rule"></div>
+    <div style="margin-top:3mm;font-weight:600"><span class="a">رئيس مجلس الإدارة</span><span class="e">Chairman</span></div>
+    <div class="muted" style="font-size:8.4pt"><span class="a">الحبيب للهندسة والمقاولات</span><span class="e">Al-Habeeb Engineering &amp; Contracting</span></div>
+  </div>
+  <div class="ftr" style="inset-inline-start:calc(40% + var(--m))"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 04 WHO WE ARE ============ -->
+<section class="page" data-toc="ar:من نحن|en:Who we are">
+  <div class="hdr"><span><b class="sec"></b><span class="a">من نحن</span><span class="e">Who we are</span></span></div>
+  <div class="abs" style="top:28mm;inset-inline-start:var(--m);width:132mm">
+    <div class="h2"><span class="a">شركة واحدة تصمّم، وتنفّذ، وتطوّر.</span><span class="e">One company that designs, builds and develops.</span></div>
+    <p class="lead" style="margin-top:6mm;color:var(--graphite)">
+      <span class="a">تأسست الحبيب للهندسة والمقاولات عام 2008 في قنا. نرافق أصحاب المشروعات من دراسة احتياجاتهم وإعداد التصميمات، إلى تنفيذ الأعمال والإشراف عليها في الموقع.</span>
+      <span class="e">Al-Habeeb Engineering &amp; Contracting was founded in Qena in 2008. We stay with project owners from the first study of their needs and the design work, through to construction and supervision on site.</span>
+    </p>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:6mm 9mm;margin-top:10mm">
+      <div><div class="kicker"><span class="a">رؤيتنا</span><span class="e">Vision</span></div>
+        <p style="margin-top:2mm"><span class="a">أن نكون الشركة الرائدة في التشييد والبناء، مع تطوير مستمر للابتكار والاستدامة.</span><span class="e">To be a leading company in construction and building, continuously advancing innovation and sustainability.</span></p></div>
+      <div><div class="kicker"><span class="a">رسالتنا</span><span class="e">Mission</span></div>
+        <p style="margin-top:2mm"><span class="a">تقديم حلول هندسية متكاملة تلبي احتياجات العملاء بأعلى مستويات الجودة والكفاءة، مع الشفافية والاحترافية في كل مرحلة.</span><span class="e">To deliver integrated engineering solutions that meet client needs with the highest quality and efficiency, and with transparency and professionalism at every stage.</span></p></div>
+    </div>
+  </div>
+  <div class="abs ph" style="top:28mm;bottom:22mm;inset-inline-end:var(--m);width:112mm"><img src="assets/img/hp-facade.jpg" style="object-position:40% 50%"></div>
+  <div class="abs" style="bottom:22mm;inset-inline-start:var(--m);width:132mm">
+    <div class="kicker" style="margin-bottom:3mm"><span class="a">قيمنا</span><span class="e">Our values</span></div>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:5mm">
+      <div class="fact"><div class="h3"><span class="a">الجودة</span><span class="e">Quality</span></div><div class="muted" style="font-size:8pt;margin-top:1mm"><span class="a">التزام بأعلى معايير التنفيذ</span><span class="e">The highest execution standards</span></div></div>
+      <div class="fact"><div class="h3"><span class="a">الابتكار</span><span class="e">Innovation</span></div><div class="muted" style="font-size:8pt;margin-top:1mm"><span class="a">تطوير مستمر للحلول الهندسية</span><span class="e">Continuously improving engineering</span></div></div>
+      <div class="fact"><div class="h3"><span class="a">الاستدامة</span><span class="e">Sustainability</span></div><div class="muted" style="font-size:8pt;margin-top:1mm"><span class="a">مشروعات تراعي البيئة والمجتمع</span><span class="e">Projects that respect people and place</span></div></div>
+      <div class="fact"><div class="h3"><span class="a">الاحترافية</span><span class="e">Integrity</span></div><div class="muted" style="font-size:8pt;margin-top:1mm"><span class="a">شفافية وأخلاقيات مهنية</span><span class="e">Ethical, transparent practice</span></div></div>
+    </div>
+  </div>
+  <div class="ftr"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 05 INTEGRATED MODEL ============ -->
+<section class="page deep" data-toc="ar:نموذج العمل المتكامل|en:An integrated model">
+  <div class="hdr"><span><b class="sec"></b><span class="a">نموذج العمل المتكامل</span><span class="e">An integrated model</span></span></div>
+  <div class="abs" style="top:28mm;inset-inline-start:var(--m);width:150mm">
+    <div class="h2" style="color:#fff"><span class="a">من الفكرة إلى التسليم،<br>تحت سقف واحد.</span><span class="e">From first sketch to handover,<br><span class="it">under one roof.</span></span></div>
+  </div>
+  <div class="abs" style="top:30mm;inset-inline-end:var(--m);width:92mm;color:rgba(255,255,255,.75)">
+    <p><span class="a">ننسّق التصميم المعماري والإنشائي مع أنظمة الكهرباء والميكانيكا قبل بدء التنفيذ، ونختار المواد على أساس التكلفة والجودة وسهولة الصيانة. يمكن التعاقد على خدمة واحدة أو على مجموعة خدمات.</span><span class="e">We coordinate architecture and structure with the electrical and mechanical systems before construction starts, and we select materials on cost, quality and ease of maintenance. Clients can contract a single service or the complete chain.</span></p>
+  </div>
+  <div class="abs grid" style="top:84mm;bottom:22mm;inset-inline:var(--m);grid-template-columns:repeat(3,1fr);gap:0">
+    <div style="border-inline-start:1px solid rgba(255,255,255,.2);padding-inline:7mm;display:flex;flex-direction:column">
+      <div class="num" style="font-size:54pt;line-height:1;color:var(--teal-2)">01</div>
+      <div class="h3" style="color:#fff;font-size:14pt;margin-top:3mm"><span class="a">نصمّم</span><span class="e">Design</span></div>
+      <div class="kicker" style="color:rgba(255,255,255,.55);margin-top:1mm"><span class="a">الاستشارات والتصميم والدعم الفني</span><span class="e">Consultancy · Design · Technical support</span></div>
+      <p style="margin-top:4mm;color:rgba(255,255,255,.75)"><span class="a">تصميم معماري وإنشائي وكهروميكانيكي، ورسومات تنفيذية، ونماذج LOD 300 و LOD 400، ومستندات فنية وحصر كميات.</span><span class="e">Architecture, structure and MEP; construction drawings; LOD 300 and LOD 400 models; specifications and quantity take-off.</span></p>
+    </div>
+    <div style="border-inline-start:1px solid rgba(255,255,255,.2);padding-inline:7mm;display:flex;flex-direction:column">
+      <div class="num" style="font-size:54pt;line-height:1;color:var(--teal-2)">02</div>
+      <div class="h3" style="color:#fff;font-size:14pt;margin-top:3mm"><span class="a">ننفّذ</span><span class="e">Build</span></div>
+      <div class="kicker" style="color:rgba(255,255,255,.55);margin-top:1mm"><span class="a">إدارة المشروعات والتصنيع</span><span class="e">Project management · Manufacturing</span></div>
+      <p style="margin-top:4mm;color:rgba(255,255,255,.75)"><span class="a">مقاولات عامة وإدارة تنفيذ وإشراف موقعي، تدعمها مصانع وورش داخلية للخرسانة والحديد والنجارة والتشطيبات.</span><span class="e">General contracting, construction management and site supervision, supported by our own precast, metal, joinery and finishing workshops.</span></p>
+    </div>
+    <div style="border-inline-start:1px solid rgba(255,255,255,.2);border-inline-end:1px solid rgba(255,255,255,.2);padding-inline:7mm;display:flex;flex-direction:column">
+      <div class="num" style="font-size:54pt;line-height:1;color:var(--teal-2)">03</div>
+      <div class="h3" style="color:#fff;font-size:14pt;margin-top:3mm"><span class="a">نطوّر</span><span class="e">Develop</span></div>
+      <div class="kicker" style="color:rgba(255,255,255,.55);margin-top:1mm"><span class="a">التطوير العقاري</span><span class="e">Real estate development</span></div>
+      <p style="margin-top:4mm;color:rgba(255,255,255,.75)"><span class="a">بدأنا نشاط التطوير العقاري في قنا عام 2021 بمشروع هابينيس بلازا، مجمّع تجاري وترفيهي عند مدخل قنا الجديدة.</span><span class="e">We entered real estate development in 2021 with Happiness Plaza, a retail and leisure destination at the entrance of New Qena.</span></p>
+    </div>
+  </div>
+  <div class="ftr"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 06 ENGINEERING & DESIGN ============ -->
+<section class="page" data-toc="ar:التصميم والاستشارات الهندسية|en:Engineering &amp; design">
+  <div class="hdr"><span><b class="sec"></b><span class="a">التصميم والاستشارات الهندسية</span><span class="e">Engineering &amp; design</span></span></div>
+  <div class="abs" style="inset-block:0;inset-inline-end:0;width:38%"><img src="assets/img/masa-side.jpg" style="object-position:58% 50%"></div>
+  <div class="abs" style="top:28mm;inset-inline-start:var(--m);width:160mm">
+    <div class="kicker"><span class="a">إدارة الاستشارات والتصميمات والدعم الفني</span><span class="e">Investment, design &amp; technical support</span></div>
+    <div class="h2" style="margin-top:3mm"><span class="a">كل التخصصات، في نموذج واحد منسَّق.</span><span class="e">Every discipline, in one coordinated model.</span></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:7mm 10mm;margin-top:10mm">
+      <div class="fact"><div class="h3"><span class="a">التصميم المعماري</span><span class="e">Architecture</span></div><p class="muted" style="margin-top:1.4mm"><span class="a">تصميمات تجمع بين الجمال الوظيفي والإبداع، وتصميم داخلي وواجهات ولقطات منظورية.</span><span class="e">Functional, expressive architecture, interiors, façades and photoreal visualisation.</span></p></div>
+      <div class="fact"><div class="h3"><span class="a">التصميم الإنشائي</span><span class="e">Structural engineering</span></div><p class="muted" style="margin-top:1.4mm"><span class="a">منشآت خرسانية آمنة واقتصادية، بما فيها البلاطات سابقة الإجهاد بتقنية الشد اللاحق، وتدعيم المنشآت بأسياخ FRP.</span><span class="e">Safe, economical concrete structures, including post-tensioned slabs and FRP strengthening design.</span></p></div>
+      <div class="fact"><div class="h3"><span class="a">الأنظمة الكهربائية</span><span class="e">Electrical systems</span></div><p class="muted" style="margin-top:1.4mm"><span class="a">القوى والإنارة والتيار الخفيف والأنظمة الذكية.</span><span class="e">Power, lighting, low-current and smart-building systems.</span></p></div>
+      <div class="fact"><div class="h3"><span class="a">الأنظمة الميكانيكية</span><span class="e">Mechanical systems</span></div><p class="muted" style="margin-top:1.4mm"><span class="a">التكييف، وإطفاء وإنذار الحريق، والصرف والتغذية.</span><span class="e">HVAC, fire fighting and early fire detection, plumbing and drainage.</span></p></div>
+      <div class="fact"><div class="h3"><span class="a">المستندات الفنية</span><span class="e">Technical documentation</span></div><p class="muted" style="margin-top:1.4mm"><span class="a">حصر الكميات وتقدير التكاليف، والمواصفات، ورسومات تنفيذية (Shop Drawings)، وقوائم الموردين المعتمدين.</span><span class="e">Bills of quantities and cost estimates, specifications, shop drawings and approved vendor lists.</span></p></div>
+      <div class="fact"><div class="h3"><span class="a">التراخيص والهوية</span><span class="e">Permits &amp; brand design</span></div><p class="muted" style="margin-top:1.4mm"><span class="a">أعمال الترخيص، وتصميم الهوية والكتالوجات وملفات التسويق للمشروعات.</span><span class="e">Permitting, plus identity, catalogues and marketing files for developments.</span></p></div>
+    </div>
+  </div>
+  <div class="ftr" style="inset-inline-end:calc(38% + var(--m))"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 07 PROJECT MANAGEMENT ============ -->
+<section class="page" data-toc="ar:إدارة المشروعات والتنفيذ|en:Project management &amp; construction">
+  <div class="abs" style="inset-block:0;inset-inline-start:0;width:50%"><img src="assets/img/site.jpg" style="object-position:40% 50%"></div>
+  <div class="hdr" style="inset-inline-start:calc(50% + 14mm)"><span><b class="sec"></b><span class="a">إدارة المشروعات والتنفيذ</span><span class="e">Project management &amp; construction</span></span></div>
+  <div class="abs" style="top:28mm;inset-inline-start:calc(50% + 14mm);inset-inline-end:var(--m)">
+    <div class="h2"><span class="a">في الموعد، وفي حدود الميزانية، وبالجودة المتفق عليها.</span><span class="e">On programme, on budget, to the agreed standard.</span></div>
+    <p style="margin-top:5mm;color:var(--graphite)"><span class="a">نخطط المشروعات وندير تنفيذها بكفاءة واحترافية، ونتابع الجداول الزمنية، ونضمن الالتزام بالمواعيد ومعايير الجودة.</span><span class="e">We plan and manage construction with discipline: programmes are tracked, milestones are kept and every package is checked against agreed quality standards.</span></p>
+    <ul class="clean" style="margin-top:7mm">
+      <li><div class="h3"><span class="a">إدارة تنفيذ المشروعات</span><span class="e">Construction management</span></div><div class="muted"><span class="a">إشراف على جميع مراحل التنفيذ وتسليم المشروعات بأعلى معايير الجودة.</span><span class="e">Supervision of every construction stage through to handover.</span></div></li>
+      <li><div class="h3"><span class="a">إدارة الجودة والسلامة</span><span class="e">Quality, health &amp; safety</span></div><div class="muted"><span class="a">سياسات جودة واضحة ومعايير سلامة مهنية لبيئة عمل آمنة.</span><span class="e">Clear quality plans and occupational safety standards on every site.</span></div></li>
+      <li><div class="h3"><span class="a">إدارة المشروعات للغير</span><span class="e">Third-party project management</span></div><div class="muted"><span class="a">إدارة وإشراف على مشروعات عملاء آخرين وفق احتياجاتهم.</span><span class="e">Owner’s representation and supervision for external clients.</span></div></li>
+      <li><div class="h3"><span class="a">إدارة التوريدات</span><span class="e">Procurement management</span></div><div class="muted"><span class="a">توفير المواد والمعدات بأسعار تنافسية وجودة عالية مع ضمان سلاسة التوريد.</span><span class="e">Competitive, reliable sourcing of materials and equipment.</span></div></li>
+    </ul>
+  </div>
+  <div class="ftr" style="inset-inline-start:calc(50% + 14mm)"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 08 MANUFACTURING ============ -->
+<section class="page dark" data-toc="ar:التصنيع|en:Manufacturing">
+  <div class="hdr"><span><b class="sec"></b><span class="a">إدارة التصنيع</span><span class="e">Manufacturing</span></span></div>
+  <div class="abs" style="top:28mm;inset-inline-start:var(--m);width:120mm">
+    <div class="h2" style="color:#fff"><span class="a">ننتج بأنفسنا ما نبنيه.</span><span class="e">We make what <span class="it">we build.</span></span></div>
+    <p style="margin-top:5mm;color:rgba(255,255,255,.72)"><span class="a">مصانع وورش داخلية تمنحنا تحكمًا أكبر في الجودة والتكلفة والوقت، وتقدّم منتجات وخدمات مصمّمة حسب احتياجات كل مشروع.</span><span class="e">Our own factory and workshops give us direct control over quality, cost and time, and let us tailor products to the needs of each project.</span></p>
+  </div>
+  <div class="abs ph" style="top:28mm;inset-inline-end:var(--m);width:118mm;height:64mm"><img src="assets/img/facade-bw.jpg"></div>
+  <div class="abs grid" style="bottom:22mm;inset-inline:var(--m);grid-template-columns:repeat(5,1fr);gap:5mm">
+    <div class="fact"><div class="num" style="font-size:20pt;color:var(--teal-2)">01</div><div class="h3" style="color:#fff;margin-top:2mm"><span class="a">مصنع المنتجات الخرسانية</span><span class="e">Precast concrete factory</span></div><p style="font-size:8.2pt;color:rgba(255,255,255,.6);margin-top:1mm"><span class="a">الطوب والإنترلوك والبردورات.</span><span class="e">Blocks, interlock pavers, kerbstones.</span></p></div>
+    <div class="fact"><div class="num" style="font-size:20pt;color:var(--teal-2)">02</div><div class="h3" style="color:#fff;margin-top:2mm"><span class="a">ورش الحديد والفورفورجيه</span><span class="e">Metal fabrication</span></div><p style="font-size:8.2pt;color:rgba(255,255,255,.6);margin-top:1mm"><span class="a">أبواب وبوابات وشبابيك وهياكل معدنية.</span><span class="e">Gates, doors, windows and steel structures.</span></p></div>
+    <div class="fact"><div class="num" style="font-size:20pt;color:var(--teal-2)">03</div><div class="h3" style="color:#fff;margin-top:2mm"><span class="a">ورش النجارة</span><span class="e">Joinery workshop</span></div><p style="font-size:8.2pt;color:rgba(255,255,255,.6);margin-top:1mm"><span class="a">أثاث ومشغولات خشبية حسب الطلب.</span><span class="e">Bespoke furniture and woodwork.</span></p></div>
+    <div class="fact"><div class="num" style="font-size:20pt;color:var(--teal-2)">04</div><div class="h3" style="color:#fff;margin-top:2mm"><span class="a">ورش الأعمال الجبسية</span><span class="e">Gypsum works</span></div><p style="font-size:8.2pt;color:rgba(255,255,255,.6);margin-top:1mm"><span class="a">أسقف وديكورات جبسية مميزة.</span><span class="e">Ceilings and decorative interior finishes.</span></p></div>
+    <div class="fact"><div class="num" style="font-size:20pt;color:var(--teal-2)">05</div><div class="h3" style="color:#fff;margin-top:2mm"><span class="a">الألوميتال والزجاج</span><span class="e">Aluminium &amp; glass</span></div><p style="font-size:8.2pt;color:rgba(255,255,255,.6);margin-top:1mm"><span class="a">أنظمة الواجهات والتشطيبات المعمارية.</span><span class="e">Façade systems and architectural finishes.</span></p></div>
+  </div>
+  <div class="ftr"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 09 SECTORS ============ -->
+<section class="page" data-toc="ar:القطاعات|en:Sectors">
+  <div class="hdr"><span><b class="sec"></b><span class="a">القطاعات</span><span class="e">Sectors</span></span></div>
+  <div class="abs" style="top:28mm;inset-inline-start:var(--m);width:80mm">
+    <div class="h2"><span class="a">خبرة تمتد عبر سبعة قطاعات.</span><span class="e">Experience across seven sectors.</span></div>
+    <p style="margin-top:5mm;color:var(--graphite)"><span class="a">من المولات التجارية والفنادق إلى العيادات والمكاتب والمساجد والوحدات السكنية، نصمّم وننفّذ مشروعات تلبي احتياجات تشغيلها الفعلية.</span><span class="e">From shopping malls and hotels to clinics, offices, mosques and homes, we design and build for the way each building will actually be used.</span></p>
+    <ul class="clean" style="margin-top:7mm;font-size:10pt">
+      <li><span class="a">تجاري ومولات</span><span class="e">Commercial &amp; retail</span></li>
+      <li><span class="a">فندقي وضيافة</span><span class="e">Hospitality</span></li>
+      <li><span class="a">ترفيهي</span><span class="e">Leisure &amp; entertainment</span></li>
+      <li><span class="a">إداري</span><span class="e">Workplace</span></li>
+      <li><span class="a">طبي</span><span class="e">Healthcare</span></li>
+      <li><span class="a">سكني</span><span class="e">Residential</span></li>
+      <li><span class="a">ديني وخدمي</span><span class="e">Religious &amp; civic</span></li>
+    </ul>
+  </div>
+  <div class="abs grid" style="top:28mm;bottom:22mm;inset-inline-end:var(--m);width:170mm;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:3mm">
+    <div class="ph shade"><img src="assets/img/masa-int3.jpg"><span class="lbl"><span class="a">تجاري</span><span class="e">Retail</span></span></div>
+    <div class="ph shade"><img src="assets/img/hp-pool.jpg"><span class="lbl"><span class="a">ضيافة</span><span class="e">Hospitality</span></span></div>
+    <div class="ph shade"><img src="assets/img/hp-joy.jpg"><span class="lbl"><span class="a">ترفيه</span><span class="e">Leisure</span></span></div>
+    <div class="ph shade"><img src="assets/img/adm-3.jpg"><span class="lbl"><span class="a">إداري وطبي</span><span class="e">Workplace &amp; healthcare</span></span></div>
+    <div class="ph shade"><img src="assets/img/villa-1.jpg"><span class="lbl"><span class="a">سكني</span><span class="e">Residential</span></span></div>
+    <div class="ph shade"><img src="assets/img/mosque.jpg"><span class="lbl"><span class="a">ديني</span><span class="e">Religious</span></span></div>
+  </div>
+  <div class="ftr"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 10 DIVIDER: PROJECTS ============ -->
+<section class="page on-img" data-toc="ar:مشروعات مختارة|en:Selected projects">
+  <div class="abs" style="inset:0"><img src="assets/img/inf-aerial.jpg" style="object-position:50% 45%"></div>
+  <div class="abs veil" style="inset:0"></div>
+  <div class="hdr"><span><b class="sec" style="color:var(--teal-2)"></b><span class="a">مشروعات مختارة</span><span class="e">Selected projects</span></span></div>
+  <div class="abs" style="bottom:30mm;inset-inline-start:var(--m);width:150mm;color:#fff">
+    <div class="kicker" style="color:var(--teal-2)"><span class="a">أعمالنا</span><span class="e">Portfolio</span></div>
+    <div class="h1" style="margin-top:4mm;font-size:58pt"><span class="a">مشروعات<br>مختارة</span><span class="e">Selected<br><span class="it">projects</span></span></div>
+    <p class="lead" style="margin-top:6mm;color:rgba(255,255,255,.8);max-width:120mm"><span class="a">سجلّ من مشروعات المقاولات العامة والتطوير العقاري، صمّمنا ونفّذنا كثيرًا منها بالكامل.</span><span class="e">A track record in general contracting and real estate development, many of them designed and built entirely in-house.</span></p>
+  </div>
+  <div class="ftr"><span class="pn"></span><span><span class="a">إنفينيتي مول، منظور جوي</span><span class="e">Infinity Mall, aerial view</span></span></div>
+</section>
+
+<!-- ============ 11 HAPPINESS PLAZA ============ -->
+<section class="page">
+  <div class="abs" style="inset-block:0;inset-inline-start:0;width:58%"><img src="assets/img/hp-entrance.jpg" style="object-position:50% 40%"></div>
+  <div class="hdr" style="inset-inline-start:calc(58% + 12mm)"><span><b class="sec-cur"></b><span class="a">مشروع رائد</span><span class="e">Flagship</span></span></div>
+  <div class="abs" style="top:28mm;inset-inline-start:calc(58% + 12mm);inset-inline-end:var(--m)">
+    <span class="tag" style="color:var(--teal)"><span class="a">تطوير · تصميم · تنفيذ</span><span class="e">Develop · Design · Build</span></span>
+    <div class="h2" style="margin-top:4mm"><span class="a">هابينيس بلازا</span><span class="e">Happiness Plaza</span></div>
+    <div class="muted" style="margin-top:1mm"><span class="a">مدخل مدينة قنا الجديدة، الحي الأول</span><span class="e">Entrance of New Qena City, District 1</span></div>
+    <p style="margin-top:5mm;color:var(--graphite)"><span class="a">أول وأكبر مجمّع تجاري وترفيهي في صعيد مصر: فندق، ومطاعم وكافيهات، وهايبر ماركت، وجيم ونادٍ صحي، ومنطقة أطفال، وجزيرة ترفيهية وفود كورت، تلتف جميعها حول بلازا مشتركة.</span><span class="e">The first and largest retail and leisure complex in Upper Egypt: a hotel, restaurants and cafés, a hypermarket, gym and spa, kids’ zone, food court and lakeside island, all arranged around a shared plaza.</span></p>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:6mm 6mm;margin-top:7mm">
+      <div class="fact"><div class="v">20,000 <span style="font-size:12pt">m²</span></div><div class="k"><span class="a">مساحة الأرض</span><span class="e">Site area</span></div></div>
+      <div class="fact"><div class="v">4,000 <span style="font-size:12pt">m²</span></div><div class="k"><span class="a">بلازا مشتركة</span><span class="e">Shared plaza</span></div></div>
+      <div class="fact"><div class="v">3</div><div class="k"><span class="a">مراحل: الفندق والترفيه، المحلات، الهايبر</span><span class="e">Phases: hotel &amp; leisure, retail, hypermarket</span></div></div>
+      <div class="fact"><div class="v">2021</div><div class="k"><span class="a">بداية التطوير</span><span class="e">Development launched</span></div></div>
+    </div>
+  </div>
+  <div class="ftr" style="inset-inline-start:calc(58% + 12mm)"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 12 HAPPINESS PLAZA — AS BUILT ============ -->
+<section class="page">
+  <div class="hdr"><span><b class="sec-cur"></b><span class="a">هابينيس بلازا · المرحلة الأولى كما نُفّذت</span><span class="e">Happiness Plaza · Phase one as built</span></span></div>
+  <div class="abs grid" style="top:24mm;bottom:30mm;inset-inline:var(--m);grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:3mm">
+    <div class="ph shade" style="grid-row:span 2"><img src="assets/img/hp-shade.jpg"><span class="lbl"><span class="a">جزيرة البحيرة</span><span class="e">Lakeside island</span></span></div>
+    <div class="ph shade"><img src="assets/img/hp-pool.jpg"><span class="lbl"><span class="a">حمام سباحة الفندق</span><span class="e">Hotel pool</span></span></div>
+    <div class="ph shade"><img src="assets/img/hp-cafe.jpg"><span class="lbl"><span class="a">مطعم وكافيه</span><span class="e">Restaurant &amp; café</span></span></div>
+    <div class="ph shade"><img src="assets/img/hp-gym.jpg"><span class="lbl"><span class="a">صالة الجيم</span><span class="e">Gym</span></span></div>
+    <div class="ph shade"><img src="assets/img/hp-mall.jpg"><span class="lbl"><span class="a">الممر التجاري</span><span class="e">Retail gallery</span></span></div>
+  </div>
+  <div class="abs" style="bottom:12mm;inset-inline:var(--m);display:grid;grid-template-columns:2fr 1fr 1fr;gap:6mm;align-items:end">
+    <p style="color:var(--graphite)"><span class="a"><b>مبنى الترفيه والفندق:</b> 7,000 م²، بدروم وأرضي ودوران، فندق من 14 غرفة بطرازات معمارية مختلفة تطل على حمام السباحة، والمقر الإداري للشركة. صممناه ونفذناه بالكامل، وتم الانتهاء من التنفيذ والتشطيب.</span><span class="e"><b>Leisure &amp; hotel building:</b> 7,000 m², basement plus three levels, a 14-room boutique hotel overlooking the pool, and Al-Habeeb’s headquarters. Fully designed and built by us; construction and finishes complete.</span></p>
+    <div class="fact"><div class="v">14</div><div class="k"><span class="a">غرفة فندقية</span><span class="e">Hotel rooms</span></div></div>
+    <div class="fact"><div class="v">2026</div><div class="k"><span class="a">افتتاح المرحلة الأولى (ديسمبر)</span><span class="e">Phase one opening (December)</span></div></div>
+  </div>
+</section>
+
+<!-- ============ 13 AL MASA MALL ============ -->
+<section class="page">
+  <div class="hdr"><span><b class="sec-cur"></b><span class="a">تجاري</span><span class="e">Retail</span></span></div>
+  <div class="abs ph" style="top:24mm;bottom:22mm;inset-inline-start:var(--m);width:172mm"><img src="assets/img/masa-front.jpg"></div>
+  <div class="abs" style="top:28mm;inset-inline-end:var(--m);width:76mm">
+    <span class="tag" style="color:var(--teal)"><span class="a">تصميم · تنفيذ</span><span class="e">Design · Build</span></span>
+    <div class="h2" style="margin-top:4mm"><span class="a">الماسة مول</span><span class="e">Al Masa Mall</span></div>
+    <p style="margin-top:4mm;color:var(--graphite)"><span class="a">تفاصيل معمارية راقية تصنع تجربة تسوّق مميزة تجمع بين الفخامة والعملية، مع وحدات تجارية متكاملة بواجهات حديثة، صُممت لتعظيم العائد الاستثماري وتجربة الزائر.</span><span class="e">Refined architectural detailing creates a distinctive shopping experience that is both luxurious and practical: integrated retail units with modern shopfronts, planned to maximise investment return and the visitor experience.</span></p>
+    <div class="fact" style="margin-top:6mm"><div class="v">3,200 <span style="font-size:12pt">m²</span></div><div class="k"><span class="a">مسطح البناء</span><span class="e">Built-up area</span></div></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:2.4mm;margin-top:7mm">
+      <div class="ph" style="height:24mm"><img src="assets/img/masa-int1.jpg"></div>
+      <div class="ph" style="height:24mm"><img src="assets/img/masa-int3.jpg"></div>
+      <div class="ph" style="height:24mm"><img src="assets/img/masa-int4.jpg"></div>
+      <div class="ph" style="height:24mm"><img src="assets/img/masa-int2.jpg"></div>
+    </div>
+  </div>
+  <div class="ftr" style="inset-inline-start:calc(var(--m) + 180mm)"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 14 INFINITY ============ -->
+<section class="page dark">
+  <div class="hdr"><span><b class="sec-cur" style="color:var(--teal-2)"></b><span class="a">تجاري وإداري</span><span class="e">Mixed-use</span></span></div>
+  <div class="abs" style="top:24mm;inset-inline-start:var(--m);width:84mm">
+    <div class="h2" style="color:#fff"><span class="a">إنفينيتي مول</span><span class="e">Infinity Mall</span></div>
+    <p style="margin-top:4mm;color:rgba(255,255,255,.72)"><span class="a">مشروع مَعلمي يعكس الاستدامة ورؤية استثمارية طويلة المدى، بمفهوم معماري مبتكر يدعم التوسع التجاري ونمو الاستثمار.</span><span class="e">A landmark scheme built on sustainability and a long-term investment view, with an innovative architectural concept designed to support commercial expansion and investment growth.</span></p>
+    <div class="fact" style="margin-top:6mm"><div class="v">20,000 <span style="font-size:12pt">m²</span></div><div class="k"><span class="a">المساحة الإجمالية</span><span class="e">Total area</span></div></div>
+  </div>
+  <div class="abs grid" style="top:24mm;bottom:22mm;inset-inline-end:var(--m);width:178mm;grid-template-columns:1.25fr 1fr;grid-template-rows:1fr 1fr;gap:3mm">
+    <div class="ph" style="grid-row:span 2"><img src="assets/img/inf-aerial.jpg"></div>
+    <div class="ph"><img src="assets/img/inf-front.jpg"></div>
+    <div class="ph"><img src="assets/img/inf-plaza.jpg"></div>
+  </div>
+  <div class="ftr" style="width:84mm"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 15 INTERIORS: WORKPLACE / HEALTH / RETAIL / MOSQUE ============ -->
+<section class="page">
+  <div class="hdr"><span><b class="sec-cur"></b><span class="a">إداري وطبي وتجاري</span><span class="e">Workplace, healthcare &amp; retail</span></span></div>
+  <div class="abs" style="top:26mm;inset-inline-start:var(--m);width:76mm">
+    <div class="h2"><span class="a">مساحات تُدار بكفاءة، وتُستقبل بارتياح.</span><span class="e">Interiors that work hard and <span class="it">welcome well.</span></span></div>
+    <p style="margin-top:5mm;color:var(--graphite)"><span class="a">مقرات إدارية ومراكز طبية ومحلات تجارية ومساجد: نصمّم المساحة الداخلية والأنظمة معًا، وننفّذ التشطيبات والأثاث في ورشنا.</span><span class="e">Offices, medical centres, shops and mosques: we design the interior and its building services together, then produce the finishes and joinery in our own workshops.</span></p>
+  </div>
+  <div class="abs grid" style="top:24mm;bottom:22mm;inset-inline-end:var(--m);width:178mm;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:3mm">
+    <div class="ph shade" style="grid-column:span 2;grid-row:span 2"><img src="assets/img/adm-3.jpg"><span class="lbl"><span class="a">مركز طبي · استقبال</span><span class="e">Medical centre · reception</span></span></div>
+    <div class="ph"><img src="assets/img/adm-1.jpg"></div>
+    <div class="ph"><img src="assets/img/adm-4.jpg"></div>
+    <div class="ph"><img src="assets/img/adm-5.jpg"></div>
+    <div class="ph"><img src="assets/img/adm-2.jpg"></div>
+    <div class="ph shade"><img src="assets/img/bakery.jpg"><span class="lbl"><span class="a">محل تجاري</span><span class="e">Retail</span></span></div>
+    <div class="ph"><img src="assets/img/bakery-int.jpg"></div>
+    <div class="ph shade"><img src="assets/img/mosque.jpg"><span class="lbl"><span class="a">مسجد</span><span class="e">Mosque</span></span></div>
+    <div class="ph"><img src="assets/img/mosque-int.jpg"></div>
+  </div>
+  <div class="ftr" style="width:76mm"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 16 RESIDENTIAL ============ -->
+<section class="page">
+  <div class="abs" style="inset-block:0;inset-inline-start:0;width:52%"><img src="assets/img/villa-night.jpg" style="object-position:50% 50%"></div>
+  <div class="hdr" style="inset-inline-start:calc(52% + 12mm)"><span><b class="sec-cur"></b><span class="a">سكني</span><span class="e">Residential</span></span></div>
+  <div class="abs" style="top:28mm;inset-inline-start:calc(52% + 12mm);inset-inline-end:var(--m)">
+    <div class="h2"><span class="a">فيلات وعمارات سكنية في قنا الجديدة وأسوان الجديدة.</span><span class="e">Villas and residences in New Qena and New Aswan.</span></div>
+    <p style="margin-top:4mm;color:var(--graphite)"><span class="a">واجهات كلاسيكية ومعاصرة مصممة بعناية، بتفاصيل تُنفَّذ كما رُسمت.</span><span class="e">Classical and contemporary façades, carefully detailed and built exactly as drawn.</span></p>
+    <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:2.4mm;margin-top:7mm">
+      <div class="ph" style="height:30mm"><img src="assets/img/villa-1.jpg"></div>
+      <div class="ph" style="height:30mm"><img src="assets/img/villa-2.jpg"></div>
+      <div class="ph" style="height:30mm"><img src="assets/img/villa-6.jpg"></div>
+      <div class="ph" style="height:30mm"><img src="assets/img/villa-7.jpg"></div>
+      <div class="ph" style="height:30mm"><img src="assets/img/villa-3.jpg"></div>
+      <div class="ph" style="height:30mm"><img src="assets/img/villa-5.jpg"></div>
+    </div>
+  </div>
+  <div class="ftr" style="inset-inline-start:calc(52% + 12mm)"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 17 HOW WE WORK ============ -->
+<section class="page" data-toc="ar:طريقة عملنا|en:How we work">
+  <div class="hdr"><span><b class="sec"></b><span class="a">طريقة عملنا</span><span class="e">How we work</span></span></div>
+  <div class="abs" style="top:28mm;inset-inline-start:var(--m);width:150mm">
+    <div class="h2"><span class="a">مسار واضح، ومسؤول واحد عن كل مرحلة.</span><span class="e">A clear path, with one owner for every stage.</span></div>
+  </div>
+  <div class="abs grid" id="steps" style="top:76mm;inset-inline:var(--m);grid-template-columns:repeat(6,1fr);gap:0"></div>
+  <div class="abs" style="bottom:22mm;inset-inline:var(--m);display:grid;grid-template-columns:1fr 1fr 1fr;gap:9mm">
+    <div style="background:var(--sand);padding:6mm"><div class="kicker"><span class="a">تنسيق قبل التنفيذ</span><span class="e">Coordinated before site</span></div><p style="margin-top:2mm"><span class="a">ننسّق المعماري والإنشائي مع الكهرباء والميكانيكا قبل بدء التنفيذ لتقليل التعديلات في الموقع.</span><span class="e">Architecture, structure and MEP are coordinated before work starts, so fewer changes reach site.</span></p></div>
+    <div style="background:var(--sand);padding:6mm"><div class="kicker"><span class="a">نماذج BIM</span><span class="e">BIM to LOD 400</span></div><p style="margin-top:2mm"><span class="a">نماذج LOD 300 و LOD 400 تُستخرج منها الرسومات التنفيذية وحصر الكميات.</span><span class="e">LOD 300 and LOD 400 models drive construction drawings and quantity take-off.</span></p></div>
+    <div style="background:var(--sand);padding:6mm"><div class="kicker"><span class="a">قيمة على المدى الطويل</span><span class="e">Whole-life value</span></div><p style="margin-top:2mm"><span class="a">نختار المواد على أساس التكلفة والجودة وسهولة الصيانة، لا السعر وحده.</span><span class="e">Materials are chosen on cost, quality and ease of maintenance, not on price alone.</span></p></div>
+  </div>
+  <div class="ftr"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 18 PARTNERS ============ -->
+<section class="page deep" data-toc="ar:شركاء النجاح|en:Partners in success">
+  <div class="hdr"><span><b class="sec" style="color:var(--teal-2)"></b><span class="a">شركاء النجاح</span><span class="e">Partners in success</span></span></div>
+  <div class="abs" style="top:28mm;inset-inline-start:var(--m);width:110mm">
+    <div class="h2" style="color:#fff"><span class="a">نعمل مع أسماء تثق بها السوق.</span><span class="e">We work alongside names <span class="it">the market trusts.</span></span></div>
+    <p style="margin-top:5mm;color:rgba(255,255,255,.72)"><span class="a">لا نبني منشآت فقط، بل نبني الثقة والقيمة والنجاح طويل المدى، مع شركاء من البنوك والمطورين والمقاولين وموردي مواد البناء.</span><span class="e">Construction for us is not only about structures; it is about building trust, value and long-term success, together with banks, developers, contractors and material suppliers.</span></p>
+  </div>
+  <div class="abs" id="partners" style="top:28mm;inset-inline-end:var(--m);width:132mm;display:grid;grid-template-columns:1fr 1fr;gap:0 8mm"></div>
+  <div class="abs" style="bottom:22mm;inset-inline:var(--m)">
+    <div class="kicker" style="color:var(--teal-2)"><span class="a">ما يميزنا</span><span class="e">What sets us apart</span></div>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:6mm;margin-top:4mm">
+      <div class="fact"><div class="h3" style="color:#fff"><span class="a">حلول متكاملة</span><span class="e">Integrated delivery</span></div><p style="font-size:8.2pt;color:rgba(255,255,255,.6);margin-top:1mm"><span class="a">من التخطيط إلى التنفيذ والتسليم.</span><span class="e">From planning to construction and handover.</span></p></div>
+      <div class="fact"><div class="h3" style="color:#fff"><span class="a">معايير عالمية</span><span class="e">International standards</span></div><p style="font-size:8.2pt;color:rgba(255,255,255,.6);margin-top:1mm"><span class="a">تنفيذ وفق أحدث المعايير والتقنيات.</span><span class="e">Built to current standards and methods.</span></p></div>
+      <div class="fact"><div class="h3" style="color:#fff"><span class="a">تصميم مستدام</span><span class="e">Sustainable design</span></div><p style="font-size:8.2pt;color:rgba(255,255,255,.6);margin-top:1mm"><span class="a">تصميمات حديثة تواكب احتياجات السوق.</span><span class="e">Modern designs aligned with market needs.</span></p></div>
+      <div class="fact"><div class="h3" style="color:#fff"><span class="a">تواصل مستمر</span><span class="e">Constant dialogue</span></div><p style="font-size:8.2pt;color:rgba(255,255,255,.6);margin-top:1mm"><span class="a">تعاون دائم مع العملاء طوال المشروع.</span><span class="e">Close collaboration with clients throughout.</span></p></div>
+    </div>
+  </div>
+  <div class="ftr"><span class="pn"></span><span></span></div>
+</section>
+
+<!-- ============ 19 BACK COVER / CONTACT ============ -->
+<section class="page dark" data-toc="ar:تواصل معنا|en:Contact">
+  <div class="abs" style="inset-block:0;inset-inline-end:0;width:42%"><img src="assets/img/hp-facade2.jpg" style="object-position:40% 50%"></div>
+  <div class="abs" style="inset-block:0;inset-inline-end:42%;width:1.2mm;background:var(--teal)"></div>
+  <div class="abs" style="top:16mm;inset-inline-start:var(--m);width:40mm"><img src="assets/logo-white.png" style="object-fit:contain;height:auto"></div>
+  <div class="abs" style="top:52mm;inset-inline-start:var(--m);width:150mm">
+    <div class="h2" style="color:#fff"><span class="a">لنبدأ مشروعك القادم.</span><span class="e">Let’s talk about <span class="it">your next project.</span></span></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:6mm 10mm;margin-top:10mm">
+      <div class="fact"><div class="k"><span class="a">هاتف</span><span class="e">Telephone</span></div><div style="font-size:12pt;margin-top:1mm" class="ltr">+20 121 166 6691<br>+20 121 166 6692</div></div>
+      <div class="fact"><div class="k"><span class="a">واتساب، المكتب الفني</span><span class="e">WhatsApp, technical office</span></div><div style="font-size:12pt;margin-top:1mm" class="ltr">+20 121 166 6692</div></div>
+      <div class="fact"><div class="k"><span class="a">العنوان</span><span class="e">Address</span></div><div style="margin-top:1mm"><span class="a">المبنى الإداري، هابينيس بلازا مول، ميدان الحرية، قنا الجديدة، مصر</span><span class="e">Administrative Building, Happiness Plaza Mall, Al-Hurriya Square, New Qena, Egypt</span></div></div>
+      <div class="fact"><div class="k"><span class="a">الموقع ووسائل التواصل</span><span class="e">Web &amp; social</span></div><div style="margin-top:1mm" class="ltr">alhabeebconst.com · @alhabeebeng</div></div>
+    </div>
+    <div style="display:flex;gap:8mm;margin-top:10mm;align-items:flex-end">
+      <div><div style="background:#fff;padding:2mm;width:24mm;height:24mm"><img src="assets/qr-web.svg" style="object-fit:contain"></div><div class="cap" style="color:rgba(255,255,255,.6)"><span class="a">الموقع</span><span class="e">Website</span></div></div>
+      <div><div style="background:#fff;padding:2mm;width:24mm;height:24mm"><img src="assets/qr-tour.svg" style="object-fit:contain"></div><div class="cap" style="color:rgba(255,255,255,.6)"><span class="a">الجولة الافتراضية</span><span class="e">Virtual tour</span></div></div>
+      <div><div style="background:#fff;padding:2mm;width:24mm;height:24mm"><img src="assets/qr-wa.svg" style="object-fit:contain"></div><div class="cap" style="color:rgba(255,255,255,.6)"><span class="a">واتساب</span><span class="e">WhatsApp</span></div></div>
+    </div>
+  </div>
+  <div class="abs" style="bottom:12mm;inset-inline-start:var(--m);font-size:7.4pt;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-2)"><span class="a" style="letter-spacing:0;font-size:9pt">نبني بجودة</span><span class="e">Building Quality</span></div>
+</section>
+
+<script>
+(function(){
+  var L=document.documentElement.getAttribute('data-l');
+  var pages=[].slice.call(document.querySelectorAll('.page'));
+  // page numbers
+  pages.forEach(function(p,i){p.querySelectorAll('.pn').forEach(function(e){e.setAttribute('data-n',String(i+1).padStart(2,'0')+' / '+String(pages.length).padStart(2,'0'))})});
+  // section numbers + TOC
+  var toc=document.getElementById('toc'),n=0,cur='';
+  pages.forEach(function(p,i){
+    var t=p.getAttribute('data-toc');
+    if(t){n++;cur=String(n).padStart(2,'0');
+      var m={};t.split('|').forEach(function(s){var k=s.indexOf(':');m[s.slice(0,k)]=s.slice(k+1)});
+      var li=document.createElement('li');li.style.display='flex';li.style.justifyContent='space-between';
+      li.innerHTML='<span><span class="num" style="color:var(--teal);margin-inline-end:5mm">'+cur+'</span>'+m[L]+'</span><span class="muted">'+String(i+1).padStart(2,'0')+'</span>';
+      toc.appendChild(li);}
+    p.querySelectorAll('.sec,.sec-cur').forEach(function(e){e.textContent=cur});
+  });
+  // process steps
+  var steps=[
+    ['الاحتياجات','Brief','دراسة احتياجات المالك والموقع والميزانية.','Owner needs, site and budget.'],
+    ['التصميم','Design','تصميم متكامل لكل التخصصات ولقطات منظورية.','Coordinated multi-discipline design and visuals.'],
+    ['المستندات','Documents','رسومات تنفيذية وحصر كميات ومواصفات.','Construction drawings, BOQ, specifications.'],
+    ['الترخيص','Permits','استخراج التراخيص والموافقات.','Permits and authority approvals.'],
+    ['التنفيذ','Construction','تنفيذ وإشراف وإدارة جودة وسلامة.','Build, supervise, manage quality and safety.'],
+    ['التسليم','Handover','تشطيب وتسليم ودعم ما بعد التسليم.','Finishes, handover and aftercare.']];
+  var s=document.getElementById('steps');
+  steps.forEach(function(x,i){var d=document.createElement('div');
+    d.style.cssText='border-top:2px solid var(--teal);padding-top:4mm;padding-inline-end:5mm';
+    d.innerHTML='<div class="num" style="font-size:26pt;line-height:1;color:var(--teal)">'+String(i+1).padStart(2,'0')+'</div><div class="h3" style="margin-top:3mm">'+(L==='ar'?x[0]:x[1])+'</div><p class="muted" style="margin-top:1.4mm;font-size:8.4pt">'+(L==='ar'?x[2]:x[3])+'</p>';
+    s.appendChild(d)});
+  // partners (names as in the previous profile)
+  var P=[['البنك الأهلي المصري','National Bank of Egypt'],['المقاولون العرب','The Arab Contractors'],['أوراسكوم للإنشاءات','Orascom Construction'],['مجموعة طلعت مصطفى','Talaat Moustafa Group'],['البحر الأحمر العالمية','Red Sea Global'],['معمار المرشدي','Memar Al-Morshedy'],['سيمكس','CEMEX'],['أسمنت النهضة','Al Nahda Cement'],['حديد عز','Ezz Steel'],['حديد المصريين','Egyptian Steel']];
+  var pg=document.getElementById('partners');
+  P.forEach(function(x){var d=document.createElement('div');d.style.cssText='border-top:1px solid rgba(255,255,255,.18);padding:4.6mm 0;font-size:12pt;color:#fff';d.textContent=L==='ar'?x[0]:x[1];pg.appendChild(d)});
+})();
+</script>
+</body>
+</html>
