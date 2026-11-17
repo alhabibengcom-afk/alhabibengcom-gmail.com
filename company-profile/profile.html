@@ -88,30 +88,58 @@ html[data-l=ar] .slogan{letter-spacing:0;font-size:9pt;font-weight:500}
 .hdr .tail{color:var(--mute)}
 .ftr .mid{position:absolute;left:50%;transform:translateX(-50%);color:var(--teal);font-weight:500}
 .dark .ftr .mid,.deep .ftr .mid,.on-img .ftr .mid{color:var(--teal-2)}
+.pillars.dark-ink{color:var(--ink)} .pillars.dark-ink i{background:var(--teal)}
+.slogan.big{font-size:9pt;font-weight:600}
+html[data-l=ar] .slogan.big{font-size:13pt}
+.pill-col{border-inline-start:1px solid rgba(255,255,255,.2);padding-inline:7mm;color:rgba(255,255,255,.72)}
+.pill-col.last{border-inline-end:1px solid rgba(255,255,255,.2)}
+.pill-n{font-size:15pt;color:var(--teal-2)}
+.pill-t{font-family:var(--display);font-weight:var(--dw);font-size:30pt;color:#fff;line-height:1.2;margin:1mm 0 3mm}
 .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
 </style>
 </head>
 <body>
 
 <!-- ============ 01 COVER ============ -->
-<section class="page dark" id="cover">
-  <div class="abs" style="inset-block:0;inset-inline-end:0;width:52%"><img src="assets/img/hp-night.jpg" style="object-position:50% 60%"></div>
-  <div class="abs" style="inset-block:0;inset-inline-end:52%;width:1.2mm;background:var(--teal)"></div>
-  <div class="abs" style="top:16mm;inset-inline-start:var(--m);width:46mm"><img src="assets/logo-white.png" style="object-fit:contain;height:auto"></div>
-  <div class="abs" style="inset-inline-start:var(--m);top:70mm;width:120mm">
-    <div class="kicker" style="color:var(--teal-2)"><span class="a">الملف التعريفي للشركة · 2026</span><span class="e">Company Profile · 2026</span></div>
-    <div class="h1" style="margin-top:6mm;font-size:50pt"><span class="a">نبني اليوم<br>لمستقبل أفضل</span><span class="e">Building today<br><span class="it">for a better tomorrow.</span></span></div>
-    <div class="pillars" style="margin-top:7mm"><span class="a">خبرة</span><span class="e">Experience</span><i></i><span class="a">التزام</span><span class="e">Commitment</span><i></i><span class="a">جودة</span><span class="e">Quality</span></div>
-    <p class="lead" style="margin-top:6mm;color:rgba(255,255,255,.72);max-width:105mm">
-      <span class="a">تصميم هندسي، ومقاولات عامة، وتطوير عقاري، من فريق واحد ومسؤولية واحدة.</span>
-      <span class="e">Engineering design, general contracting and real estate development, delivered by one accountable team.</span>
-    </p>
+<section class="page" id="cover">
+  <div class="abs" style="inset-block:0;inset-inline-end:0;width:54%"><img src="assets/img/hp-night.jpg" style="object-position:50% 60%"></div>
+  <div class="abs" style="inset-block:0;inset-inline-end:54%;width:1.4mm;background:var(--teal)"></div>
+  <div class="abs" style="top:15mm;inset-inline-start:var(--m);width:62mm"><img src="assets/logo-letterhead.png" style="object-fit:contain;height:auto"></div>
+  <div class="abs" style="top:52mm;inset-inline-start:var(--m);width:100mm;font-size:9.4pt;line-height:1.55;color:var(--graphite)">
+    <div style="font-weight:600;color:var(--ink)"><span class="a">شركة الحبيب للهندسة والمقاولات</span><span class="e">Al-Habeeb Engineering &amp; Contracting</span></div>
   </div>
-  <div class="abs" style="bottom:12mm;inset-inline-start:var(--m);width:122mm;display:flex;justify-content:space-between;white-space:nowrap;gap:6mm;font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)">
-    <span><span class="a" style="letter-spacing:0;font-size:8.4pt">قنا الجديدة، مصر · منذ 2008</span><span class="e">New Qena · Est. 2008</span></span>
-    <span class="slogan" style="color:var(--teal-2)"><span class="a">مبانٍ تدوم · قيمة تزيد</span><span class="e">Buildings that last · Value that grows</span></span>
+  <div class="abs" style="top:78mm;inset-inline-start:var(--m);width:118mm">
+    <div class="kicker"><span class="a">الملف التعريفي للشركة · 2026</span><span class="e">Company Profile · 2026</span></div>
+    <div class="h1" style="margin-top:5mm;font-size:46pt;color:var(--ink)"><span class="a">نبني اليوم<br>لمستقبل أفضل</span><span class="e">Building today<br><span class="it">for a better tomorrow.</span></span></div>
+    <div class="pillars dark-ink" style="margin-top:7mm"><span class="a">خبرة</span><span class="e">Experience</span><i></i><span class="a">التزام</span><span class="e">Commitment</span><i></i><span class="a">جودة</span><span class="e">Quality</span></div>
   </div>
-  <div class="abs" style="bottom:10mm;inset-inline-end:8mm;color:rgba(255,255,255,.75);font-size:6.8pt;letter-spacing:.12em;text-transform:uppercase"><span class="a" style="letter-spacing:0;font-size:7.6pt">هابينيس بلازا، قنا الجديدة</span><span class="e">Happiness Plaza, New Qena</span></div>
+  <div class="abs" style="bottom:12mm;inset-inline-start:var(--m);width:118mm;display:flex;justify-content:space-between;align-items:flex-end;white-space:nowrap">
+    <span class="slogan big" style="color:var(--teal)"><span class="a">مبانٍ تدوم · قيمة تزيد</span><span class="e">Buildings that last · Value that grows</span></span>
+    <span style="font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)"><span class="a" style="letter-spacing:0;font-size:8.4pt">قنا الجديدة · منذ 2008</span><span class="e">New Qena · Est. 2008</span></span>
+  </div>
+  <div class="abs" style="bottom:10mm;inset-inline-end:8mm;color:rgba(255,255,255,.8);font-size:6.8pt;letter-spacing:.12em;text-transform:uppercase"><span class="a" style="letter-spacing:0;font-size:7.6pt">هابينيس بلازا، قنا الجديدة</span><span class="e">Happiness Plaza, New Qena</span></div>
+</section>
+
+<!-- ============ 02 OUR PROMISE (slogan) ============ -->
+<section class="page deep" data-toc="ar:وعدنا|en:Our promise">
+  <div class="hdr"><span><b class="sec" style="color:var(--teal-2)"></b><span class="a">وعدنا</span><span class="e">Our promise</span></span></div>
+  <div class="abs" style="top:30mm;inset-inline-start:var(--m);width:170mm">
+    <div class="kicker" style="color:var(--teal-2)"><span class="a">شعارنا</span><span class="e">Our motto</span></div>
+    <div class="h1" style="margin-top:4mm;color:#fff;font-size:44pt"><span class="a">نبني اليوم لمستقبل أفضل.</span><span class="e">Building today <span class="it">for a better tomorrow.</span></span></div>
+  </div>
+  <div class="abs grid" style="top:82mm;inset-inline:var(--m);grid-template-columns:repeat(3,1fr);gap:0">
+    <div class="pill-col"><div class="num pill-n">01</div><div class="pill-t"><span class="a">خبرة</span><span class="e">Experience</span></div>
+      <p><span class="a">منذ 2008 نصمّم وننفّذ ونطوّر مشروعات تجارية وفندقية وإدارية وطبية وسكنية في صعيد مصر.</span><span class="e">Since 2008 we have designed, built and developed commercial, hospitality, workplace, healthcare and residential projects across Upper Egypt.</span></p></div>
+    <div class="pill-col"><div class="num pill-n">02</div><div class="pill-t"><span class="a">التزام</span><span class="e">Commitment</span></div>
+      <p><span class="a">بالمواعيد والميزانية والمواصفات المتفق عليها، مع فريق واحد مسؤول من الفكرة حتى التسليم.</span><span class="e">To the agreed programme, budget and specification, with one accountable team from first idea to handover.</span></p></div>
+    <div class="pill-col last"><div class="num pill-n">03</div><div class="pill-t"><span class="a">جودة</span><span class="e">Quality</span></div>
+      <p><span class="a">في التصميم المنسّق، وفي اختيار المواد على أساس التكلفة والجودة وسهولة الصيانة، وفي كل تفصيلة تُنفَّذ في الموقع.</span><span class="e">In coordinated design, in materials chosen for cost, quality and ease of maintenance, and in every detail built on site.</span></p></div>
+  </div>
+  <div class="abs" style="bottom:20mm;inset-inline:var(--m);display:grid;grid-template-columns:1fr 1fr;gap:10mm;border-top:1px solid rgba(255,255,255,.2);padding-top:6mm">
+    <div><div class="h2" style="color:var(--teal-2);font-size:24pt"><span class="a">مبانٍ تدوم</span><span class="e">Buildings that last</span></div><p style="margin-top:1.6mm;color:rgba(255,255,255,.7)"><span class="a">نصمّم وننفّذ لتبقى المباني سليمة وكفؤة لسنوات طويلة.</span><span class="e">Designed and built to stay sound and efficient for decades.</span></p></div>
+    <div><div class="h2" style="color:var(--teal-2);font-size:24pt"><span class="a">قيمة تزيد</span><span class="e">Value that grows</span></div><p style="margin-top:1.6mm;color:rgba(255,255,255,.7)"><span class="a">مشروعات تحافظ على قيمتها وتزيدها لأصحابها ومستثمريها.</span><span class="e">Assets that hold, and grow, their value for owners and investors.</span></p></div>
+  </div>
+  <div class="ftr"><span class="pn"></span><span></span></div>
 </section>
 
 <!-- ============ 02 CONTENTS + AT A GLANCE ============ -->
@@ -461,27 +489,32 @@ html[data-l=ar] .slogan{letter-spacing:0;font-size:9pt;font-weight:500}
   <div class="ftr"><span class="pn"></span><span></span></div>
 </section>
 
-<!-- ============ 19 BACK COVER / CONTACT ============ -->
-<section class="page dark" data-toc="ar:تواصل معنا|en:Contact">
-  <div class="abs" style="inset-block:0;inset-inline-end:0;width:42%"><img src="assets/img/hp-facade2.jpg" style="object-position:40% 50%"></div>
-  <div class="abs" style="inset-block:0;inset-inline-end:42%;width:1.2mm;background:var(--teal)"></div>
-  <div class="abs" style="top:16mm;inset-inline-start:var(--m);width:40mm"><img src="assets/logo-white.png" style="object-fit:contain;height:auto"></div>
-  <div class="abs" style="top:52mm;inset-inline-start:var(--m);width:150mm">
-    <div class="kicker" style="color:var(--teal-2);margin-bottom:3mm"><span class="a">نبني اليوم لمستقبل أفضل</span><span class="e">Building today for a better tomorrow</span></div>
-    <div class="h2" style="color:#fff"><span class="a">لنبدأ مشروعك القادم.</span><span class="e">Let’s talk about <span class="it">your next project.</span></span></div>
-    <div class="grid" style="grid-template-columns:1fr 1fr;gap:6mm 10mm;margin-top:10mm">
-      <div class="fact"><div class="k"><span class="a">هاتف</span><span class="e">Telephone</span></div><div style="font-size:12pt;margin-top:1mm" class="ltr">+20 121 166 6691<br>+20 121 166 6692</div></div>
-      <div class="fact"><div class="k"><span class="a">واتساب، المكتب الفني</span><span class="e">WhatsApp, technical office</span></div><div style="font-size:12pt;margin-top:1mm" class="ltr">+20 121 166 6692</div></div>
-      <div class="fact"><div class="k"><span class="a">العنوان</span><span class="e">Address</span></div><div style="margin-top:1mm"><span class="a">المبنى الإداري، هابينيس بلازا مول، ميدان الحرية، قنا الجديدة، مصر</span><span class="e">Administrative Building, Happiness Plaza Mall, Al-Hurriya Square, New Qena, Egypt</span></div></div>
-      <div class="fact"><div class="k"><span class="a">الموقع ووسائل التواصل</span><span class="e">Web &amp; social</span></div><div style="margin-top:1mm" class="ltr">alhabeebconst.com · @alhabeebeng</div></div>
+<!-- ============ BACK COVER / CONTACT (letterhead layout) ============ -->
+<section class="page" data-toc="ar:تواصل معنا|en:Contact">
+  <div class="abs" style="top:13mm;inset-inline:var(--m);display:grid;grid-template-columns:1fr auto 1fr;align-items:center">
+    <div style="font-size:9.4pt;line-height:1.55">
+      <div style="font-weight:600"><span class="a">شركة الحبيب<br>للهندسة والمقاولات</span><span class="e">Al-Habeeb<br>Engineering &amp; Contracting</span></div>
+      <div style="color:var(--teal);font-weight:500"><span class="a">خبرة .. التزام .. جودة</span><span class="e">Experience · Commitment · Quality</span></div>
     </div>
-    <div style="display:flex;gap:8mm;margin-top:10mm;align-items:flex-end">
-      <div><div style="background:#fff;padding:2mm;width:24mm;height:24mm"><img src="assets/qr-web.svg" style="object-fit:contain"></div><div class="cap" style="color:rgba(255,255,255,.6)"><span class="a">الموقع</span><span class="e">Website</span></div></div>
-      <div><div style="background:#fff;padding:2mm;width:24mm;height:24mm"><img src="assets/qr-tour.svg" style="object-fit:contain"></div><div class="cap" style="color:rgba(255,255,255,.6)"><span class="a">الجولة الافتراضية</span><span class="e">Virtual tour</span></div></div>
-      <div><div style="background:#fff;padding:2mm;width:24mm;height:24mm"><img src="assets/qr-wa.svg" style="object-fit:contain"></div><div class="cap" style="color:rgba(255,255,255,.6)"><span class="a">واتساب</span><span class="e">WhatsApp</span></div></div>
+    <div style="width:58mm"><img src="assets/logo-letterhead.png" style="object-fit:contain;height:auto"></div>
+    <div style="text-align:end;font-size:9.4pt;line-height:1.55;font-weight:500"><span class="a">نبني اليوم<br>لمستقبل أفضل</span><span class="e">Building today<br>for a better tomorrow</span></div>
+  </div>
+  <div class="abs ph" style="top:50mm;height:62mm;inset-inline:var(--m)"><img src="assets/img/hp-courtyard.jpg" style="object-position:50% 55%"></div>
+  <div class="abs" style="top:120mm;inset-inline:var(--m);display:grid;grid-template-columns:1.1fr 1fr 1.3fr auto;gap:8mm;align-items:start">
+    <div class="fact"><div class="k"><span class="a">هاتف</span><span class="e">Telephone</span></div><div style="font-size:11pt;margin-top:1mm" class="ltr">+20 121 166 6691<br>+20 121 166 6692</div></div>
+    <div class="fact"><div class="k"><span class="a">واتساب، المكتب الفني</span><span class="e">WhatsApp, technical office</span></div><div style="font-size:11pt;margin-top:1mm" class="ltr">+20 121 166 6692</div>
+      <div class="k" style="margin-top:3mm"><span class="a">الموقع ووسائل التواصل</span><span class="e">Web &amp; social</span></div><div style="margin-top:1mm" class="ltr">alhabeebconst.com<br>@alhabeebeng</div></div>
+    <div class="fact"><div class="k"><span class="a">العنوان</span><span class="e">Address</span></div><div style="margin-top:1mm"><span class="a">المبنى الإداري، هابينيس بلازا مول، ميدان الحرية، قنا الجديدة، مصر</span><span class="e">Administrative Building, Happiness Plaza Mall, Al-Hurriya Square, New Qena, Egypt</span></div></div>
+    <div style="display:flex;gap:4mm">
+      <div><div style="width:20mm;height:20mm"><img src="assets/qr-web.svg" style="object-fit:contain"></div><div class="cap"><span class="a">الموقع</span><span class="e">Website</span></div></div>
+      <div><div style="width:20mm;height:20mm"><img src="assets/qr-tour.svg" style="object-fit:contain"></div><div class="cap"><span class="a">الجولة الافتراضية</span><span class="e">Virtual tour</span></div></div>
+      <div><div style="width:20mm;height:20mm"><img src="assets/qr-wa.svg" style="object-fit:contain"></div><div class="cap"><span class="a">واتساب</span><span class="e">WhatsApp</span></div></div>
     </div>
   </div>
-  <div class="abs" style="bottom:12mm;inset-inline-start:var(--m);font-size:7.4pt;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-2)"><span class="a" style="letter-spacing:0;font-size:11pt">مبانٍ تدوم · قيمة تزيد</span><span class="e">Buildings that last · Value that grows</span></div>
+  <div class="abs" style="bottom:11mm;inset-inline:var(--m);text-align:center">
+    <div class="rule" style="margin-bottom:5mm"></div>
+    <span class="slogan big" style="color:var(--teal)"><span class="a">مبانٍ تدوم &nbsp;·&nbsp; قيمة تزيد</span><span class="e">Buildings that last &nbsp;·&nbsp; Value that grows</span></span>
+  </div>
 </section>
 
 <script>
@@ -497,7 +530,7 @@ html[data-l=ar] .slogan{letter-spacing:0;font-size:9pt;font-weight:500}
     var dark=p.classList.contains('dark')||p.classList.contains('deep')||p.classList.contains('on-img');
     p.querySelectorAll('.hdr').forEach(function(h){
       var full=!h.getAttribute('style');
-      if(full){var lg=document.createElement('span');lg.className='hl';lg.innerHTML='<img src="assets/'+(dark?'logo-white':'logo-color')+'.png">';h.appendChild(lg);}
+      if(full&&!dark){var lg=document.createElement('span');lg.className='hl';lg.innerHTML='<img src="assets/logo-letterhead.png">';h.appendChild(lg);}
       if(h.children.length<3||full){var t=document.createElement('span');t.className='tail';t.textContent=T.tail;h.appendChild(t);}
     });
     p.querySelectorAll('.ftr').forEach(function(f){
