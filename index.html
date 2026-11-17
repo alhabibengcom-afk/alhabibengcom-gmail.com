@@ -14,7 +14,7 @@
 <meta property="og:image" content="assets/cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="assets/logo.png">
+<link rel="icon" href="assets/logo-color.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -109,7 +109,14 @@
   .about p{margin:0}
   .about p + p{margin-top:10px;font-size:13px;color:var(--muted)}
   .hero .sub{margin-top:8px;font-size:12.5px;color:#CFE3E2}
-  .hero{height:330px}
+  .hero{height:270px}
+  .brand{display:flex;align-items:center;justify-content:center;gap:16px;padding:20px 20px 18px;background:#fff;direction:ltr}
+  .brand img{width:150px;height:auto;display:block}
+  .brand .bar{width:1px;align-self:stretch;background:var(--line)}
+  .brand .slogan{display:flex;flex-direction:column;gap:4px;text-align:left}
+  .brand .slogan b{font-size:13.5px;font-weight:700;letter-spacing:.16em;color:var(--teal);white-space:nowrap}
+  .brand .slogan span{font-size:13px;color:var(--ink-2);direction:rtl;text-align:left}
+  .hero .top{justify-content:flex-end}
 
   /* ---------- Services ---------- */
   .svc{display:grid;grid-template-columns:1fr;gap:10px}
@@ -135,11 +142,17 @@
 <main class="card">
 
   <!-- ======= الهيدر ======= -->
+  <!-- ======= اللوجو + السلوجان ======= -->
+  <div class="brand">
+    <img src="assets/logo-color.png" alt="شعار الحبيب للهندسة والمقاولات">
+    <span class="bar" aria-hidden="true"></span>
+    <div class="slogan"><b>BUILDING QUALITY</b><span>بناء الجودة لدى عملائنا</span></div>
+  </div>
+
   <header class="hero">
     <img class="cover" src="assets/cover.jpg" alt="" aria-hidden="true">
     <div class="top">
-      <img class="logo" src="assets/logo.png" alt="شعار الحبيب للهندسة والمقاولات">
-      <span class="tag">EST. 2008</span>
+      <span class="tag">EST. 2008 · QENA, EGYPT</span>
     </div>
     <div class="id">
       <h1>الحبيب للهندسة والمقاولات</h1>
@@ -275,8 +288,6 @@
   </section>
 
   <footer>
-    <div class="motto">BUILDING QUALITY</div>
-    <div class="ar">بناء الجودة لدى عملائنا</div>
     <a class="web ltr" href="https://alhabeebconst.com/" target="_blank" rel="noopener">alhabeebconst.com</a>
     <p class="optout">إذا كنت تفضّل عدم تلقي رسائل أخرى، أخبرنا وسنتوقف عن المتابعة.</p>
   </footer>

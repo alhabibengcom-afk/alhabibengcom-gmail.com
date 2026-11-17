@@ -24,8 +24,16 @@
   .hd h1{margin:8px 0 0;font-size:40px;line-height:1.2;font-weight:700}
   .hd .en{margin-top:4px;font-size:14px;color:#CFE3E2;letter-spacing:.05em}
   .hd .sub{margin-top:14px;font-size:13.5px;color:#E4F0EF}
-  .hd .logo{width:150px;height:auto;display:block;margin-top:4px}
-  .hd .est{position:absolute;z-index:1;left:48px;bottom:30px;font-size:11px;letter-spacing:.28em;color:#B8CFCE}
+  .hd{height:205px}
+  .brand{display:flex;align-items:center;justify-content:space-between;padding:20px 48px 18px;background:#fff;direction:ltr}
+  .brand .lock{display:flex;align-items:center;gap:20px}
+  .brand img{width:170px;height:auto;display:block}
+  .brand .bar{width:1px;height:58px;background:var(--line)}
+  .brand .slogan{display:flex;flex-direction:column;gap:5px}
+  .brand .slogan b{font-size:17px;font-weight:700;letter-spacing:.24em;color:var(--teal)}
+  .brand .slogan span{font-size:14px;color:var(--ink-2);direction:rtl;text-align:left}
+  .brand .web{font-size:12px;letter-spacing:.12em;color:var(--muted)}
+  .hd .est{position:absolute;z-index:1;left:48px;top:30px;font-size:11px;letter-spacing:.28em;color:#B8CFCE}
   .sectors{display:flex;background:var(--teal);color:#fff}
   .sectors span{flex:1;text-align:center;padding:11px 0;font-size:15px;font-weight:600}
   .sectors span + span{border-right:1px solid rgba(255,255,255,.25)}
@@ -73,6 +81,14 @@
 <body>
 <div class="page">
 
+  <div class="brand">
+    <div class="lock">
+      <img src="../assets/logo-color.png" alt="شعار الحبيب للهندسة والمقاولات">
+      <span class="bar"></span>
+      <div class="slogan"><b>BUILDING QUALITY</b><span>بناء الجودة لدى عملائنا</span></div>
+    </div>
+    <a class="web" href="https://alhabeebconst.com/">ALHABEEBCONST.COM</a>
+  </div>
   <header class="hd">
     <img class="cover" src="../assets/cover.jpg" alt="">
     <div class="in">
@@ -82,7 +98,6 @@
         <div class="en ltr">Al-Habeeb Engineering &amp; Contracting</div>
         <div class="sub">التصميم الهندسي · المقاولات العامة · التطوير العقاري</div>
       </div>
-      <img class="logo" src="../assets/logo.png" alt="شعار الحبيب للهندسة والمقاولات">
     </div>
     <div class="est ltr">EST. 2008 · QENA, EGYPT</div>
   </header>
@@ -138,7 +153,7 @@
   </main>
 
   <footer class="ft">
-    <span class="motto ltr">BUILDING QUALITY</span>
+    <span class="motto ltr">ALHABEEBCONST.COM</span>
     <span class="opt">إذا كنت تفضّل عدم تلقي رسائل أخرى، أخبرنا وسنتوقف عن المتابعة.</span>
   </footer>
 </div>
