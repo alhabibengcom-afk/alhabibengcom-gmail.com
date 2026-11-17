@@ -1,1 +1,21 @@
-# alhabibengcom-gmail.com
+# بطاقة التعريف الرقمية — الحبيب للهندسة والمقاولات
+**Al-Habeeb Engineering & Contracting — Digital Business Card**
+
+صفحة واحدة (`index.html`) تُرسل للعملاء كبطاقة تعريف. كل الأزرار روابط عادية
+(`tel:` / `wa.me` / `mailto:` / Google Maps / ملف `.vcf`) ولا تعتمد على أي سيرفر أو JavaScript.
+
+## الملفات
+| الملف | الوظيفة |
+|---|---|
+| `index.html` | البطاقة |
+| `alhabeeb.vcf` | زر «احفظ جهة الاتصال» |
+| `assets/logo.png`, `assets/cover.jpg` | اللوجو وصورة الغلاف |
+
+## تفعيل الأزرار المخفية
+- **لينكدإن:** في `index.html` ابحث عن `btn-linkedin`، ضع رابط الصفحة مكان `LINKEDIN_URL` واحذف كلمة `hidden`.
+- **الملف التعريفي:** ارفع ملف الـ PDF في نفس الفولدر باسم `Al-Habeeb-Company-Profile-AR.pdf`،
+  ثم ابحث عن `btn-profile` واحذف كلمة `hidden`.
+
+## النشر (GitHub Pages)
+Settings ← Pages ← Source: *Deploy from a branch* ← اختر الفرع والمجلد `/ (root)` ← Save.
+يُفضّل ربط دومين فرعي مثل `card.alhabeebconst.com` ليظهر الرابط باسم الشركة.

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>الحبيب للهندسة والمقاولات | Al-Habeeb Engineering &amp; Contracting</title>
+<meta name="description" content="بطاقة التعريف الرقمية لشركة الحبيب للهندسة والمقاولات والتطوير العقاري — قنا، صعيد مصر. تواصل معنا مباشرة.">
+<meta name="theme-color" content="#0D1B1E">
+
+<!-- معاينة اللينك في واتساب / لينكدإن / فيسبوك -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="الحبيب للهندسة والمقاولات | Al-Habeeb Engineering &amp; Contracting">
+<meta property="og:description" content="هندسة · مقاولات · تطوير عقاري — بناء الجودة لدى عملائنا">
+<meta property="og:image" content="assets/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#0D1B1E;
+    --ink-2:#3E5457;
+    --muted:#5E7376;
+    --teal:#127A75;
+    --teal-2:#1A9A93;
+    --mint:#7FD6CF;
+    --line:#DCE6E6;
+    --bg:#EAF1F1;
+    --card:#FFFFFF;
+    --wa:#128C4B;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Readex Pro',system-ui,-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    display:flex;justify-content:center;
+    padding:0;
+  }
+  a{color:inherit;text-decoration:none}
+  .card{
+    width:100%;max-width:460px;background:var(--card);
+    min-height:100vh;
+    box-shadow:0 0 0 1px rgba(13,27,30,.04),0 24px 60px -24px rgba(13,27,30,.25);
+  }
+  @media (min-width:520px){
+    body{padding:32px 16px}
+    .card{min-height:auto;border-radius:24px;overflow:hidden}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;height:300px;background:var(--ink);overflow:hidden}
+  .hero img.cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+  .hero::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(13,27,30,.35) 0%,rgba(13,27,30,.15) 40%,rgba(13,27,30,.95) 100%)}
+  .hero .top{position:absolute;z-index:1;top:22px;inset-inline:22px;display:flex;justify-content:space-between;align-items:center}
+  .hero .logo{width:132px;height:auto;display:block}
+  .hero .tag{font-size:11px;letter-spacing:.24em;color:#CFE3E2;font-weight:500;direction:ltr}
+  .hero .id{position:absolute;z-index:1;bottom:22px;inset-inline:22px;color:#fff}
+  .hero h1{margin:0;font-size:27px;line-height:1.3;font-weight:700}
+  .hero .en{margin-top:4px;font-size:13px;letter-spacing:.06em;color:#CFE3E2;direction:ltr;text-align:right}
+  .hero .fields{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:12px;padding:5px 11px;border-radius:999px;background:rgba(127,214,207,.16);color:#E4F6F5;border:1px solid rgba(127,214,207,.35)}
+
+  /* ---------- Quick actions ---------- */
+  .body{padding:22px 20px 8px}
+  .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .q{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 4px 12px;border-radius:16px;
+     background:#F2F7F7;border:1px solid var(--line);font-size:13px;font-weight:500;color:var(--ink);
+     min-height:44px;transition:transform .12s ease,background .12s ease}
+  .q:hover{background:#E6F2F1}
+  .q:active{transform:scale(.97)}
+  .q .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--teal);color:#fff}
+  .q.wa .ic{background:var(--wa)}
+  .q svg{width:21px;height:21px}
+
+  /* ---------- Primary CTA ---------- */
+  .cta{margin-top:16px;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+       padding:15px 18px;border-radius:14px;background:var(--ink);color:#fff;font-size:15px;font-weight:600;min-height:52px}
+  .cta:hover{background:#18302F}
+  .cta svg{width:20px;height:20px}
+
+  /* ---------- Link list ---------- */
+  h2.sec{margin:26px 4px 10px;font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--muted)}
+  .list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .row{display:flex;align-items:center;gap:14px;padding:14px 16px;min-height:60px;background:#fff}
+  .row + .row{border-top:1px solid var(--line)}
+  .row:hover{background:#F5F9F9}
+  .row .ic{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#E3F1F0;color:var(--teal)}
+  .row .ic svg{width:19px;height:19px}
+  .row .t{flex:1;min-width:0}
+  .row .t b{display:block;font-size:15px;font-weight:600}
+  .row .t span{display:block;font-size:12.5px;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+  .row .go{flex:none;color:#9AB0B2;width:18px;height:18px}
+  .row.feature{background:linear-gradient(0deg,#F0F8F7,#F0F8F7)}
+  .row.feature .ic{background:var(--teal);color:#fff}
+  [hidden]{display:none!important}
+  .ltr{direction:ltr;unicode-bidi:isolate;text-align:right}
+
+  /* ---------- About ---------- */
+  .about{margin-top:26px;padding:18px;border-radius:16px;background:#F2F7F7;border:1px solid var(--line);font-size:14px;line-height:1.85;color:var(--ink-2)}
+  .about strong{color:var(--ink)}
+
+  footer{padding:26px 20px 30px;text-align:center}
+  footer .motto{font-size:13px;font-weight:600;letter-spacing:.3em;color:var(--teal);direction:ltr}
+  footer .ar{margin-top:4px;font-size:13px;color:var(--muted)}
+  footer .web{margin-top:14px;display:inline-block;font-size:12px;color:var(--muted)}
+
+  a:focus-visible{outline:3px solid var(--teal-2);outline-offset:2px}
+</style>
+</head>
+<body>
+<main class="card">
+
+  <!-- ======= الهيدر ======= -->
+  <header class="hero">
+    <img class="cover" src="assets/cover.jpg" alt="" aria-hidden="true">
+    <div class="top">
+      <img class="logo" src="assets/logo.png" alt="شعار الحبيب للهندسة والمقاولات">
+      <span class="tag">15+ YEARS</span>
+    </div>
+    <div class="id">
+      <h1>الحبيب للهندسة والمقاولات</h1>
+      <div class="en">Al-Habeeb Engineering &amp; Contracting</div>
+      <div class="fields">
+        <span class="chip">هندسة</span>
+        <span class="chip">مقاولات</span>
+        <span class="chip">تطوير عقاري</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="body">
+
+    <!-- ======= أزرار التواصل السريع ======= -->
+    <nav class="quick" aria-label="تواصل سريع">
+      <a class="q" href="tel:+201211666691">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+        اتصال
+      </a>
+      <a class="q wa" href="https://wa.me/201211666692?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%D9%85" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2z"/></svg></span>
+        واتساب
+      </a>
+      <a class="q" href="mailto:info@alhabeebconst.com">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+        إيميل
+      </a>
+      <a class="q" href="https://www.google.com/maps/search/?api=1&amp;query=Happiness%20Plaza%20Mall%20New%20Qena%20Egypt" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+        الموقع
+      </a>
+    </nav>
+
+    <!-- ======= حفظ جهة الاتصال ======= -->
+    <a class="cta" href="alhabeeb.vcf" download="Al-Habeeb-Engineering.vcf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+      احفظ جهة الاتصال
+    </a>
+
+    <!-- ======= روابط ======= -->
+    <h2 class="sec">تعرّف علينا</h2>
+    <div class="list">
+
+      <!-- زرار الملف التعريفي: اشيل hidden بعد ما نرفع ملف الـ PDF في نفس الفولدر بالاسم ده -->
+      <a class="row feature" id="btn-profile" href="Al-Habeeb-Company-Profile-AR.pdf" target="_blank" rel="noopener" hidden>
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></span>
+        <span class="t"><b>الملف التعريفي للشركة</b><span>Company Profile — PDF</span></span>
+        <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+
+      <a class="row" href="https://alhabeebconst.com/" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
+        <span class="t"><b>الموقع الإلكتروني</b><span class="ltr">alhabeebconst.com</span></span>
+        <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+
+      <a class="row" href="https://www.facebook.com/alhabeebeng" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></span>
+        <span class="t"><b>فيسبوك</b><span class="ltr">@alhabeebeng</span></span>
+        <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+
+      <a class="row" href="https://www.instagram.com/alhabeebeng" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></span>
+        <span class="t"><b>إنستجرام</b><span class="ltr">@alhabeebeng</span></span>
+        <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+
+      <!-- زرار لينكدإن: حط لينك الصفحة مكان LINKEDIN_URL واشيل hidden -->
+      <a class="row" id="btn-linkedin" href="LINKEDIN_URL" target="_blank" rel="noopener" hidden>
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></span>
+        <span class="t"><b>لينكدإن</b><span>LinkedIn</span></span>
+        <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+    </div>
+
+    <!-- ======= بيانات التواصل ======= -->
+    <h2 class="sec">بيانات التواصل</h2>
+    <div class="list">
+      <a class="row" href="tel:+201211666691">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+        <span class="t"><b class="ltr">012 1166 6691</b><span>تليفون</span></span>
+      </a>
+      <a class="row" href="tel:+201211666692">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+        <span class="t"><b class="ltr">012 1166 6692</b><span>تليفون وواتساب</span></span>
+      </a>
+      <a class="row" href="mailto:info@alhabeebconst.com">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+        <span class="t"><b class="ltr">info@alhabeebconst.com</b><span>البريد الإلكتروني</span></span>
+      </a>
+      <a class="row" href="https://www.google.com/maps/search/?api=1&amp;query=Happiness%20Plaza%20Mall%20New%20Qena%20Egypt" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+        <span class="t"><b>المقر الرئيسي — قنا الجديدة</b><span>المبنى الإداري، مول هابينس بلازا، ميدان الحرية، قنا الجديدة</span></span>
+      </a>
+      <a class="row" href="https://www.google.com/maps/search/?api=1&amp;query=Qena%20General%20Hospital%20Egypt" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+        <span class="t"><b>فرع قنا</b><span>امتداد شارع كوبري دندرة، أمام المستشفى العام، قنا</span></span>
+      </a>
+    </div>
+
+    <!-- ======= نبذة ======= -->
+    <div class="about">
+      <strong>الحبيب للهندسة والمقاولات</strong> — أكثر من 15 عامًا في التصميم الهندسي والمقاولات والتطوير العقاري في صعيد مصر، من المولات التجارية والمراكز الإدارية والطبية إلى الفيلات والمشروعات السكنية، وفي مقدمتها مول هابينس بلازا بقنا الجديدة.
+    </div>
+  </section>
+
+  <footer>
+    <div class="motto">BUILDING QUALITY</div>
+    <div class="ar">بناء الجودة لدى عملائنا</div>
+    <a class="web ltr" href="https://alhabeebconst.com/" target="_blank" rel="noopener">alhabeebconst.com</a>
+  </footer>
+</main>
+</body>
+</html>

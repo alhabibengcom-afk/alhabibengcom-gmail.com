@@ -1,0 +1,16 @@
+BEGIN:VCARD
+VERSION:3.0
+N:;Al-Habeeb Engineering & Contracting;;;
+FN:Al-Habeeb Engineering & Contracting - الحبيب للهندسة والمقاولات
+ORG:Al-Habeeb Engineering & Contracting
+TITLE:Engineering · Contracting · Real Estate Development
+TEL;TYPE=WORK,VOICE:+201211666691
+TEL;TYPE=CELL,VOICE:+201211666692
+EMAIL;TYPE=WORK:info@alhabeebconst.com
+URL:https://alhabeebconst.com/
+ADR;TYPE=WORK:;;Administrative Building, Happiness Plaza Mall, Al Hurriya Square;New Qena;Qena;;Egypt
+ADR;TYPE=WORK:;;Extension of Dandara Bridge St., in front of the General Hospital;Qena;Qena;;Egypt
+X-SOCIALPROFILE;TYPE=facebook:https://www.facebook.com/alhabeebeng
+X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/alhabeebeng
+NOTE:Building Quality - بناء الجودة لدى عملائنا
+END:VCARD
