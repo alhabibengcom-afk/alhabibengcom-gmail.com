@@ -19,3 +19,7 @@
 ## النشر (GitHub Pages)
 Settings ← Pages ← Source: *Deploy from a branch* ← اختر الفرع والمجلد `/ (root)` ← Save.
 يُفضّل ربط دومين فرعي مثل `card.alhabeebconst.com` ليظهر الرابط باسم الشركة.
+
+## نسخة الـ PDF
+`Al-Habeeb-Engineering-Introduction.pdf` — صفحة A4 واحدة بنفس التصميم، كل الأزرار فيها روابط قابلة للضغط.
+المصدر: `pdf/introduction.html`. لإعادة التوليد بعد أي تعديل، اطبع الصفحة من Chrome (Save as PDF، الهوامش None، مع تفعيل Background graphics).

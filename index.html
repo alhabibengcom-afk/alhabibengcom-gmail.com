@@ -106,6 +106,22 @@
   /* ---------- About ---------- */
   .about{margin-top:26px;padding:18px;border-radius:16px;background:#F2F7F7;border:1px solid var(--line);font-size:14px;line-height:1.85;color:var(--ink-2)}
   .about strong{color:var(--ink)}
+  .about p{margin:0}
+  .about p + p{margin-top:10px;font-size:13px;color:var(--muted)}
+  .hero .sub{margin-top:8px;font-size:12.5px;color:#CFE3E2}
+  .hero{height:330px}
+
+  /* ---------- Services ---------- */
+  .svc{display:grid;grid-template-columns:1fr;gap:10px}
+  .svc div{padding:14px 16px;border:1px solid var(--line);border-radius:14px}
+  .svc b{display:block;font-size:15px;font-weight:600;color:var(--ink)}
+  .svc span{display:block;margin-top:4px;font-size:13px;line-height:1.75;color:var(--muted)}
+  .svc .note{border:0;padding:2px 4px 0;font-size:12px;color:var(--muted)}
+  .dev{margin-top:10px;padding:16px;border-radius:14px;background:#F0F8F7;border-inline-start:4px solid var(--teal)}
+  .dev small{font-size:11.5px;font-weight:600;color:var(--teal);letter-spacing:.04em}
+  .dev b{display:block;margin-top:2px;font-size:16px}
+  .dev span{display:block;margin-top:4px;font-size:13px;line-height:1.7;color:var(--ink-2)}
+  footer .optout{margin-top:16px;font-size:11.5px;color:var(--muted);line-height:1.7}
 
   footer{padding:26px 20px 30px;text-align:center}
   footer .motto{font-size:13px;font-weight:600;letter-spacing:.3em;color:var(--teal);direction:ltr}
@@ -123,15 +139,18 @@
     <img class="cover" src="assets/cover.jpg" alt="" aria-hidden="true">
     <div class="top">
       <img class="logo" src="assets/logo.png" alt="شعار الحبيب للهندسة والمقاولات">
-      <span class="tag">15+ YEARS</span>
+      <span class="tag">EST. 2008</span>
     </div>
     <div class="id">
       <h1>الحبيب للهندسة والمقاولات</h1>
       <div class="en">Al-Habeeb Engineering &amp; Contracting</div>
+      <div class="sub">التصميم الهندسي · المقاولات العامة · التطوير العقاري</div>
       <div class="fields">
-        <span class="chip">هندسة</span>
-        <span class="chip">مقاولات</span>
-        <span class="chip">تطوير عقاري</span>
+        <span class="chip">تجاري</span>
+        <span class="chip">فندقي</span>
+        <span class="chip">إداري</span>
+        <span class="chip">طبي</span>
+        <span class="chip">سكني</span>
       </div>
     </div>
   </header>
@@ -165,7 +184,29 @@
     </a>
 
     <!-- ======= روابط ======= -->
-    <h2 class="sec">تعرّف علينا</h2>
+    <!-- ======= من نحن ======= -->
+    <h2 class="sec">من نحن</h2>
+    <div class="about" style="margin-top:0">
+      <p>تأسست <strong>الحبيب للهندسة والمقاولات</strong> عام 2008 في قنا. نرافق أصحاب المشروعات من دراسة احتياجاتهم وإعداد التصميمات إلى تنفيذ الأعمال والإشراف عليها في الموقع.</p>
+      <p>ننسّق التصميم المعماري والإنشائي مع أنظمة الكهرباء والميكانيكا قبل بدء التنفيذ، ونختار المواد على أساس التكلفة والجودة وسهولة الصيانة.</p>
+    </div>
+
+    <!-- ======= الخدمات ======= -->
+    <h2 class="sec">خدماتنا الهندسية</h2>
+    <div class="svc">
+      <div><b>التصميم المعماري والإنشائي</b><span>تصميم المباني والمنشآت الخرسانية، بما فيها الأنظمة سابقة الإجهاد بتقنية الشد اللاحق.</span></div>
+      <div><b>الأنظمة الكهروميكانيكية</b><span>تصميم التكييف والكهرباء والتيار الخفيف، وأنظمة الإطفاء التلقائي والإنذار المبكر بالحريق.</span></div>
+      <div><b>المستندات الفنية وحصر الكميات</b><span>رسومات تصميمية وتنفيذية، ونماذج <span class="ltr" style="display:inline">LOD 300</span> و<span class="ltr" style="display:inline">LOD 400</span>، ومواصفات ومقايسات وحصر كميات الشراء.</span></div>
+      <div><b>إدارة التنفيذ والاستشارات</b><span>إدارة أعمال التنفيذ، والإشراف الموقعي، وتقديم الاستشارات الهندسية لأصحاب المشروعات.</span></div>
+      <p class="note">يمكن التعاقد على خدمة واحدة أو مجموعة خدمات.</p>
+    </div>
+    <div class="dev">
+      <small>التطوير العقاري</small>
+      <b>هابينس بلازا</b>
+      <span>بدأنا نشاط التطوير العقاري في قنا عام 2021 بمشروع هابينس بلازا، وهو مجمّع تجاري وترفيهي.</span>
+    </div>
+
+    <h2 class="sec">تعرّف على أعمالنا</h2>
     <div class="list">
 
       <!-- زرار الملف التعريفي: اشيل hidden بعد ما نرفع ملف الـ PDF في نفس الفولدر بالاسم ده -->
@@ -178,6 +219,12 @@
       <a class="row" href="https://alhabeebconst.com/" target="_blank" rel="noopener">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
         <span class="t"><b>الموقع الإلكتروني</b><span class="ltr">alhabeebconst.com</span></span>
+        <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+
+      <a class="row feature" href="https://alhabeebconst.com/Virtual-Tour/" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span class="t"><b>المعرض التفاعلي</b><span>جولة افتراضية في مشروعاتنا</span></span>
         <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
       </a>
 
@@ -202,7 +249,7 @@
     </div>
 
     <!-- ======= بيانات التواصل ======= -->
-    <h2 class="sec">بيانات التواصل</h2>
+    <h2 class="sec">تواصل مع المكتب الفني</h2>
     <div class="list">
       <a class="row" href="tel:+201211666691">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
@@ -225,17 +272,13 @@
         <span class="t"><b>فرع قنا</b><span>امتداد شارع كوبري دندرة، أمام المستشفى العام، قنا</span></span>
       </a>
     </div>
-
-    <!-- ======= نبذة ======= -->
-    <div class="about">
-      <strong>الحبيب للهندسة والمقاولات</strong> — أكثر من 15 عامًا في التصميم الهندسي والمقاولات والتطوير العقاري في صعيد مصر، من المولات التجارية والمراكز الإدارية والطبية إلى الفيلات والمشروعات السكنية، وفي مقدمتها مول هابينس بلازا بقنا الجديدة.
-    </div>
   </section>
 
   <footer>
     <div class="motto">BUILDING QUALITY</div>
     <div class="ar">بناء الجودة لدى عملائنا</div>
     <a class="web ltr" href="https://alhabeebconst.com/" target="_blank" rel="noopener">alhabeebconst.com</a>
+    <p class="optout">إذا كنت تفضّل عدم تلقي رسائل أخرى، أخبرنا وسنتوقف عن المتابعة.</p>
   </footer>
 </main>
 </body>
