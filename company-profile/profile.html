@@ -78,6 +78,16 @@ html[data-l=ar] .fact .k{letter-spacing:0;font-size:8.2pt;text-transform:none}
 .dark .fact .k,.deep .fact .k{color:rgba(255,255,255,.6)}
 .veil{background:linear-gradient(90deg,rgba(12,22,21,.8),rgba(12,22,21,.1) 72%)}
 html[dir=rtl] .veil{background:linear-gradient(270deg,rgba(12,22,21,.8),rgba(12,22,21,.1) 72%)}
+.pillars{display:flex;align-items:center;gap:4mm;font-size:12pt;letter-spacing:.08em;color:#fff;font-weight:500}
+html[data-l=ar] .pillars{letter-spacing:0;font-size:14pt}
+.pillars i{width:1.6mm;height:1.6mm;border-radius:50%;background:var(--teal-2);display:inline-block}
+.slogan{letter-spacing:.12em}
+html[data-l=ar] .slogan{letter-spacing:0;font-size:9pt;font-weight:500}
+.hdr .hl{position:absolute;left:50%;transform:translateX(-50%);height:10mm;top:-3.4mm}
+.hdr .hl img{height:100%;width:auto}
+.hdr .tail{color:var(--mute)}
+.ftr .mid{position:absolute;left:50%;transform:translateX(-50%);color:var(--teal);font-weight:500}
+.dark .ftr .mid,.deep .ftr .mid,.on-img .ftr .mid{color:var(--teal-2)}
 .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
 </style>
 </head>
@@ -90,22 +100,23 @@ html[dir=rtl] .veil{background:linear-gradient(270deg,rgba(12,22,21,.8),rgba(12,
   <div class="abs" style="top:16mm;inset-inline-start:var(--m);width:46mm"><img src="assets/logo-white.png" style="object-fit:contain;height:auto"></div>
   <div class="abs" style="inset-inline-start:var(--m);top:70mm;width:120mm">
     <div class="kicker" style="color:var(--teal-2)"><span class="a">الملف التعريفي للشركة · 2026</span><span class="e">Company Profile · 2026</span></div>
-    <div class="h1" style="margin-top:6mm;font-size:52pt"><span class="a">نبني<br>بجودة</span><span class="e">Building<br><span class="it">Quality.</span></span></div>
-    <p class="lead" style="margin-top:7mm;color:rgba(255,255,255,.78);max-width:105mm">
+    <div class="h1" style="margin-top:6mm;font-size:50pt"><span class="a">نبني اليوم<br>لمستقبل أفضل</span><span class="e">Building today<br><span class="it">for a better tomorrow.</span></span></div>
+    <div class="pillars" style="margin-top:7mm"><span class="a">خبرة</span><span class="e">Experience</span><i></i><span class="a">التزام</span><span class="e">Commitment</span><i></i><span class="a">جودة</span><span class="e">Quality</span></div>
+    <p class="lead" style="margin-top:6mm;color:rgba(255,255,255,.72);max-width:105mm">
       <span class="a">تصميم هندسي، ومقاولات عامة، وتطوير عقاري، من فريق واحد ومسؤولية واحدة.</span>
       <span class="e">Engineering design, general contracting and real estate development, delivered by one accountable team.</span>
     </p>
   </div>
-  <div class="abs" style="bottom:12mm;inset-inline-start:var(--m);width:118mm;display:flex;justify-content:space-between;font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)">
-    <span><span class="a" style="letter-spacing:0;font-size:8.4pt">قنا الجديدة، مصر</span><span class="e">New Qena, Egypt</span></span>
-    <span><span class="a" style="letter-spacing:0;font-size:8.4pt">منذ 2008</span><span class="e">Est. 2008</span></span>
+  <div class="abs" style="bottom:12mm;inset-inline-start:var(--m);width:122mm;display:flex;justify-content:space-between;white-space:nowrap;gap:6mm;font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)">
+    <span><span class="a" style="letter-spacing:0;font-size:8.4pt">قنا الجديدة، مصر · منذ 2008</span><span class="e">New Qena · Est. 2008</span></span>
+    <span class="slogan" style="color:var(--teal-2)"><span class="a">مبانٍ تدوم · قيمة تزيد</span><span class="e">Buildings that last · Value that grows</span></span>
   </div>
   <div class="abs" style="bottom:10mm;inset-inline-end:8mm;color:rgba(255,255,255,.75);font-size:6.8pt;letter-spacing:.12em;text-transform:uppercase"><span class="a" style="letter-spacing:0;font-size:7.6pt">هابينيس بلازا، قنا الجديدة</span><span class="e">Happiness Plaza, New Qena</span></div>
 </section>
 
 <!-- ============ 02 CONTENTS + AT A GLANCE ============ -->
 <section class="page">
-  <div class="hdr"><span><span class="a">المحتويات</span><span class="e">Contents</span></span><span><span class="a">الحبيب للهندسة والمقاولات</span><span class="e">Al-Habeeb Engineering &amp; Contracting</span></span></div>
+  <div class="hdr"><span><span class="a">المحتويات</span><span class="e">Contents</span></span></div>
   <div class="abs" style="top:30mm;inset-inline-start:var(--m);width:118mm">
     <div class="h2"><span class="a">في هذا الملف</span><span class="e">In this profile</span></div>
     <ul class="clean" style="margin-top:9mm;font-size:10.5pt" id="toc"></ul>
@@ -212,7 +223,7 @@ html[dir=rtl] .veil{background:linear-gradient(270deg,rgba(12,22,21,.8),rgba(12,
 
 <!-- ============ 06 ENGINEERING & DESIGN ============ -->
 <section class="page" data-toc="ar:التصميم والاستشارات الهندسية|en:Engineering &amp; design">
-  <div class="hdr"><span><b class="sec"></b><span class="a">التصميم والاستشارات الهندسية</span><span class="e">Engineering &amp; design</span></span></div>
+  <div class="hdr" style="inset-inline-end:calc(38% + var(--m))"><span><b class="sec"></b><span class="a">التصميم والاستشارات الهندسية</span><span class="e">Engineering &amp; design</span></span></div>
   <div class="abs" style="inset-block:0;inset-inline-end:0;width:38%"><img src="assets/img/masa-side.jpg" style="object-position:58% 50%"></div>
   <div class="abs" style="top:28mm;inset-inline-start:var(--m);width:160mm">
     <div class="kicker"><span class="a">إدارة الاستشارات والتصميمات والدعم الفني</span><span class="e">Investment, design &amp; technical support</span></div>
@@ -456,6 +467,7 @@ html[dir=rtl] .veil{background:linear-gradient(270deg,rgba(12,22,21,.8),rgba(12,
   <div class="abs" style="inset-block:0;inset-inline-end:42%;width:1.2mm;background:var(--teal)"></div>
   <div class="abs" style="top:16mm;inset-inline-start:var(--m);width:40mm"><img src="assets/logo-white.png" style="object-fit:contain;height:auto"></div>
   <div class="abs" style="top:52mm;inset-inline-start:var(--m);width:150mm">
+    <div class="kicker" style="color:var(--teal-2);margin-bottom:3mm"><span class="a">نبني اليوم لمستقبل أفضل</span><span class="e">Building today for a better tomorrow</span></div>
     <div class="h2" style="color:#fff"><span class="a">لنبدأ مشروعك القادم.</span><span class="e">Let’s talk about <span class="it">your next project.</span></span></div>
     <div class="grid" style="grid-template-columns:1fr 1fr;gap:6mm 10mm;margin-top:10mm">
       <div class="fact"><div class="k"><span class="a">هاتف</span><span class="e">Telephone</span></div><div style="font-size:12pt;margin-top:1mm" class="ltr">+20 121 166 6691<br>+20 121 166 6692</div></div>
@@ -469,7 +481,7 @@ html[dir=rtl] .veil{background:linear-gradient(270deg,rgba(12,22,21,.8),rgba(12,
       <div><div style="background:#fff;padding:2mm;width:24mm;height:24mm"><img src="assets/qr-wa.svg" style="object-fit:contain"></div><div class="cap" style="color:rgba(255,255,255,.6)"><span class="a">واتساب</span><span class="e">WhatsApp</span></div></div>
     </div>
   </div>
-  <div class="abs" style="bottom:12mm;inset-inline-start:var(--m);font-size:7.4pt;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-2)"><span class="a" style="letter-spacing:0;font-size:9pt">نبني بجودة</span><span class="e">Building Quality</span></div>
+  <div class="abs" style="bottom:12mm;inset-inline-start:var(--m);font-size:7.4pt;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-2)"><span class="a" style="letter-spacing:0;font-size:11pt">مبانٍ تدوم · قيمة تزيد</span><span class="e">Buildings that last · Value that grows</span></div>
 </section>
 
 <script>
@@ -478,6 +490,22 @@ html[dir=rtl] .veil{background:linear-gradient(270deg,rgba(12,22,21,.8),rgba(12,
   var pages=[].slice.call(document.querySelectorAll('.page'));
   // page numbers
   pages.forEach(function(p,i){p.querySelectorAll('.pn').forEach(function(e){e.setAttribute('data-n',String(i+1).padStart(2,'0')+' / '+String(pages.length).padStart(2,'0'))})});
+  // letterhead elements: logo centre + slogan end (header), "مبانٍ تدوم · قيمة تزيد" centre (footer)
+  var T={ar:{tail:'نبني اليوم لمستقبل أفضل',mid:'مبانٍ تدوم · قيمة تزيد',vals:'خبرة .. التزام .. جودة'},
+         en:{tail:'Building today for a better tomorrow',mid:'Buildings that last · Value that grows',vals:'Experience · Commitment · Quality'}}[L];
+  pages.forEach(function(p){
+    var dark=p.classList.contains('dark')||p.classList.contains('deep')||p.classList.contains('on-img');
+    p.querySelectorAll('.hdr').forEach(function(h){
+      var full=!h.getAttribute('style');
+      if(full){var lg=document.createElement('span');lg.className='hl';lg.innerHTML='<img src="assets/'+(dark?'logo-white':'logo-color')+'.png">';h.appendChild(lg);}
+      if(h.children.length<3||full){var t=document.createElement('span');t.className='tail';t.textContent=T.tail;h.appendChild(t);}
+    });
+    p.querySelectorAll('.ftr').forEach(function(f){
+      var full=!f.getAttribute('style');
+      var last=f.lastElementChild; if(last&&!last.classList.contains('pn')&&!last.textContent.trim()) last.textContent=T.vals;
+      if(full){var m=document.createElement('span');m.className='mid';m.textContent=T.mid;f.appendChild(m);}
+    });
+  });
   // section numbers + TOC
   var toc=document.getElementById('toc'),n=0,cur='';
   pages.forEach(function(p,i){
