@@ -111,6 +111,35 @@
 .action { border-radius: 2px; min-height: 48px; padding-inline: 26px; }
 .ink-btn { border-radius: 2px; }
 
+/* ---------- Language switch ---------- */
+.lang-switch {
+  min-width: 52px; height: 40px; padding: 0 12px;
+  border: 1px solid #b9b3a3; border-radius: 999px; background: transparent;
+  font: 700 13px/1 Arial, sans-serif; letter-spacing: .06em; color: #1f362d;
+}
+.lang-switch .ls-ar { font: 600 14px/1 Arabic, Tahoma, sans-serif; letter-spacing: 0; }
+html.lang-en .lang-switch .ls-en, html:not(.lang-en) .lang-switch .ls-ar { display: none; }
+
+/* ---------- English (left-to-right) ---------- */
+html.lang-en body { font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+html.lang-en h1, html.lang-en h2, html.lang-en .pro-hero h1, html.lang-en .section h2, html.lang-en .opening-copy h1,
+html.lang-en .pro-facts b, html.lang-en .phase-roadmap h2 {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  letter-spacing: -.01em;
+}
+html.lang-en .pro-hero h1 { font-size: clamp(52px, 6.6vw, 100px); }
+html.lang-en .panel, html.lang-en .mast-links, html.lang-en .mast-tools, html.lang-en .cover-photo figcaption small { direction: ltr; }
+html.lang-en [style*="text-align:right"], html.lang-en .table th, html.lang-en .rowunit, html.lang-en .venuegrid button { text-align: left; }
+html.lang-en .over, html.lang-en .hero .en, html.lang-en .pro-eyebrow span { text-align: left; }
+html.lang-en .pro-hero-shade {
+  background:
+    linear-gradient(90deg, rgba(17, 32, 27, .88) 0%, rgba(17, 32, 27, .62) 38%, rgba(17, 32, 27, .12) 72%),
+    linear-gradient(0deg, rgba(14, 26, 22, .92) 0%, rgba(14, 26, 22, 0) 46%);
+}
+
+/* ---------- App bar (phones) ---------- */
+.appbar { display: none; }
+
 /* ---------- Mobile ---------- */
 @media (max-width: 760px) {
   .pro-hero { min-height: auto; }
@@ -125,4 +154,22 @@
   .pro-facts > div + div { padding-inline-start: 0; }
   .pro-facts > div:nth-child(2n) { padding-inline-start: 14px; border-inline-end: 0; }
   .pro-facts > div:nth-child(n+3) { border-top: 1px solid rgba(255, 255, 255, .16); }
+
+  .appbar {
+    position: fixed; z-index: 30; left: 0; right: 0; bottom: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+    background: rgba(24, 40, 34, .97); border-top: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, .18);
+  }
+  .appbar a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    min-height: 54px; border-radius: 10px; color: #e9e5da; font-size: 12px; font-weight: 600; line-height: 1.2; text-align: center;
+  }
+  .appbar a span { font-size: 19px; line-height: 1; }
+  .appbar a.appbar-cta { background: var(--pro-gold); color: #17241f; }
+  .appbar a:active { background: rgba(255, 255, 255, .1); }
+  body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
+  .mast-tools .start-presentation { display: none; }
+  .lang-switch { height: 36px; min-width: 46px; }
 }
