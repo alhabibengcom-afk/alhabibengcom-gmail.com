@@ -1,0 +1,175 @@
+/* Happiness Plaza brand guide, v14 refinements.
+   Loaded after the other stylesheets; every rule here overrides an earlier one. */
+
+:root {
+  --pro-green: #1f362d;
+  --pro-green-2: #2a463b;
+  --pro-gold: #e2c38b;
+  --pro-gold-ink: #8a6a33;
+  --pro-cream: #f4f1e9;
+  --pro-line: #d8d2c4;
+}
+
+/* ---------- Hero: full-bleed film ---------- */
+.pro-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: min(88vh, 860px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  color: #fbf8f0;
+  background: var(--pro-green) url("assets/Happiness_Plaza_Opening.jpg") center / cover no-repeat;
+}
+.pro-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pro-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(270deg, rgba(17, 32, 27, .88) 0%, rgba(17, 32, 27, .62) 38%, rgba(17, 32, 27, .12) 72%),
+    linear-gradient(0deg, rgba(14, 26, 22, .92) 0%, rgba(14, 26, 22, 0) 46%);
+}
+.pro-hero-inner { width: 100%; padding-top: clamp(96px, 14vh, 160px); }
+.pro-hero-copy { max-width: 640px; }
+.pro-hero-copy#project { border-top: 0; padding-top: 0; }
+.pro-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+  font-size: 15px;
+  color: #efe4cc;
+}
+.pro-eyebrow span { font: 700 12px/1 Arial, sans-serif; letter-spacing: .22em; color: var(--pro-gold); }
+.pro-eyebrow i { width: 36px; height: 1px; background: var(--pro-gold); }
+.pro-hero h1 {
+  font: 400 clamp(56px, 7.4vw, 112px)/1.1 Edition, Arabic, serif;
+  margin: 0 0 22px;
+  color: #fffdf6;
+}
+.pro-lead { font-size: clamp(18px, 1.5vw, 22px); line-height: 1.85; color: #f3eee2; }
+.pro-sub { margin-top: 10px !important; font-size: 15px; line-height: 1.8; color: #c9d0c6; }
+.pro-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 30px; }
+.pro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 28px;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 2px;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.pro-btn-gold { background: var(--pro-gold); color: #17241f; }
+.pro-btn-gold:hover { background: #ecd3a6; }
+.pro-btn-ghost { border: 1px solid rgba(255, 255, 255, .55); color: #fffdf6; }
+.pro-btn-ghost:hover { border-color: var(--pro-gold); color: var(--pro-gold); }
+.pro-link { color: #efe4cc; font-size: 15px; border-bottom: 1px solid rgba(226, 195, 139, .7); padding-bottom: 3px; }
+.pro-link:hover { color: var(--pro-gold); }
+
+.pro-facts {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(48px, 8vh, 96px);
+  border-top: 1px solid rgba(255, 255, 255, .28);
+}
+.pro-facts > div { padding: 22px 0 30px; padding-inline-end: 24px; border-inline-end: 1px solid rgba(255, 255, 255, .16); }
+.pro-facts > div + div { padding-inline-start: 24px; }
+.pro-facts > div:last-child { border-inline-end: 0; }
+.pro-facts b { display: block; font: 400 clamp(26px, 2.6vw, 38px)/1.3 Edition, Arabic, serif; color: var(--pro-gold); }
+.pro-facts span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.6; color: #d9ddd3; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pro-hero-bg { display: none; }
+}
+
+/* ---------- Site film, moved below the hero ---------- */
+.pro-film-section { background: var(--pro-cream); padding: clamp(40px, 5vw, 72px) 0; border-bottom: 1px solid var(--pro-line); }
+.pro-film-section .opening-film { max-width: 980px; margin-inline: auto; }
+
+/* ---------- Leasing enquiries: readable on the dark band ---------- */
+.contact { color: #f4f1e9; }
+.contact h2 { color: #fffdf6; }
+.contact p { color: #cdd3ca; }
+.contact a.secondary { border-color: rgba(255, 255, 255, .4); color: #f4f1e9; }
+.contact a.secondary:hover { border-color: var(--pro-gold); color: var(--pro-gold); }
+.contact .company-action { color: #f4f1e9; border-color: rgba(255, 255, 255, .25); }
+.contact .company-action small { color: #b9c2b7; }
+
+/* ---------- Consistent buttons across the guide ---------- */
+.action { border-radius: 2px; min-height: 48px; padding-inline: 26px; }
+.ink-btn { border-radius: 2px; }
+
+/* ---------- Language switch ---------- */
+.lang-switch {
+  min-width: 52px; height: 40px; padding: 0 12px;
+  border: 1px solid #b9b3a3; border-radius: 999px; background: transparent;
+  font: 700 13px/1 Arial, sans-serif; letter-spacing: .06em; color: #1f362d;
+}
+.lang-switch .ls-ar { font: 600 14px/1 Arabic, Tahoma, sans-serif; letter-spacing: 0; }
+html.lang-en .lang-switch .ls-en, html:not(.lang-en) .lang-switch .ls-ar { display: none; }
+
+/* ---------- English (left-to-right) ---------- */
+html.lang-en body { font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+html.lang-en h1, html.lang-en h2, html.lang-en .pro-hero h1, html.lang-en .section h2, html.lang-en .opening-copy h1,
+html.lang-en .pro-facts b, html.lang-en .phase-roadmap h2 {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  letter-spacing: -.01em;
+}
+html.lang-en .pro-hero h1 { font-size: clamp(52px, 6.6vw, 100px); }
+html.lang-en .panel, html.lang-en .mast-links, html.lang-en .mast-tools, html.lang-en .cover-photo figcaption small { direction: ltr; }
+html.lang-en [style*="text-align:right"], html.lang-en .table th, html.lang-en .rowunit, html.lang-en .venuegrid button { text-align: left; }
+html.lang-en .over, html.lang-en .hero .en, html.lang-en .pro-eyebrow span { text-align: left; }
+html.lang-en .pro-hero-shade {
+  background:
+    linear-gradient(90deg, rgba(17, 32, 27, .88) 0%, rgba(17, 32, 27, .62) 38%, rgba(17, 32, 27, .12) 72%),
+    linear-gradient(0deg, rgba(14, 26, 22, .92) 0%, rgba(14, 26, 22, 0) 46%);
+}
+
+/* ---------- App bar (phones) ---------- */
+.appbar { display: none; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 760px) {
+  .pro-hero { min-height: auto; }
+  .pro-hero-inner { padding-top: 120px; }
+  .pro-hero-shade {
+    background: linear-gradient(0deg, rgba(14, 26, 22, .95) 0%, rgba(14, 26, 22, .7) 55%, rgba(14, 26, 22, .35) 100%);
+  }
+  .pro-actions { gap: 12px; }
+  .pro-btn { width: 100%; justify-content: center; }
+  .pro-facts { grid-template-columns: 1fr 1fr; margin-top: 40px; }
+  .pro-facts > div { padding: 16px 0 18px; padding-inline-end: 14px; }
+  .pro-facts > div + div { padding-inline-start: 0; }
+  .pro-facts > div:nth-child(2n) { padding-inline-start: 14px; border-inline-end: 0; }
+  .pro-facts > div:nth-child(n+3) { border-top: 1px solid rgba(255, 255, 255, .16); }
+
+  .appbar {
+    position: fixed; z-index: 30; left: 0; right: 0; bottom: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+    background: rgba(24, 40, 34, .97); border-top: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, .18);
+  }
+  .appbar a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    min-height: 54px; border-radius: 10px; color: #e9e5da; font-size: 12px; font-weight: 600; line-height: 1.2; text-align: center;
+  }
+  .appbar a span { font-size: 19px; line-height: 1; }
+  .appbar a.appbar-cta { background: var(--pro-gold); color: #17241f; }
+  .appbar a:active { background: rgba(255, 255, 255, .1); }
+  body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
+  .mast-tools .start-presentation { display: none; }
+  .lang-switch { height: 36px; min-width: 46px; }
+}

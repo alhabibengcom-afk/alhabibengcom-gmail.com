@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>توثيق مواقع الوحدات | هابينس بلازا</title>
+<link rel="stylesheet" href="location-editor.css">
+</head>
+<body>
+<header class="mast"><div><span class="wordmark" lang="en" dir="ltr">HAPPINESS PLAZA</span><span class="mast-label">إدارة التأجير</span></div></header>
+<main>
+  <div class="intro"><div><h1>توثيق مواقع الوحدات</h1><p>اختَر الوحدة، وطابق واجهتها على الطبيعة مع المسقط قبل تثبيت علامتها على الصورة.</p></div>
+  <div class="handoff"><button id="export" class="primary" type="button">تصدير ملف المواقع</button><label class="file-label" for="import">استيراد ملف مواقع<input id="import" type="file" accept=".js,.json"></label></div></div>
+  <div id="fatal" class="error-panel" hidden></div>
+  <div id="editor">
+    <section class="picker" aria-label="اختيار الوحدة"><label>الدور<select id="floor"></select></label><label>الوحدة<select id="unit" dir="ltr"></select></label><output id="status" aria-live="polite"></output></section>
+    <div class="workbench">
+      <section class="card photo-card" aria-labelledby="photo-title">
+        <header><h2 id="photo-title">تثبيت علامة الوحدة</h2><div class="source-toggle" role="group" aria-label="نوع المشهد"><button id="select-photo" type="button" aria-pressed="true">صور الموقع</button><button id="select-pano" type="button" aria-pressed="false">مشاهد الجولة 360°</button></div><label><span id="media-label">الصورة الأصلية</span><select id="photo"></select></label></header>
+        <div class="photo-stage">
+          <button class="image-frame" id="frame" type="button" aria-describedby="frame-help"><img id="scene" draggable="false" alt=""><span id="pin" class="mark" hidden><bdi></bdi></span></button>
+        </div>
+        <p id="frame-help" class="help">اضغط على فتحة المحل لتحديد موضعها. من لوحة المفاتيح استخدم الأسهم لضبط العلامة وShift + سهم للتحريك بخطوة أكبر.</p>
+        <div class="data-row"><label>طريقة تحديد الموضع<select id="basis"><option value="field-confirmed">تأكيد ميداني للواجهة</option><option value="architectural-correspondence">مطابقة معمارية</option><option value="facade-projection">إسقاط من المسقط</option></select></label><label>مرجع المطابقة<input id="note" maxlength="350" placeholder="مثال: محور العمود ورقم المحل على لوحة الزيارة" autocomplete="off"></label><button class="primary" id="save-pin" type="button">حفظ العلامة</button><button id="remove-pin" type="button">حذف العلامة</button></div>
+        <div class="mapped" id="mapped" aria-label="الصور الموثّقة للوحدة"></div>
+      </section>
+      <aside>
+        <section class="card plan-card" aria-labelledby="plan-title"><header><div><h2 id="plan-title">موقع الوحدة على المسقط</h2><p id="floor-name"></p></div><button id="zoom" type="button" aria-pressed="false">تكبير الوحدة</button></header>
+          <svg id="plan" viewBox="0 0 1108 1100" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="plan-caption"><title id="plan-caption"></title><image id="plan-img" x="0" y="0" width="1108" height="1100" preserveAspectRatio="none"></image><polygon id="outline" vector-effect="non-scaling-stroke"></polygon><circle id="plan-halo" r="10"></circle><circle id="plan-dot" r="4.5"></circle></svg>
+        </section>
+        <section class="card tour-card" aria-labelledby="tour-title"><header><h2 id="tour-title">محطة الجولة 360°</h2></header><div><label>رابط المشهد المباشر<input id="tour" type="url" dir="ltr" placeholder="https://alhabeebconst.com/Virtual-Tour/…" autocomplete="off"></label>
+        <p class="help">افتح رابط المشاركة وتأكد أنه يبدأ عند واجهة هذه الوحدة.</p>
+        <div class="buttons"><button id="save-tour" type="button">حفظ المحطة</button><button id="remove-tour" type="button">حذف المحطة</button><a id="tour-test" target="_blank" rel="noopener noreferrer" hidden>معاينة المشهد ↗</a></div></div></section>
+      </aside>
+    </div>
+    <footer>بعد التصدير، استبدل ملف <bdi>brands/location-links.js</bdi> بالملف المحفوظ وارفعه إلى مجلد الدليل على الاستضافة. احتفظ بنسخة من الملف السابق على جهازك.</footer>
+  </div>
+</main>
+<script src="../brands/unit-data.js"></script><script src="../brands/location-links.js"></script><script src="../brands/location-url.js"></script><script src="location-editor.js"></script>
+</body>
+</html>
