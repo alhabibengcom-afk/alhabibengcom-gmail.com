@@ -1,0 +1,7 @@
+{
+  "_comment": "عمود وسطي في مبنى مقيد — Pu وعزوم قصوى بالـ kN و kN·m",
+  "type": "column",
+  "b": 300, "t": 600, "fcu": 30, "fy": 400,
+  "Pu": 2400, "Mx": 120, "My": 0,
+  "Hex": 3200, "Hey": 3200, "braced": true, "location": "interior"
+}
