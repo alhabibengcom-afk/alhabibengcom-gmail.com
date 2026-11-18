@@ -8,18 +8,29 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 from .beam import design_beam
 from .column import design_column
 from .footing import design_isolated_footing
+from .slab import check_flat_slab_punching, design_one_way_slab, design_slab_strip, design_two_way_slab
 
-FUNCS = {"beam": design_beam, "column": design_column, "footing": design_isolated_footing}
+FUNCS = {"beam": design_beam, "column": design_column, "footing": design_isolated_footing,
+         "slab_one_way": design_one_way_slab, "slab_two_way": design_two_way_slab,
+         "slab_strip": design_slab_strip, "flat_slab_punching": check_flat_slab_punching}
+
+
+def _aci():
+    from aci318 import check_pt_punching, check_pt_section  # noqa: WPS433
+    return {"pt_section": check_pt_section, "pt_punching": check_pt_punching}
 
 
 def run(data: dict):
     data = dict(data)
     kind = data.pop("type")
     data.pop("_comment", None)
-    return FUNCS[kind](**data)
+    funcs = FUNCS if kind in FUNCS else _aci()
+    return funcs[kind](**data)
 
 
 def main(argv=None):

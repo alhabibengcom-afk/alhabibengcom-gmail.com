@@ -1,0 +1,5 @@
+{
+  "_comment": "بلاطة مسطحة عادية (غير بوست تنشن) — Vu رد فعل العمود الأقصى",
+  "type": "flat_slab_punching",
+  "c1": 500, "c2": 500, "t": 250, "Vu": 900, "fcu": 30, "location": "interior"
+}
