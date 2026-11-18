@@ -13,11 +13,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from .beam import design_beam
 from .column import design_column
 from .footing import design_isolated_footing
+from .foundation import design_combined_footing, design_raft
+from .ribbed import design_hollow_block_one_way, design_hollow_block_two_way
 from .slab import check_flat_slab_punching, design_one_way_slab, design_slab_strip, design_two_way_slab
+from .stair import design_stair
+from .wall import design_wall
 
 FUNCS = {"beam": design_beam, "column": design_column, "footing": design_isolated_footing,
          "slab_one_way": design_one_way_slab, "slab_two_way": design_two_way_slab,
-         "slab_strip": design_slab_strip, "flat_slab_punching": check_flat_slab_punching}
+         "slab_strip": design_slab_strip, "flat_slab_punching": check_flat_slab_punching,
+         "wall": design_wall, "stair": design_stair, "hollow_block": design_hollow_block_one_way,
+         "hollow_block_two_way": design_hollow_block_two_way, "combined_footing": design_combined_footing,
+         "raft": design_raft}
 
 
 def _aci():

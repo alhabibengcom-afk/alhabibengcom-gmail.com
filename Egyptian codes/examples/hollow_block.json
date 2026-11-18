@@ -1,0 +1,3 @@
+{"_comment": "هوردي اتجاه واحد: بلوك 40 سم، عصب 12 سم، عمق 30 سم (25 + 5)، بحر 5.5 م مستمر",
+ "type": "hollow_block", "L": 5.5, "h": 300, "ts": 50, "bw": 120, "block_width": 400,
+ "finishes": 2.0, "wL": 2.0, "block_weight": 1.0, "support": "both_ends", "fcu": 25, "fy": 400}
