@@ -1,5 +1,6 @@
 // Renders profile.html to PDF (Arabic + English).
 // usage: node render.js [outdir]      (set PREVIEW=<dir> to also save one PNG per page)
+// WEB=1 builds a lighter copy for sharing online, using assets/img-web (smaller images).
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
@@ -10,6 +11,12 @@ const fs = require('fs');
   const browser = await chromium.launch();
   for (const lang of ['ar', 'en']) {
     const page = await browser.newPage({ viewport: { width: 1123, height: 794 } });
+    if (process.env.WEB) {
+      await page.route('**/assets/img/*', r => {
+        const f = path.join(__dirname, 'assets/img-web', path.basename(new URL(r.request().url()).pathname));
+        return r.fulfill({ path: f, contentType: 'image/jpeg' });
+      });
+    }
     await page.goto('file://' + path.join(__dirname, 'profile.html') + '?lang=' + lang, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     if (process.env.PREVIEW) {
@@ -20,7 +27,7 @@ const fs = require('fs');
     }
     await page.emulateMedia({ media: 'print' });
     await page.pdf({
-      path: path.join(out, `Al-Habeeb_Company_Profile_${lang.toUpperCase()}.pdf`),
+      path: path.join(out, `Al-Habeeb_Company_Profile_${lang.toUpperCase()}${process.env.WEB ? '_web' : ''}.pdf`),
       width: '297mm', height: '210mm', printBackground: true, preferCSSPageSize: true,
     });
     await page.close();
