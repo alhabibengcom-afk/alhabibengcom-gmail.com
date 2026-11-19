@@ -43,6 +43,7 @@ class Report:
     checks: list[Check] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
     results: dict = field(default_factory=dict)
+    children: list = field(default_factory=list)
 
     def step(self, desc, formula, subst, value, unit="", ref=None):
         self.steps.append(Step(desc, formula, subst, value, unit, ref))
@@ -59,7 +60,7 @@ class Report:
 
     @property
     def ok(self) -> bool:
-        return all(c.ok for c in self.checks)
+        return all(c.ok for c in self.checks) and all(ch.ok for ch in self.children)
 
     def unverified_refs(self) -> list[Ref]:
         seen, out = set(), []
@@ -113,4 +114,6 @@ class Report:
             L += [f"- {r.clause} — صفحة {r.page or '؟'}: {r.note}" for r in unv]
             L.append("")
         L += ["---", "_الحسابات للمساعدة والمراجعة فقط. لازم يراجعها ويعتمدها مهندس إنشائي مسؤول قبل التنفيذ._"]
+        for ch in self.children:
+            L += ["", "", ch.to_markdown().replace("\n# ", "\n## ", 1).replace("# ", "## ", 1)]
         return "\n".join(L)

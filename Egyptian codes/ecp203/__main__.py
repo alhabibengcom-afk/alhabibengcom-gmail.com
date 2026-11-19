@@ -17,6 +17,7 @@ from .foundation import design_combined_footing, design_raft
 from .ribbed import design_hollow_block_one_way, design_hollow_block_two_way
 from .slab import check_flat_slab_punching, design_one_way_slab, design_slab_strip, design_two_way_slab
 from .stair import design_stair
+from .floor_flat import design_flat_slab_floor
 from .wall import design_wall
 
 FUNCS = {"beam": design_beam, "column": design_column, "footing": design_isolated_footing,
@@ -24,12 +25,12 @@ FUNCS = {"beam": design_beam, "column": design_column, "footing": design_isolate
          "slab_strip": design_slab_strip, "flat_slab_punching": check_flat_slab_punching,
          "wall": design_wall, "stair": design_stair, "hollow_block": design_hollow_block_one_way,
          "hollow_block_two_way": design_hollow_block_two_way, "combined_footing": design_combined_footing,
-         "raft": design_raft}
+         "raft": design_raft, "floor_flat": design_flat_slab_floor}
 
 
 def _aci():
-    from aci318 import check_pt_punching, check_pt_section  # noqa: WPS433
-    return {"pt_section": check_pt_section, "pt_punching": check_pt_punching}
+    from aci318 import check_pt_punching, check_pt_section, design_pt_floor  # noqa: WPS433
+    return {"pt_section": check_pt_section, "pt_punching": check_pt_punching, "floor_pt": design_pt_floor}
 
 
 def run(data: dict):
