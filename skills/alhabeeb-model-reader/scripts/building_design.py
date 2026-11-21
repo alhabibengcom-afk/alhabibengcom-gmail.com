@@ -29,6 +29,7 @@ from collections import OrderedDict, defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import model_reader as MR  # noqa: E402
+import slabs_walls as SW  # noqa: E402
 
 
 def find_lib(start):
@@ -68,7 +69,7 @@ def short(s):
         return "-"
     n, d = bars_per_m(s)
     if n:
-        return f"T{d}@{round(1000 / n / 5) * 5:.0f}"
+        return f"T{d}@{math.floor(1000 / n / 5) * 5:.0f}"  # round spacing DOWN (never less steel)
     m = re.search(r"(\d+)\s*فرع\s*Ø\s*(\d+)\s*@\s*(\d+)", s)
     if m:
         return f"{m.group(1)}L T{m.group(2)}@{m.group(3)}"
@@ -163,6 +164,16 @@ def design_all(a, lib):
                                          "stir": r.get("shear.stirrups", ""), "ok": rep.ok,
                                          "fail": [c_.desc for c_ in rep.checks if not c_.ok], "elev": M.elev(st)})
                 reports.append((kind + "s", rep))
+    # ---- slabs and walls
+    from ecp203.slab import design_two_way_slab, design_one_way_slab
+    from ecp203.floor_flat import design_flat_slab_floor
+    from ecp203.wall import design_wall
+    if not a.no_slabs:
+        res["slabs"] = SW.design_slabs(M, a, (design_two_way_slab, design_one_way_slab, design_flat_slab_floor),
+                                       reports, res["skipped"])
+    else:
+        res["slabs"] = {"panels": [], "flat": []}
+    res["walls"] = SW.design_walls(M, a, design_wall, reports, res["skipped"]) if not a.no_walls else []
     return res, reports
 
 
@@ -583,6 +594,32 @@ def write_xlsx(res, path):
     for b in sorted(res["beams"], key=lambda b: (b["type"], b["label"])):
         ws.append([b["type"], b["label"], b["story"], b["b"], b["h"], short(b["top"]), short(b["bot"]), short(b["stir"]),
                    "yes" if b["ok"] else "NO", "; ".join(b["fail"])])
+    ws = wb.create_sheet("Slabs")
+    ws.append(["Type", "Story", "X from", "X to", "Y from", "Y to", "t mm", "Mode", "wD kN/m2", "wL kN/m2",
+               "Continuous sides", "Bottom X", "Bottom Y", "Top X", "Top Y", "OK", "Failing checks"])
+    for q in sorted(res["slabs"]["panels"], key=lambda q: (q["type"], q["story"])):
+        ws.append([q["type"], q["story"], q["x0"], q["x1"], q["y0"], q["y1"], q["t"], q["mode"], q["wD"], round(q["wL"], 2),
+                   "".join(k for k, v in q["cont"].items() if v) or "-", short(q["bx"]), short(q["by"]),
+                   short(q["tx"]), short(q["ty"]), "yes" if q["ok"] else "NO", "; ".join(q["fail"])])
+    if res["slabs"]["flat"]:
+        ws = wb.create_sheet("Flat slab strips")
+        ws.append(["Story", "h mm", "Frame", "Span", "Section", "Layer", "M kN.m", "Column strip", "Middle strip"])
+        for fl in res["slabs"]["flat"]:
+            for s_ in fl["results"].get("strips", []):
+                ws.append([fl["story"], fl["h"], s_["frame"], s_["span"] + 1, s_["section"], s_["layer"], s_["M_kNm"],
+                           short(s_["column_strip"] or ""), short(s_["middle_strip"] or "")])
+        ws = wb.create_sheet("Punching")
+        ws.append(["Story", "Grid i (X)", "Grid j (Y)", "Location", "Pu kN", "Ratio", "OK"])
+        for fl in res["slabs"]["flat"]:
+            for pz in fl["results"].get("punching", []):
+                ws.append([fl["story"], pz["i"] + 1, chr(65 + pz["j"]), pz["location"], pz["Pu_kN"], pz["ratio"],
+                           "yes" if pz["ratio"] <= 1 else "NO"])
+    ws = wb.create_sheet("Walls")
+    ws.append(["Type", "Pier", "Story", "t mm", "L m", "H clear m", "Pu kN/m", "Vertical / face", "Horizontal / face",
+               "OK", "Failing checks"])
+    for w in sorted(res["walls"], key=lambda w: (w["type"], w["pier"])):
+        ws.append([w["type"], w["pier"], w["story"], w["t"], round(w["L"], 2), w["H"], round(w["Pu_m"], 1),
+                   short(w["vert"]), short(w["hor"]), "yes" if w["ok"] else "NO", "; ".join(w["fail"])])
     for w in wb.worksheets:
         for c in w[1]:
             c.font = Font(bold=True)
@@ -601,6 +638,9 @@ def main():
     p.add_argument("--fcu", type=float, default=30, help="cube strength for columns/beams N/mm2")
     p.add_argument("--fcu-found", type=float, default=25, help="cube strength for footings N/mm2")
     p.add_argument("--fy", type=float, default=400)
+    p.add_argument("--fy-slab", type=float, default=None, help="steel for slabs (default = --fy)")
+    p.add_argument("--no-slabs", action="store_true")
+    p.add_argument("--no-walls", action="store_true")
     p.add_argument("--dead-cases")
     p.add_argument("--live-cases")
     p.add_argument("--unbraced", action="store_true")
@@ -619,8 +659,10 @@ def main():
     tpl = a.template or find_template()
     os.makedirs(os.path.join(a.out, "reports"), exist_ok=True)
 
-    def title_fields(title, num, N, loc):
-        return {"PROJECT": a.project, "CLIENT": a.client, "DWG_TITLE": title, "LEVEL": "ZZ", "DWG_NO": f"{a.project_code}-ST-{loc}-{num}",
+    a.fy_slab = a.fy_slab or a.fy
+
+    def title_fields(title, num, N, loc, level="ZZ"):
+        return {"PROJECT": a.project, "CLIENT": a.client, "DWG_TITLE": title, "LEVEL": level, "DWG_NO": f"{a.project_code}-ST-{loc}-{num}",
                 "REV": "R00", "SCALE": f"1:{N}", "SHEET_SIZE": "A1", "PURPOSE": "للمراجعة", "DRAWN": "Claude (auto)"}
     a.title_fields = title_fields
 
@@ -632,7 +674,13 @@ def main():
     btypes = group(res["beams"], lambda b: (b["b"], b["h"], short(b["top"]), short(b["bot"]), short(b["stir"])), "BT",
                    lambda b: b["b"] * b["h"] * 100 + bars_n(b["bot"])[0] * bars_n(b["bot"])[1] ** 2)
 
-    for kind in ("footings", "columns", "beams"):
+    ptypes = group(res["slabs"]["panels"], lambda q: (q["t"], q["mode"], short(q["bx"]), short(q["by"]),
+                                                       short(q["tx"]), short(q["ty"])), "S",
+                   lambda q: (q["x1"] - q["x0"]) * (q["y1"] - q["y0"]))
+    wtypes = group(res["walls"], lambda w: (w["t"], short(w["vert"]), short(w["hor"])), "WT",
+                   lambda w: w["t"] * 1000 + bars_per_m(w["vert"])[0] * (bars_per_m(w["vert"])[1] or 0) ** 2
+                   if bars_per_m(w["vert"])[0] else w["t"])
+    for kind in ("footings", "columns", "beams", "slabs", "walls"):
         md = "\n\n".join(r.to_markdown() for k, r in reports if k == kind)
         if md:
             with open(os.path.join(a.out, "reports", f"{kind}.md"), "w", encoding="utf-8") as f:
@@ -649,6 +697,27 @@ def main():
     if btypes:
         fp = os.path.join(a.out, f"{a.project_code}-ST-ZZ-502_R00.dxf")
         sheets.append((fp, draw_beams(res, btypes, tpl, a, fp)))
+    stories = [s["name"] for s in res["model"].stories]
+    k = 0
+    for st in stories:
+        pans = [q for q in res["slabs"]["panels"] if q["story"] == st]
+        if pans:
+            k += 1
+            fp = os.path.join(a.out, f"{a.project_code}-ST-ZZ-{110 + k}_R00.dxf")
+            S, N = SW.draw_slab_story(Sheet, tpl, res["model"], st, pans, ptypes, a, fp, short, bars_per_m)
+            S.finish(fp, a.title_fields(f"SLAB REINFORCEMENT - {st}", str(110 + k), N, "ZZ", st))
+            sheets.append((fp, N))
+    for fl in res["slabs"]["flat"]:
+        k += 1
+        fp = os.path.join(a.out, f"{a.project_code}-ST-ZZ-{110 + k}_R00.dxf")
+        S, N = SW.draw_flat_story(Sheet, tpl, res["model"], fl, a, fp, short)
+        S.finish(fp, a.title_fields(f"FLAT SLAB REINFORCEMENT - {fl['story']}", str(110 + k), N, "ZZ", fl["story"]))
+        sheets.append((fp, N))
+    if wtypes:
+        fp = os.path.join(a.out, f"{a.project_code}-ST-ZZ-503_R00.dxf")
+        S, N = SW.draw_walls(Sheet, tpl, wtypes, a, short, bars_per_m)
+        S.finish(fp, a.title_fields("WALL SCHEDULE", "503", N, "ZZ"))
+        sheets.append((fp, N))
     for fp, N in sheets:
         preview(fp, fp[:-4] + ".png")
 
@@ -667,6 +736,22 @@ def main():
     for name, lst in btypes:
         b = lst[0]
         print(f"  {name}: {b['b']}x{b['h']}  top {short(b['top'])}  bot {short(b['bot'])}  {short(b['stir'])}  x{len(lst)}"
+              + ("" if all(i["ok"] for i in lst) else "  FAILS: " + "; ".join(sorted({x for i in lst for x in i["fail"]}))))
+    print(f"Slabs: {len(res['slabs']['panels'])} panels in {len(ptypes)} types "
+          f"({nf(res['slabs']['panels'])} failing), {len(res['slabs']['flat'])} flat-slab floors")
+    for name, lst in ptypes:
+        q = lst[0]
+        print(f"  {name}: t={q['t']} {q['mode']}  bot X {short(q['bx'])} Y {short(q['by'])}  top X {short(q['tx'])} "
+              f"Y {short(q['ty'])}  x{len(lst)}"
+              + ("" if all(i["ok"] for i in lst) else "  FAILS: " + "; ".join(sorted({x for i in lst for x in i["fail"]}))))
+    for fl in res["slabs"]["flat"]:
+        print(f"  flat {fl['story']}: h={fl['h']}  max punching {fl['results'].get('max_punching_ratio')}  "
+              f"{len(fl['results'].get('strips', []))} strip sections" + ("" if fl["ok"] else "  FAILS: "
+                                                                          + "; ".join(fl["fail"][:4])))
+    print(f"Walls: {len(res['walls'])} piers in {len(wtypes)} types ({nf(res['walls'])} failing)")
+    for name, lst in wtypes:
+        w = lst[0]
+        print(f"  {name}: t={w['t']}  vert {short(w['vert'])}  hor {short(w['hor'])} (each face)  x{len(lst)}"
               + ("" if all(i["ok"] for i in lst) else "  FAILS: " + "; ".join(sorted({x for i in lst for x in i["fail"]}))))
     for s in res["skipped"]:
         print("  skipped: " + s)

@@ -78,8 +78,15 @@ It designs every footing, column (per story) and beam (per story) with `ecp203`,
 - `PRJ-ST-ZZ-101_R00.dxf` foundation plan (grids, dimensions, footings, columns), footing schedule, plan + section of each footing type with bars
 - `PRJ-ST-ZZ-501_R00.dxf` column types (sections with bars and ties), column-by-story table, schedule
 - `PRJ-ST-ZZ-502_R00.dxf` beam types (sections), schedule
+- `PRJ-ST-ZZ-111.._R00.dxf` one slab sheet per story: plan with grids, beams, walls, columns; each panel labelled with its type and thickness, bottom mesh both ways, top bars over continuous supports; slab schedule
+  - beam-supported slabs: panels found from the beam/wall grid, designed with `design_two_way_slab` (switches to one-way when r > 2) using own weight + the model's SDL and live area loads, continuity from neighbouring panels
+  - stories without beams: flat slab with `design_flat_slab_floor` (equivalent frame, column/middle strips, punching at every column; failing columns marked FAIL on the plan)
+  - anything irregular (missing edge beam, cantilever, non-rectangular region, irregular column grid in a flat slab) is listed as skipped - design manually or from SAFE strips
+- `PRJ-ST-ZZ-503_R00.dxf` wall types (plan section of a 1 m strip, bars each face) and schedule, from the ETABS **Pier Forces** table (export it; walls need pier labels in ETABS). Pu/m = max compression / pier length; out-of-plane moment 0; shear-wall in-plane design, boundary elements and openings are not covered.
 - PNG previews of each sheet, `design.xlsx` (every element, its type, pass/fail and failing checks), `reports/*.md` (full ECP 203 calculations)
 Drawings follow `alhabeeb-cad-standards`: mm, origin at grid A/1, ST-/GN- layers, A1 layout with the AH-TITLE block filled (purpose "للمراجعة", R00). Check them with that skill's `check_standards.py`.
+
+Options: `--fy-slab` (slab steel, default = `--fy`), `--no-slabs`, `--no-walls`. Spacings are always rounded DOWN to 5 mm (never less steel than designed).
 
 Report to the user: number of types, every element that fails (and why — e.g. anchorage length → hooks, or section too small → resize in ETABS and re-run), what was skipped (wall reactions, slabs). These drawings are design drafts: the engineer completes slabs, walls, stairs, laps/curtailment and general notes, reviews, and signs before issue. Never present them as issued drawings.
 
@@ -99,4 +106,5 @@ Report to the user: number of types, every element that fails (and why — e.g. 
 - `references/e2k-format.md` - what the parser reads from .e2k and known limitations
 - `scripts/model_reader.py` - the reader (summary, review, fix, quantities, tables, ecp203 JSON)
 - `scripts/building_design.py` - full design + DXF drawings
+- `scripts/slabs_walls.py` - slab panel detection, slab/flat-slab/wall design and their sheets
 - `tests/` - small sample files (sample.e2k, reactions.xlsx, forces.xlsx, sample.f2k) to try the commands

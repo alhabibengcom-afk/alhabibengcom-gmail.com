@@ -17,6 +17,7 @@ Tick, depending on the task:
 | Footings / raft | Analysis Results > Joint Output > Reactions > **Joint Reactions** (select load patterns Dead, SDL, Live, not only combos) |
 | Columns | Analysis Results > Frame Output > **Element Forces - Columns** (select ultimate combinations) |
 | Beams | Analysis Results > Frame Output > **Element Forces - Beams** |
+| Walls | Analysis Results > Wall Output > **Pier Forces** (ultimate combinations; assign pier labels to walls first: Assign > Shell > Pier Label) |
 | Global checks | **Base Reactions**, **Story Drifts**, **Modal Participating Mass Ratios**, **Story Forces** |
 | Design results | Design > Concrete Frame Design > summary tables (if the office uses ETABS design for comparison) |
 

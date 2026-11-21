@@ -92,6 +92,7 @@ def design_flat_slab_floor(x, y, h, SDL, LL, fcu=30, fy=400, col=(500, 500), col
 
     # ---------------- الإطارات
     col_loads = {}
+    strips = []
     for direction in ("x", "y"):
         layer_cover = cover if direction == "x" else cover + 12
         rep.step(f"— الإطارات في اتجاه {direction.upper()} —", "", "", "", "")
@@ -115,6 +116,10 @@ def design_flat_slab_floor(x, y, h, SDL, LL, fcu=30, fy=400, col=(500, 500), col
                     pos = "سفلي" if kind == "pos" else "علوي"
                     rows.append(f"بحر {j+1} {sec} ({pos}): M = {M:.0f} kN·m → شريحة عمود {a and a['bars']} | "
                                 f"شريحة وسط {b and b['bars']}")
+                    strips.append({"direction": direction, "frame": name, "line": k, "span": j, "section": sec,
+                                   "layer": "bottom" if kind == "pos" else "top", "M_kNm": float(round(M, 1)),
+                                   "column_strip": a and a["bars"], "middle_strip": b and b["bars"],
+                                   "cs_width_m": float(round(cs, 3)), "ms_width_m": float(round(ms, 3))})
             rep.step(f"إطار {name} (عرض {fr.l2:.2f} م، بحور {', '.join(f'{s:g}' for s in fr.spans)} م)",
                      "تحليل إطار مكافئ + كل ترتيبات الحمل الحي ← توزيع الشرائح (عمود/وسط)",
                      " ؛ ".join(rows), "", "", P.REF_FS_EFM)
@@ -136,6 +141,7 @@ def design_flat_slab_floor(x, y, h, SDL, LL, fcu=30, fy=400, col=(500, 500), col
     rep.step("— القص الثاقب عند كل عمود —", "", "", "", "")
     d_avg = h - cover - 12
     worst = 0
+    punching = []
     for (i, j), d in sorted(col_loads.items()):
         cx, cy = g.col_size(i, j)
         loc = g.location(i, j)
@@ -145,6 +151,7 @@ def design_flat_slab_floor(x, y, h, SDL, LL, fcu=30, fy=400, col=(500, 500), col
         ratio = pr.results["ratio"]
         worst = max(worst, ratio)
         rep.check(f"قص ثاقب عمود ({i+1},{j+1}) {loc}: qup/qcup", ratio, 1.0, "", P.REF_PUNCH)
+        punching.append({"i": i, "j": j, "location": loc, "ratio": float(round(ratio, 2)), "Pu_kN": float(round(d["Pu"], 1))})
     rep.note("القص الثاقب للأعمدة الطرفية والركنية بمعامل β تقريبي لتأثير العزوم المنقولة؛ لو قريب من الحد احسبه بدقة.")
 
     # ---------------- أحمال الأعمدة
@@ -152,6 +159,7 @@ def design_flat_slab_floor(x, y, h, SDL, LL, fcu=30, fy=400, col=(500, 500), col
             for (i, j), d in sorted(col_loads.items())]
     rep.step("أحمال الأعمدة من السقف ده (قصوى)", "Pu = رد فعل الإطار ، M = العزم المنقول للعمود المكافئ", " ؛ ".join(rows),
              "", "", P.REF_FS_EFM)
-    rep.results = {"h_mm": h, "qu_kN_m2": round(qu, 2), "max_punching_ratio": round(worst, 2)}
+    rep.results = {"h_mm": h, "qu_kN_m2": round(qu, 2), "max_punching_ratio": round(worst, 2),
+                   "strips": strips, "punching": punching}
     rep.note("الترخيم والتشرخ مش محسوبين؛ والفتحات والأحمال المركزة مش متغطية.")
     return rep
