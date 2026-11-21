@@ -9,6 +9,7 @@ Inputs it understands
 Subcommands
   summary     model.e2k                      Stories, sections, materials, loads, combos, counts
   review      model.e2k                      Automatic model checks (list of findings)
+  fix         model.e2k [-o fixed.e2k]       Repair what can be repaired safely, write a corrected .e2k + log
   quantities  model.e2k [--xlsx out.xlsx]    Concrete volume and formwork by story and element
   tables      file [--list] [--table NAME] [--head N] [--csv DIR]   Read any table export
   footings    --model m.e2k --reactions r.xlsx --q-allow 200 [--fcu 25 --fy 400] -o footings.json [--raft]
@@ -893,11 +894,141 @@ def cmd_beams(a):
           f"Add flange_width/flange_t for T-beams if wanted.")
 
 
+# ====================================================================== fix
+def _load_factors():
+    """Read LOAD_D, LOAD_L from Egyptian codes/ecp203/params.py when available."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    for base in (os.getcwd(), os.path.join(here, "..", "..", ".."), os.path.join(here, "..", "..", "..", "..")):
+        f = os.path.join(base, "Egyptian codes", "ecp203", "params.py")
+        if os.path.exists(f):
+            m = re.search(r"LOAD_D\s*,\s*LOAD_L\s*=\s*([\d.]+)\s*,\s*([\d.]+)", open(f, encoding="utf-8").read())
+            if m:
+                return float(m.group(1)), float(m.group(2)), f
+    return 1.4, 1.6, None
+
+
+def _guess_type(name):
+    n = name.lower()
+    if "wind" in n or n.startswith("w"):
+        return "Wind"
+    if "quake" in n or "seis" in n or n.startswith(("eq", "ex", "ey")):
+        return "Seismic"
+    if "live" in n or n in ("ll", "l"):
+        return "Live"
+    return "Super Dead"
+
+
+def cmd_fix(a):
+    M = read_e2k(a.model)
+    with open(a.model, encoding="utf-8", errors="replace") as f:
+        lines = f.read().splitlines()
+    log = []
+    inserts = defaultdict(list)  # keyword -> new lines (inserted after last line with that keyword)
+
+    def last_index(keyword):
+        idx = None
+        for i, ln in enumerate(lines):
+            t = ln.strip().split(None, 1)
+            if t and t[0].upper() == keyword:
+                idx = i
+        return idx
+
+    # 1. undefined load patterns referenced by loads or combinations
+    refs = set()
+    for ld in M.area_loads + M.line_loads + M.point_loads:
+        lc = ld.get("LC") or ld.get("LOADPAT") or ld.get("PATTERN")
+        if lc:
+            refs.add(lc)
+    for c in M.combos.values():
+        for case, _ in c["items"]:
+            if case not in M.combos:
+                refs.add(case)
+    for r in sorted(refs - set(M.patterns)):
+        typ = _guess_type(r)
+        inserts["LOADPATTERN"].append(f'  LOADPATTERN "{r}"  TYPE  "{typ}"  SELFWEIGHT  0')
+        M.patterns[r] = {"TYPE": typ, "SELFWEIGHT": "0"}
+        log.append(f"Added missing load pattern '{r}' as type {typ} (referenced but not defined) - VERIFY its type "
+                   f"and, for wind/seismic, define its load parameters in ETABS.")
+    # 2. self-weight exactly once
+    sw = [n for n, p in M.patterns.items() if fnum(p.get("SELFWEIGHT"), 0) > 0]
+    dead = [n for n, p in M.patterns.items() if str(p.get("TYPE", "")).lower() == "dead"]
+    if len(sw) > 1:
+        keep = dead[0] if dead and dead[0] in sw else sw[0]
+        for n in sw:
+            if n == keep:
+                continue
+            for i, ln in enumerate(lines):
+                t = toks(ln)
+                if len(t) > 1 and t[0].upper() == "LOADPATTERN" and t[1] == n:
+                    lines[i] = re.sub(r"SELFWEIGHT\s+\S+", "SELFWEIGHT  0", ln)
+            log.append(f"Self-weight removed from '{n}' (kept only in '{keep}') to avoid counting it twice.")
+    elif not sw:
+        if dead:
+            for i, ln in enumerate(lines):
+                t = toks(ln)
+                if len(t) > 1 and t[0].upper() == "LOADPATTERN" and t[1] == dead[0]:
+                    lines[i] = re.sub(r"SELFWEIGHT\s+\S+", "SELFWEIGHT  1", ln) if "SELFWEIGHT" in ln.upper() \
+                        else ln + "  SELFWEIGHT  1"
+            log.append(f"Self-weight multiplier 1 set on '{dead[0]}' (no pattern carried self-weight).")
+        else:
+            inserts["LOADPATTERN"].append('  LOADPATTERN "Dead"  TYPE  "Dead"  SELFWEIGHT  1')
+            M.patterns["Dead"] = {"TYPE": "Dead", "SELFWEIGHT": "1"}
+            log.append("Added load pattern 'Dead' with self-weight (none existed).")
+    # 3. supports under base columns
+    base = M.stories[-1]["name"] if M.stories else None
+    restrained = {(pa["label"], pa["story"]) for pa in M.point_assigns if pa.get("RESTRAINT")}
+    added = set()
+    for e in instances(M):
+        if e["kind"] == "column" and M.story_below(e["story"]) == base and (e["point"], base) not in restrained \
+                and e["point"] not in added:
+            inserts["POINTASSIGN"].append(f'  POINTASSIGN  "{e["point"]}"  "{base}"  RESTRAINT "UX UY UZ RX RY RZ"')
+            added.add(e["point"])
+            log.append(f"Added fixed support at point {e['point']} ({base}) under column {e['label']} - change to "
+                       f"pinned if the foundation concept requires.")
+    # 4. ultimate gravity combination
+    LD, LL, src = _load_factors()
+    types = {n: str(p.get("TYPE", "")).lower() for n, p in M.patterns.items()}
+    dl = [n for n, t in types.items() if t in DEAD_TYPES]
+    ll = [n for n, t in types.items() if t in LIVE_TYPES]
+    has = False
+    for c in M.combos.values():
+        cs = {case for case, _ in c["items"]}
+        if set(dl) <= cs and set(ll) <= cs and dl:
+            has = True
+    if not has and dl:
+        name = "ECP-U1"
+        new = [f'  COMBO "{name}"  TYPE "Linear Add"  DESIGN "Concrete"']
+        new += [f'  COMBO "{name}"  LOAD "{n}"  SF {LD:g}' for n in dl]
+        new += [f'  COMBO "{name}"  LOAD "{n}"  SF {LL:g}' for n in ll]
+        inserts["COMBO"].extend(new)
+        log.append(f"Added combination {name} = {LD:g}·(" + " + ".join(dl) + f") + {LL:g}·(" + " + ".join(ll) + ")"
+                   + (f" (factors from {os.path.relpath(src)})" if src else " (default factors - verify)"))
+    # write
+    for kw, new in inserts.items():
+        idx = last_index(kw)
+        if idx is None:
+            hdr = {"LOADPATTERN": "$ LOAD PATTERNS", "POINTASSIGN": "$ POINT ASSIGNS", "COMBO": "$ LOAD COMBINATIONS"}[kw]
+            end = next((i for i, ln in enumerate(lines) if ln.strip().upper() == "END"), len(lines))
+            lines[end:end] = [hdr] + new + [""]
+        else:
+            lines[idx + 1:idx + 1] = new
+    out = a.out or re.sub(r"(\.[^.]+)$", r"_fixed\1", a.model)
+    with open(out, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+    print(f"Fixes applied: {len(log)}")
+    for l in log:
+        print(" - " + l)
+    print(f"Wrote {out}  (ETABS: File > Import > ETABS .e2k Text File, then re-run the analysis)")
+    print("Not changed automatically (engineering decisions): section sizes, columns growing upward, stiffness "
+          "modifiers, live-load values, seismic/wind parameters. See 'review'.")
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     s = p.add_subparsers(dest="cmd", required=True)
     x = s.add_parser("summary"); x.add_argument("model"); x.set_defaults(fn=cmd_summary)
     x = s.add_parser("review"); x.add_argument("model"); x.set_defaults(fn=cmd_review)
+    x = s.add_parser("fix"); x.add_argument("model"); x.add_argument("-o", "--out"); x.set_defaults(fn=cmd_fix)
     x = s.add_parser("quantities"); x.add_argument("model"); x.add_argument("--xlsx")
     x.add_argument("--gross", action="store_true", help="no deduction at slab level"); x.set_defaults(fn=cmd_quantities)
     x = s.add_parser("tables"); x.add_argument("file"); x.add_argument("--list", action="store_true")
