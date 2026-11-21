@@ -1,0 +1,8 @@
+TABLE:  "PROGRAM CONTROL"
+   ProgramName=SAFE   Version=20.0.0   CurrUnits="KN, m, C"
+TABLE:  "OBJECT GEOMETRY - POINT COORDINATES"
+   Point=1   GlobalX=0   GlobalY=0   GlobalZ=0   SpecialPt=No
+   Point=2   GlobalX=6   GlobalY=0   GlobalZ=0   SpecialPt=No
+TABLE:  "SOIL PROPERTIES"
+   Soil=SOIL1   Subgrade=12000   NonlinOpt="Compression Only" _
+      Color=Green
