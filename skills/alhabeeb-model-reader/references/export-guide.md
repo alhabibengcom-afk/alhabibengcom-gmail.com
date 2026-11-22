@@ -23,8 +23,8 @@ Tick, depending on the task:
 
 Tip: Load Patterns/Cases/Combos selection is the button "Select Load Patterns/Cases" in the table dialog — include both patterns (for footings) and ultimate combos (for members).
 
-### Live link (advanced, optional)
-ETABS has an API (CSI OAPI) that a Python script can use while ETABS is open on a Windows PC. It needs ETABS running on that computer, so it can't run in this cloud session; it is possible only if the user connects their own computer. The file exports above cover the same data.
+### No export at all: read the .EDB directly
+Use `scripts/etabs_live.py` (or drag the .EDB onto `scripts/run_etabs.bat`) on the PC where ETABS is installed: it opens the model through the ETABS API, runs the analysis, reads the tables and designs. Also: ETABS keeps a text copy of the model (`ModelName.$et`) beside the `.EDB` - that file is readable directly.
 
 ## SAFE
 

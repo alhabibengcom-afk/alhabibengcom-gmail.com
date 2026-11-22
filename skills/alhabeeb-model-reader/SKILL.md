@@ -33,6 +33,20 @@ Gets data out of analysis models as files, not as printed reports, and turns it 
 
 Then design: `cd "Egyptian codes" && python3 -m ecp203 <file>.json -o reports/<name>.md`. Exit code 1 means at least one element is not safe: report which and why, don't hide it.
 
+## Direct reading from the .EDB (no export, no report)
+
+When the user wants the model read straight from ETABS, use `scripts/etabs_live.py` on their Windows PC (ETABS 18+ installed). It drives ETABS through its official API: opens the `.EDB` (or attaches to the open model), runs the analysis if needed, reads Joint Reactions, Element Forces (columns, beams) and Pier Forces through `DatabaseTables`, picks up the model text file ETABS keeps beside the model (`.$et` — saving the model once creates it if missing), then runs `building_design.py`:
+```
+pip install comtypes openpyxl ezdxf matplotlib
+python etabs_live.py --edb "D:\Projects\Tower\Tower.EDB" --q-allow 200 --combos U1,U2 --project "Tower" -o out
+python etabs_live.py --attach --q-allow 200 -o out      # model already open in ETABS
+```
+or drag the `.EDB` onto `scripts/run_etabs.bat`. Any `building_design.py` option can be added (`--fcu`, `--stairs`, ...).
+- It cannot run in a cloud session (ETABS is Windows software). If the user's computer is connected (Remote Control folder), run it there; otherwise give them the command.
+- A `.$et` file found beside an `.EDB` is the full model in text: read it directly with `summary` / `review` / `building_design.py`.
+- Tested here only against a mock of the API returning ETABS-format tables; on the first real run, check the printed row counts per table and report any API error verbatim.
+- SAFE has a similar API (not wired yet); ADAPT has no public API — use its Excel exports.
+
 ## Workflow
 
 ### 1. Identify what you got
@@ -111,4 +125,5 @@ Report to the user: number of types, every element that fails (and why — e.g. 
 - `scripts/building_design.py` - full design + DXF drawings
 - `scripts/slabs_walls.py` - slab panel detection, slab/flat-slab/wall design and their sheets
 - `scripts/stairs_bbs.py` - stair design and drawing, bar bending schedule
+- `scripts/etabs_live.py` + `scripts/run_etabs.bat` - read the .EDB directly through the ETABS API (Windows)
 - `tests/` - small sample files (sample.e2k, reactions.xlsx, forces.xlsx, sample.f2k) to try the commands
