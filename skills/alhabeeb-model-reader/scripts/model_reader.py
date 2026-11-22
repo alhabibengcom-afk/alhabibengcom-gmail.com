@@ -7,6 +7,7 @@ Inputs it understands
   *.xlsx / *.csv       Tables exported from ETABS, SAFE or ADAPT (Show Tables > Export to Excel, etc.)
 
 Subcommands
+  inspect     FILE                           Look inside ANY model file (native .adm/.adb/.edb too): text, zip, SQLite, Access or binary
   summary     model.e2k                      Stories, sections, materials, loads, combos, counts
   review      model.e2k                      Automatic model checks (list of findings)
   fix         model.e2k [-o fixed.e2k]       Repair what can be repaired safely, write a corrected .e2k + log
@@ -1023,11 +1024,78 @@ def cmd_fix(a):
           "modifiers, live-load values, seismic/wind parameters. See 'review'.")
 
 
+# ====================================================================== inspect unknown / native files
+def cmd_inspect(a):
+    """Look inside any model file and say what can be read, instead of guessing from the extension."""
+    import zipfile
+    import sqlite3
+    path = a.file
+    size = os.path.getsize(path)
+    with open(path, "rb") as f:
+        head = f.read(4096)
+        f.seek(0)
+        data = f.read(min(size, 50_000_000))
+    print(f"File: {os.path.basename(path)}  ({size:,} bytes)")
+    sig = head[:16]
+    # 1. container formats
+    if head.startswith(b"PK\x03\x04"):
+        print("Format: ZIP container (often XML/JSON inside) - readable.")
+        with zipfile.ZipFile(path) as z:
+            for i in z.infolist()[:60]:
+                print(f"  {i.filename}  {i.file_size:,} bytes")
+            if a.extract:
+                os.makedirs(a.extract, exist_ok=True)
+                z.extractall(a.extract)
+                print(f"Extracted to {a.extract} - read the XML/JSON parts to find geometry, loads and results.")
+        return
+    if head.startswith(b"SQLite format 3"):
+        print("Format: SQLite database - readable.")
+        con = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+        for (name,) in con.execute("select name from sqlite_master where type='table' order by name"):
+            n = con.execute(f'select count(*) from "{name}"').fetchone()[0]
+            cols = [c[1] for c in con.execute(f'pragma table_info("{name}")')]
+            print(f"  {name}: {n} rows; {', '.join(cols[:12])}")
+        return
+    if b"Standard Jet DB" in head[:64] or b"Standard ACE DB" in head[:64]:
+        print("Format: Microsoft Access database (.mdb/.accdb) - readable with mdb-tools "
+              "(apt-get install mdb-tools; mdb-tables FILE; mdb-export FILE TABLE).")
+        return
+    if head[:2] == b"\x1f\x8b":
+        print("Format: gzip-compressed - decompress and inspect again (python3 -m gzip -d).")
+        return
+    if head.lstrip().startswith(b"<?xml") or head.lstrip().startswith(b"<"):
+        print("Format: XML text - readable. First lines:")
+        print(head.decode("utf-8", "replace")[:1500])
+        return
+    # 2. plain text?
+    printable = sum(1 for b in head if 32 <= b < 127 or b in (9, 10, 13))
+    ratio = printable / max(len(head), 1)
+    if ratio > 0.95:
+        txt = head.decode("utf-8", "replace")
+        kind = ("ETABS/SAFE .e2k/.f2k-style" if "$ " in txt or "TABLE:" in txt.upper() else "plain text")
+        print(f"Format: TEXT ({kind}) - readable. Use 'summary' (e2k) or 'tables' (TABLE: format). First lines:")
+        print("\n".join(txt.splitlines()[:40]))
+        return
+    # 3. binary: report signature and readable strings (for identification only)
+    print(f"Format: BINARY (printable ratio {ratio:.0%} in the first 4 kB). Signature: {sig.hex(' ')}")
+    strs = re.findall(rb"[\x20-\x7e]{5,}", data)
+    utf16 = re.findall(rb"(?:[\x20-\x7e]\x00){5,}", data)
+    words = [x.decode("ascii", "replace") for x in strs] + [x.decode("utf-16le", "replace") for x in utf16]
+    print(f"Readable strings found: {len(words)}")
+    for w in words[:a.strings]:
+        print("  " + w[:120])
+    print("\nThese strings help identify the program/version and object names, but numbers (dimensions, loads, "
+          "forces) are stored in binary and must NOT be guessed from them. Ask for the program's text/Excel "
+          "export (references/export-guide.md).")
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     s = p.add_subparsers(dest="cmd", required=True)
     x = s.add_parser("summary"); x.add_argument("model"); x.set_defaults(fn=cmd_summary)
     x = s.add_parser("review"); x.add_argument("model"); x.set_defaults(fn=cmd_review)
+    x = s.add_parser("inspect"); x.add_argument("file"); x.add_argument("--strings", type=int, default=60)
+    x.add_argument("--extract", help="folder to unzip a ZIP container into"); x.set_defaults(fn=cmd_inspect)
     x = s.add_parser("fix"); x.add_argument("model"); x.add_argument("-o", "--out"); x.set_defaults(fn=cmd_fix)
     x = s.add_parser("quantities"); x.add_argument("model"); x.add_argument("--xlsx")
     x.add_argument("--gross", action="store_true", help="no deduction at slab level"); x.set_defaults(fn=cmd_quantities)
