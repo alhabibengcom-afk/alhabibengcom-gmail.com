@@ -1,0 +1,6 @@
+[
+ {"name": "ST1", "story": "Story1", "span": 3.0, "riser": 160, "going": 300, "t": 160, "width": 1.2, "landing": 1.3,
+  "kind": "longitudinal", "support": "simple", "finishes": 1.5, "wL": 3.0, "count": 2},
+ {"name": "ST2", "story": "Story2", "span": 1.2, "riser": 170, "going": 290, "t": 150, "width": 1.2,
+  "kind": "cantilever", "finishes": 1.5, "wL": 3.0, "count": 1}
+]

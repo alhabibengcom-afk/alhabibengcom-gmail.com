@@ -86,7 +86,10 @@ It designs every footing, column (per story) and beam (per story) with `ecp203`,
 - PNG previews of each sheet, `design.xlsx` (every element, its type, pass/fail and failing checks), `reports/*.md` (full ECP 203 calculations)
 Drawings follow `alhabeeb-cad-standards`: mm, origin at grid A/1, ST-/GN- layers, A1 layout with the AH-TITLE block filled (purpose "للمراجعة", R00). Check them with that skill's `check_standards.py`.
 
-Options: `--fy-slab` (slab steel, default = `--fy`), `--no-slabs`, `--no-walls`. Spacings are always rounded DOWN to 5 mm (never less steel than designed).
+- `PRJ-ST-ZZ-401_R00.dxf` stair details (with `--stairs stairs.json`): longitudinal flights drawn in section with steps, waist, landing, main bars crossing at the knee, top starters L/4, distribution bars; cantilever steps with the anchored top bar; stair schedule. Stairs are usually not in the ETABS model, so their geometry comes from the JSON (format at the top of `scripts/stairs_bbs.py`, example `tests/stairs.json`); ask the user for span (horizontal), riser, going, waist t, width, landing length, type and number of identical flights. Designed with `ecp203` `design_stair`.
+- `PRJ-ST-ZZ-504.._R00.dxf` **bar bending schedule** (one or more sheets) + BBS and steel-summary sheets in `design.xlsx`: every bar mark with element, member, shape, segment lengths, diameter, number per member, members, total, cut length, total length and weight (Ø²/162 kg/m), summary by diameter and by element. Rules printed on the schedule: laps/anchorage = Ld from `ecp203` `development_length` × `--lap-factor` (default 1.0 — confirm with the ECP 203 splice clause), 12Ø bend legs, 135° tie hooks 10Ø, no bend deduction, beam top bars full length (conservative). Not included: cross-ties for intermediate column bars, slab edge U-bars, opening trimmers, flat-slab strips, wastage — tell the user to add the specification's wastage allowance before ordering steel.
+
+Options: `--fy-slab` (slab steel, default = `--fy`), `--no-slabs`, `--no-walls`, `--stairs FILE`, `--lap-factor F`, `--no-bbs`. Spacings are always rounded DOWN to 5 mm (never less steel than designed).
 
 Report to the user: number of types, every element that fails (and why — e.g. anchorage length → hooks, or section too small → resize in ETABS and re-run), what was skipped (wall reactions, slabs). These drawings are design drafts: the engineer completes slabs, walls, stairs, laps/curtailment and general notes, reviews, and signs before issue. Never present them as issued drawings.
 
@@ -107,4 +110,5 @@ Report to the user: number of types, every element that fails (and why — e.g. 
 - `scripts/model_reader.py` - the reader (summary, review, fix, quantities, tables, ecp203 JSON)
 - `scripts/building_design.py` - full design + DXF drawings
 - `scripts/slabs_walls.py` - slab panel detection, slab/flat-slab/wall design and their sheets
+- `scripts/stairs_bbs.py` - stair design and drawing, bar bending schedule
 - `tests/` - small sample files (sample.e2k, reactions.xlsx, forces.xlsx, sample.f2k) to try the commands

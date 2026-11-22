@@ -30,6 +30,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import model_reader as MR  # noqa: E402
 import slabs_walls as SW  # noqa: E402
+import stairs_bbs as SB  # noqa: E402
 
 
 def find_lib(start):
@@ -154,7 +155,7 @@ def design_all(a, lib):
                     res["columns"].append({"label": lab, "story": st, "b": b, "t": h, "Pu": e["P"],
                                            "long": r.get("longitudinal", ""), "ties": r.get("ties", ""),
                                            "ok": rep.ok, "fail": [c_.desc for c_ in rep.checks if not c_.ok],
-                                           "elev": M.elev(st)})
+                                           "elev": M.elev(st), "x": i.get("x"), "y": i.get("y")})
                 else:
                     rep = design_beam(b, h, a.fcu, a.fy, round(e["M3pos"], 1), round(e["M3neg"], 1), round(e["V2"], 1),
                                       title=f"Beam {lab} - {st}")
@@ -162,7 +163,8 @@ def design_all(a, lib):
                     res["beams"].append({"label": lab, "story": st, "b": b, "h": h,
                                          "bot": r.get("positive.tension_bars", ""), "top": r.get("negative.tension_bars", ""),
                                          "stir": r.get("shear.stirrups", ""), "ok": rep.ok,
-                                         "fail": [c_.desc for c_ in rep.checks if not c_.ok], "elev": M.elev(st)})
+                                         "fail": [c_.desc for c_ in rep.checks if not c_.ok], "elev": M.elev(st),
+                                         "L": i.get("L")})
                 reports.append((kind + "s", rep))
     # ---- slabs and walls
     from ecp203.slab import design_two_way_slab, design_one_way_slab
@@ -174,6 +176,14 @@ def design_all(a, lib):
     else:
         res["slabs"] = {"panels": [], "flat": []}
     res["walls"] = SW.design_walls(M, a, design_wall, reports, res["skipped"]) if not a.no_walls else []
+    res["stairs"] = []
+    if a.stairs:
+        import json as _json
+        from ecp203.stair import design_stair
+        with open(a.stairs, encoding="utf-8") as f_:
+            items = _json.load(f_)
+        res["stairs"] = SB.design_stairs(items if isinstance(items, list) else [items], a, design_stair,
+                                         design_one_way_slab, reports, res["skipped"])
     return res, reports
 
 
@@ -641,6 +651,9 @@ def main():
     p.add_argument("--fy-slab", type=float, default=None, help="steel for slabs (default = --fy)")
     p.add_argument("--no-slabs", action="store_true")
     p.add_argument("--no-walls", action="store_true")
+    p.add_argument("--stairs", help="JSON list of stairs (see stairs_bbs.py)")
+    p.add_argument("--lap-factor", type=float, default=1.0, help="lap length = factor x Ld (default 1.0)")
+    p.add_argument("--no-bbs", action="store_true")
     p.add_argument("--dead-cases")
     p.add_argument("--live-cases")
     p.add_argument("--unbraced", action="store_true")
@@ -680,12 +693,31 @@ def main():
     wtypes = group(res["walls"], lambda w: (w["t"], short(w["vert"]), short(w["hor"])), "WT",
                    lambda w: w["t"] * 1000 + bars_per_m(w["vert"])[0] * (bars_per_m(w["vert"])[1] or 0) ** 2
                    if bars_per_m(w["vert"])[0] else w["t"])
-    for kind in ("footings", "columns", "beams", "slabs", "walls"):
+    for kind in ("footings", "columns", "beams", "slabs", "walls", "stairs"):
         md = "\n\n".join(r.to_markdown() for k, r in reports if k == kind)
         if md:
             with open(os.path.join(a.out, "reports", f"{kind}.md"), "w", encoding="utf-8") as f:
                 f.write(md)
     write_xlsx(res, os.path.join(a.out, "design.xlsx"))
+    steel_t = None
+    B = None
+    if not a.no_bbs:
+        sys.path.insert(0, lib)
+        from ecp203.footing import development_length
+        B = SB.build_bbs(res, ftypes, ctypes, btypes, ptypes, wtypes, res["stairs"], a, development_length)
+        if B.rows:
+            import openpyxl
+            wb = openpyxl.load_workbook(os.path.join(a.out, "design.xlsx"))
+            if res["stairs"]:
+                ws = wb.create_sheet("Stairs")
+                ws.append(["Stair", "Story", "Type", "Span m", "Riser", "Going", "t mm", "Width m", "Main", "Distribution",
+                           "Top", "wu kN/m2", "OK", "Failing checks"])
+                for st_ in res["stairs"]:
+                    ws.append([st_.get("name"), st_.get("story"), st_["kind"], st_["span"], st_["riser"], st_["going"],
+                               st_["t"], st_.get("width"), short(st_["main"]), short(st_["dist"]), short(st_["top"]),
+                               st_["wu"], "yes" if st_["ok"] else "NO", "; ".join(st_["fail"])])
+            steel_t = SB.write_bbs_xlsx(B, wb, a) / 1000
+            wb.save(os.path.join(a.out, "design.xlsx"))
     sheets = []
     if ftypes:
         fp = os.path.join(a.out, f"{a.project_code}-ST-ZZ-101_R00.dxf")
@@ -718,6 +750,14 @@ def main():
         S, N = SW.draw_walls(Sheet, tpl, wtypes, a, short, bars_per_m)
         S.finish(fp, a.title_fields("WALL SCHEDULE", "503", N, "ZZ"))
         sheets.append((fp, N))
+    if res["stairs"]:
+        fp = os.path.join(a.out, f"{a.project_code}-ST-ZZ-401_R00.dxf")
+        S, N = SB.draw_stairs(Sheet, tpl, res["stairs"], a, short)
+        S.finish(fp, a.title_fields("STAIR DETAILS", "401", N, "ZZ"))
+        sheets.append((fp, N))
+    if B is not None and B.rows:
+        sheets += SB.draw_bbs(Sheet, tpl, B, a, a.title_fields,
+                              lambda num: os.path.join(a.out, f"{a.project_code}-ST-ZZ-{num}_R00.dxf"))
     for fp, N in sheets:
         preview(fp, fp[:-4] + ".png")
 
@@ -753,6 +793,13 @@ def main():
         w = lst[0]
         print(f"  {name}: t={w['t']}  vert {short(w['vert'])}  hor {short(w['hor'])} (each face)  x{len(lst)}"
               + ("" if all(i["ok"] for i in lst) else "  FAILS: " + "; ".join(sorted({x for i in lst for x in i["fail"]}))))
+    for st_ in res["stairs"]:
+        print(f"  stair {st_.get('name')}: {st_['kind']} span {st_['span']} m t={st_['t']}  main {short(st_['main'])}  "
+              f"dist {short(st_['dist'])}" + ("" if st_["ok"] else "  FAILS: " + "; ".join(st_["fail"])))
+    if B is not None and B.rows:
+        by_d, by_el = SB.bbs_summary(B)
+        print(f"BBS: {len(B.rows)} bar marks, total steel {steel_t:.2f} t  ("
+              + ", ".join(f"{el} {w / 1000:.2f} t" for el, w in by_el.items()) + ")")
     for s in res["skipped"]:
         print("  skipped: " + s)
     print("Files:")
