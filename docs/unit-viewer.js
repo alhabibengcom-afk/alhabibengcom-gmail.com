@@ -191,7 +191,7 @@ function showUnitDetails(u) {
     metric('الأبعاد التقريبية للمستطيل المحيط',num(Math.min(approx.width,approx.depth))+' × '+num(Math.max(approx.width,approx.depth))+' م');
   }else if(!printed&&!(cad?.width>0&&cad?.depth>0)){metric('الأبعاد الطولية','راجع تفصيل اللوحة الأصلي أدناه')}
   metric('حالة التأجير',u.status);facts.append(metricList);
-  if(approx?.method==='area_ratio')facts.append(el('p','uv-caption','الضلع القصير والطويل تقدير من شكل المسقط والمساحة الإجمالية المعلنة.'));
+  if(approx?.method==='area_ratio')facts.append(el('p','uv-caption','الضلع القصير والطويل تقدير من شكل المسقط والمساحة المحملة.'));
   else if(approx?.width&&approx?.depth)facts.append(el('p','uv-caption','تقدير للامتداد الكلي بين أطراف الوحدة من مقياس رسم اللوحة. راجع شكل الأركان والارتدادات في تفصيل الوحدة.'));
   if(u.note)facts.append(el('p','uv-note',u.note));
   const actions=el('div','uv-actions');actions.append(btn('طلب معاينة الوحدة',()=>booking(u),'action'),makeCompareButton(u),btn('مقارنة الوحدات',openComparison,'secondary'));facts.append(actions);
@@ -247,7 +247,7 @@ function showUnitDetails(u) {
 function sourceDetail(u,record,large){
   // Link the unit to its own window on the unmodified architectural layer.
   const region=el('div','uv-source-detail');
-  const preview=el('canvas');preview.setAttribute('role','img');preview.setAttribute('aria-label','الأبعاد والتقسيمات كما تظهر في اللوحة الأصلية للوحدة '+codeText(u));
+  const preview=el('canvas');preview.setAttribute('role','img');preview.setAttribute('aria-label','الأبعاد والتقسيمات كما تظهر في المسقط المعدّل للوحدة '+codeText(u));
   region.append(preview);
   const source=new Image(), poly=record.polygon||[];
   let radius=Math.max(28,...poly.map(([x,y])=>Math.abs(x-u.x)),...poly.map(([x,y])=>Math.abs(y-u.y)));
