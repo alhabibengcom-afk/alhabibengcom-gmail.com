@@ -1,15 +1,13 @@
 const LOCATION_LINKS = {
   "photos": {
-    "G26": [
+    "G26-28": [
       {
         "photo": "1000893864",
         "x": 0.342,
         "y": 0.6343,
         "note": "مطابقة تتابع الفتحات والأعمدة بين مدخلي الممر بالمسقط والصور الأصلية",
         "basis": "architectural-correspondence"
-      }
-    ],
-    "G28": [
+      },
       {
         "photo": "1000893864",
         "x": 0.5052,
@@ -32,7 +30,7 @@ const LOCATION_LINKS = {
         "basis": "architectural-correspondence"
       }
     ],
-    "G30": [
+    "G30-32": [
       {
         "photo": "1000893864",
         "x": 0.6997,
@@ -53,9 +51,7 @@ const LOCATION_LINKS = {
         "y": 0.4838,
         "note": "مطابقة تتابع الفتحات والأعمدة بين مدخلي الممر بالمسقط والصور الأصلية",
         "basis": "architectural-correspondence"
-      }
-    ],
-    "G32": [
+      },
       {
         "photo": "1000893864",
         "x": 0.9175,
@@ -85,7 +81,7 @@ const LOCATION_LINKS = {
         "basis": "architectural-correspondence"
       }
     ],
-    "G34": [
+    "G34-36": [
       {
         "photo": "1000893966",
         "x": 0.3993,
@@ -106,9 +102,7 @@ const LOCATION_LINKS = {
         "y": 0.5058,
         "note": "مطابقة تتابع الفتحات والأعمدة بين مدخلي الممر بالمسقط والصور الأصلية",
         "basis": "architectural-correspondence"
-      }
-    ],
-    "G36": [
+      },
       {
         "photo": "1000893966",
         "x": 0.4731,
@@ -152,9 +146,7 @@ const LOCATION_LINKS = {
         "y": 0.5197,
         "note": "مطابقة تتابع الفتحات والأعمدة بين مدخلي الممر بالمسقط والصور الأصلية",
         "basis": "architectural-correspondence"
-      }
-    ],
-    "G38-1": [
+      },
       {
         "photo": "1000893966",
         "x": 0.5964,
@@ -379,7 +371,7 @@ const LOCATION_LINKS = {
         "basis": "architectural-correspondence"
       }
     ],
-    "S27": [
+    "S23-27": [
       {
         "photo": "1000893966",
         "x": 0.5553,
@@ -400,9 +392,7 @@ const LOCATION_LINKS = {
         "y": 0.5044,
         "note": "مطابقة الأعمدة والفتحات المتتابعة والتراس بالمسقط وصور الواجهة",
         "basis": "architectural-correspondence"
-      }
-    ],
-    "S26": [
+      },
       {
         "photo": "1000893966",
         "x": 0.4954,
@@ -423,9 +413,7 @@ const LOCATION_LINKS = {
         "y": 0.4956,
         "note": "مطابقة الأعمدة والفتحات المتتابعة والتراس بالمسقط وصور الواجهة",
         "basis": "architectural-correspondence"
-      }
-    ],
-    "S24": [
+      },
       {
         "photo": "1000893966",
         "x": 0.4303,
@@ -446,9 +434,7 @@ const LOCATION_LINKS = {
         "y": 0.4939,
         "note": "مطابقة الأعمدة والفتحات المتتابعة والتراس بالمسقط وصور الواجهة",
         "basis": "architectural-correspondence"
-      }
-    ],
-    "S23": [
+      },
       {
         "photo": "1000893966",
         "x": 0.35,
@@ -471,7 +457,7 @@ const LOCATION_LINKS = {
         "basis": "architectural-correspondence"
       }
     ],
-    "S22": [
+    "S19-22": [
       {
         "photo": "1000893966",
         "x": 0.2645,
@@ -492,9 +478,7 @@ const LOCATION_LINKS = {
         "y": 0.4956,
         "note": "مطابقة الأعمدة والفتحات المتتابعة والتراس بالمسقط وصور الواجهة",
         "basis": "architectural-correspondence"
-      }
-    ],
-    "S21": [
+      },
       {
         "photo": "1000893966",
         "x": 0.1678,
@@ -508,9 +492,7 @@ const LOCATION_LINKS = {
         "y": 0.336,
         "note": "مطابقة الأعمدة والفتحات المتتابعة والتراس بالمسقط وصور الواجهة",
         "basis": "architectural-correspondence"
-      }
-    ],
-    "S20": [
+      },
       {
         "photo": "1000893966",
         "x": 0.0612,
