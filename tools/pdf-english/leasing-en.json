@@ -652,5 +652,16 @@
 "الضلع المواجه للسلم {0} م": "Side facing the stairs {0} m",
 "العرض عند الممر السفلي {0} م": "Width at lower corridor {0} m",
 "الامتداد الكلي على الجانب الأيمن {0} م": "Total extent on right side {0} m",
-"الامتداد الداخلي من أعلى الرسم إلى أسفله {0} م": "Internal extent, top to bottom of plan {0} m"
+"الامتداد الداخلي من أعلى الرسم إلى أسفله {0} م": "Internal extent, top to bottom of plan {0} m",
+"متاحة للإيجار": "Available for lease",
+"غير معروضة للتأجير حالًيا": "Not currently offered",
+"فود كورت": "Food court",
+"{0}تراس خارجي على البلازا {1} م": "Outdoor plaza terrace {1} m²",
+"يشّغلها الحبيب مباشرة": "Operated by Al Habeeb",
+"اتصالات": "Telecom",
+"الحبيب ستور": "Al Habeeb Store",
+"موبايلات": "Mobiles",
+"منطقة أطفال وحضانة": "Kids area & nursery",
+"صيدلية وخدمات طبية": "Pharmacy & medical",
+"صيدلية الحبيب": "Al Habeeb Pharmacy"
 }

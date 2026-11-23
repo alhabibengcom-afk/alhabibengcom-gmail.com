@@ -114,7 +114,7 @@ function createUnitScene(u, record, mode) {
     grab=null;
   });
   canvas.addEventListener('pointercancel',()=>{grab=null});
-  const caption=three?'منظور تخطيطي مبني على مسقط التأجير. اسحب أفقيًا لتدوير المشهد.':'مسقط التأجير الأصلي. العلامة الخضراء عند موقع الوحدة.';
+  const caption=three?'منظور تخطيطي مبني على مسقط التأجير. اسحب أفقيًا لتدوير المشهد.':'مسقط التأجير المعدّل. العلامة الخضراء عند موقع الوحدة.';
   panel.append(canvas,controls,el('p','uv-caption',caption));
   plan.onload=redraw;
   plan.onerror=()=>canvas.replaceWith(el('p','uv-caption','تعذّر تحميل المسقط. يمكن فتح الرسم من تبويب تفاصيل الوحدة.'));
@@ -171,7 +171,7 @@ function showUnitDetails(u) {
   viewer.append(tabs,stage);
   const facts=el('aside','uv-facts');
   facts.append(el('h2','',u.title));
-  const area=el('div','uv-area');area.append(el('span','','المساحة على مخطط التأجير'),el('strong','',fmt(u.area)));facts.append(area);
+  const area=el('div','uv-area');area.append(el('span','','المساحة المحملة (أساس الإيجار)'),el('strong','',fmt(u.area)));facts.append(area);
   const metricList=el('dl','uv-metrics');
   function metric(label,value){const row=el('div');row.append(el('dt','',label),el('dd','',value));metricList.append(row)}
   if(u.extra)metric(u.elab,fmt(u.extra));
