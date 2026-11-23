@@ -33,19 +33,34 @@ Gets data out of analysis models as files, not as printed reports, and turns it 
 
 Then design: `cd "Egyptian codes" && python3 -m ecp203 <file>.json -o reports/<name>.md`. Exit code 1 means at least one element is not safe: report which and why, don't hide it.
 
-## Direct reading from the .EDB (no export, no report)
+## Direct reading from the model files (no export, no report)
 
-When the user wants the model read straight from ETABS, use `scripts/etabs_live.py` on their Windows PC (ETABS 18+ installed). It drives ETABS through its official API: opens the `.EDB` (or attaches to the open model), runs the analysis if needed, reads Joint Reactions, Element Forces (columns, beams) and Pier Forces through `DatabaseTables`, picks up the model text file ETABS keeps beside the model (`.$et` — saving the model once creates it if missing), then runs `building_design.py`:
+Both run on the user's Windows PC (ETABS / SAFE installed) through the programs' official API. They cannot run in a cloud session: if the user's computer is connected (Remote Control folder) run them there, otherwise give the user the command or the .bat launcher.
+
+**ETABS** — `scripts/etabs_live.py` (or drag the .EDB onto `scripts/run_etabs.bat`):
 ```
 pip install comtypes openpyxl ezdxf matplotlib
-python etabs_live.py --edb "D:\Projects\Tower\Tower.EDB" --q-allow 200 --combos U1,U2 --project "Tower" -o out
-python etabs_live.py --attach --q-allow 200 -o out      # model already open in ETABS
+python etabs_live.py --edb "D:\Projects\Tower\Tower.EDB" --fix --q-allow 200 --project Tower -o out [--fcu 30 --stairs st.json ...]
+python etabs_live.py --attach --fix --q-allow 200 -o out        # model already open
 ```
-or drag the `.EDB` onto `scripts/run_etabs.bat`. Any `building_design.py` option can be added (`--fcu`, `--stairs`, ...).
-- It cannot run in a cloud session (ETABS is Windows software). If the user's computer is connected (Remote Control folder), run it there; otherwise give them the command.
-- A `.$et` file found beside an `.EDB` is the full model in text: read it directly with `summary` / `review` / `building_design.py`.
-- Tested here only against a mock of the API returning ETABS-format tables; on the first real run, check the printed row counts per table and report any API error verbatim.
-- SAFE has a similar API (not wired yet); ADAPT has no public API — use its Excel exports.
+1. opens the model (hidden) or attaches; reads the model text ETABS keeps beside it (`.$et`, one Save creates it);
+2. reviews it; with `--fix` applies the safe corrections **inside ETABS** (missing load patterns, self-weight once, base supports, ECP ultimate combination from `ecp203/params.py`), saves `<name>_ALH-fixed.EDB` (original never overwritten), **re-runs the analysis** — so the design uses corrected results; engineering items (sizes, load values, seismic data) are reported, not changed;
+3. reads Joint Reactions, Element Forces (columns, beams), Pier Forces, Base Reactions, Story Drifts, Modal mass through the API database tables (table names found in ETABS's own list, so versions don't matter) → `etabs_tables.xlsx`;
+4. runs `building_design.py --auto-resize`.
+
+**SAFE** — `scripts/safe_live.py` (or drag the .FDB onto `scripts/run_safe.bat`):
+```
+python safe_live.py --fdb "D:\Projects\Tower\Raft.FDB" --q-allow 150 --combos U1 --service-combos SERV -o out
+```
+Runs the analysis, pulls strip forces, soil pressures, punching and slab properties, then `safe_design.py`: strip steel per metre with `ecp203` `design_slab_strip` (top and bottom per strip), max soil pressure vs `q_allow` (+ uplift), punching ratios, thickness proposal with `--auto-resize` (punching after resize is an estimate — re-run SAFE at the proposed thickness), `ST-ZZ-120` sheet + `safe_design.xlsx` + calculation report. `safe_design.py --tables safe_tables.xlsx` also works on a manual SAFE Excel export. Fields are matched by name; the script prints which moment/width fields it used — check them on the first run.
+
+**ADAPT** — there is no public ADAPT API to drive, so ADAPT cannot be read from its native file. Use its Excel/text exports with `tables --list` and map the columns from the actual headers; PT checks use `Egyptian codes/aci318` (office rule: PT slabs by ACI 318-19). Ask the user for one sample export before promising automation, and never guess numbers from a binary `.ADB`.
+
+Tested here against mocks returning tables in the programs' layouts; on the first real run, read the printed table names and row counts and report any API error verbatim.
+
+## Auto-resize (design that corrects itself)
+
+`--auto-resize` (on by default from the live scripts): every element failing an ECP 203 check is enlarged step by step and redesigned with the same forces — columns +50 mm alternating sides until they pass **and** steel ≤ `--max-rho` (default 2 %, economical), beams deeper (then wider), slabs +10 mm (self-weight updated), walls +50 mm, flat slabs +20 mm until punching passes. Proposals go to the "Resize proposals" sheet and the console. Always tell the user: bigger members change stiffness and weight — update the model with the proposed sizes, re-run (`etabs_live.py --fix` again), and design again before issue.
 
 ## Workflow
 
@@ -125,5 +140,8 @@ Report to the user: number of types, every element that fails (and why — e.g. 
 - `scripts/building_design.py` - full design + DXF drawings
 - `scripts/slabs_walls.py` - slab panel detection, slab/flat-slab/wall design and their sheets
 - `scripts/stairs_bbs.py` - stair design and drawing, bar bending schedule
-- `scripts/etabs_live.py` + `scripts/run_etabs.bat` - read the .EDB directly through the ETABS API (Windows)
+- `scripts/csi_api.py` - shared ETABS/SAFE API layer (connect, table discovery, edits)
+- `scripts/etabs_live.py` + `run_etabs.bat` - ETABS .EDB direct: review, fix in ETABS, re-analyse, design
+- `scripts/safe_live.py` + `run_safe.bat`, `scripts/safe_design.py` - SAFE .FDB direct: strips, soil, punching, drawing
+- `scripts/resize.py` - auto-resize of failing elements
 - `tests/` - small sample files (sample.e2k, reactions.xlsx, forces.xlsx, sample.f2k) to try the commands

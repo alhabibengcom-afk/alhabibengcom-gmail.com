@@ -199,13 +199,13 @@ def design_slabs(M, a, lib_funcs, reports, skipped):
                 mode = "one-way"
             bx, by = (bs, bl) if short_is_x else (bl, bs)
             tx, ty = (ts, tl) if short_is_x else (tl, ts)
-            out["panels"].append({"story": st, "x0": x0, "x1": x1, "y0": y0, "y1": y1, "t": t_mm, "mode": mode,
+            out["panels"].append({"label": s["label"], "cx": cx_, "cy": cy_, "story": st, "x0": x0, "x1": x1, "y0": y0, "y1": y1, "t": t_mm, "mode": mode,
                                   "wD": wD, "wL": ll, "cont": cont, "bx": bx, "by": by, "tx": tx, "ty": ty,
                                   "ok": rep.ok, "fail": [c.desc for c in rep.checks if not c.ok]})
     return out
 
 
-def _flat(M, st, cols, slabs, loads, a, fn, reports, skipped):
+def _flat(M, st, cols, slabs, loads, a, fn, reports, skipped, h_override=None):
     if len(cols) < 4:
         skipped.append(f"Slab {st}: no beams and fewer than 4 columns - design manually.")
         return []
@@ -217,7 +217,7 @@ def _flat(M, st, cols, slabs, loads, a, fn, reports, skipped):
                        f"design from SAFE strips.")
         return []
     s = slabs[0]
-    h = round(s["t"] * 1000)
+    h = h_override or round(s["t"] * 1000)
     sdl = max((loads.get(sl["label"], (0, 0))[0] for sl in slabs), default=0.0)
     ll = max((loads.get(sl["label"], (0, 0))[1] for sl in slabs), default=0.0)
     sizes = defaultdict(int)

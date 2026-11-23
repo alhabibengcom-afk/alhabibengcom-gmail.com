@@ -155,7 +155,8 @@ def design_all(a, lib):
                     res["columns"].append({"label": lab, "story": st, "b": b, "t": h, "Pu": e["P"],
                                            "long": r.get("longitudinal", ""), "ties": r.get("ties", ""),
                                            "ok": rep.ok, "fail": [c_.desc for c_ in rep.checks if not c_.ok],
-                                           "elev": M.elev(st), "x": i.get("x"), "y": i.get("y")})
+                                           "elev": M.elev(st), "x": i.get("x"), "y": i.get("y"),
+                                           "Mx": round(e["M3"], 1), "My": round(e["M2"], 1), "He": He})
                 else:
                     rep = design_beam(b, h, a.fcu, a.fy, round(e["M3pos"], 1), round(e["M3neg"], 1), round(e["V2"], 1),
                                       title=f"Beam {lab} - {st}")
@@ -164,7 +165,8 @@ def design_all(a, lib):
                                          "bot": r.get("positive.tension_bars", ""), "top": r.get("negative.tension_bars", ""),
                                          "stir": r.get("shear.stirrups", ""), "ok": rep.ok,
                                          "fail": [c_.desc for c_ in rep.checks if not c_.ok], "elev": M.elev(st),
-                                         "L": i.get("L")})
+                                         "L": i.get("L"), "Mu_pos": round(e["M3pos"], 1),
+                                         "Mu_neg": round(e["M3neg"], 1), "Qu": round(e["V2"], 1)})
                 reports.append((kind + "s", rep))
     # ---- slabs and walls
     from ecp203.slab import design_two_way_slab, design_one_way_slab
@@ -654,6 +656,9 @@ def main():
     p.add_argument("--stairs", help="JSON list of stairs (see stairs_bbs.py)")
     p.add_argument("--lap-factor", type=float, default=1.0, help="lap length = factor x Ld (default 1.0)")
     p.add_argument("--no-bbs", action="store_true")
+    p.add_argument("--auto-resize", action="store_true",
+                   help="enlarge failing columns/beams/slabs/walls/flat slabs until ECP 203 checks pass")
+    p.add_argument("--max-rho", type=float, default=2.0, help="economical column steel ratio %% for resizing")
     p.add_argument("--dead-cases")
     p.add_argument("--live-cases")
     p.add_argument("--unbraced", action="store_true")
@@ -680,6 +685,11 @@ def main():
     a.title_fields = title_fields
 
     res, reports = design_all(a, lib)
+    if a.auto_resize:
+        import resize
+        res["resized"] = resize.auto_resize(res, reports, a, lib)
+    else:
+        res["resized"] = []
     ftypes = group(res["footings"], lambda f: (f["B"], f["Lf"], f["h"], short(f["bars_L"]), short(f["bars_B"]), f["col"]),
                    "F", lambda f: f["B"] * f["Lf"])
     ctypes = group(res["columns"], lambda c: (c["b"], c["t"], short(c["long"]), short(c["ties"])), "CT",
@@ -699,6 +709,21 @@ def main():
             with open(os.path.join(a.out, "reports", f"{kind}.md"), "w", encoding="utf-8") as f:
                 f.write(md)
     write_xlsx(res, os.path.join(a.out, "design.xlsx"))
+    if res["resized"]:
+        import openpyxl
+        wb = openpyxl.load_workbook(os.path.join(a.out, "design.xlsx"))
+        ws = wb.create_sheet("Resize proposals", 0)
+        ws.append(["Element", "Member", "Model size", "Proposed size", "Failing check(s) in model size",
+                   "Passes ECP 203 at proposed size"])
+        for row in res["resized"]:
+            ws.append(list(row[:5]) + ["yes" if row[5] else "NO - step limit reached, redesign"])
+        ws.append([])
+        ws.append(["Larger members change stiffness and self-weight: update the model, re-run the analysis and "
+                   "design again before issue."])
+        for col in ws.columns:
+            ws.column_dimensions[col[0].column_letter].width = min(60, max(12, max(len(str(c.value or ""))
+                                                                                   for c in col) + 2))
+        wb.save(os.path.join(a.out, "design.xlsx"))
     steel_t = None
     B = None
     if not a.no_bbs:
@@ -766,7 +791,9 @@ def main():
     for name, lst in ftypes:
         f = lst[0]
         print(f"  {name}: {f['B']}x{f['Lf']}x{f['h']}  {short(f['bars_L'])} / {short(f['bars_B'])}  x{len(lst)}"
-              + ("" if all(i["ok"] for i in lst) else "  FAILS: " + "; ".join(sorted({x for i in lst for x in i["fail"]}))))
+              + ("" if all(i["ok"] for i in lst) else "  FAILS: " + "; ".join(sorted({x for i in lst for x in i["fail"]}))
+                 + ("  -> 90° end hooks (12 dia) provided in drawing and BBS; confirm hooked anchorage per ECP 203"
+                    if all(i.get("note") for i in lst if not i["ok"]) else "")))
     print(f"Columns: {len(res['columns'])} in {len(ctypes)} types ({nf(res['columns'])} failing)")
     for name, lst in ctypes:
         c = lst[0]
@@ -800,6 +827,11 @@ def main():
         by_d, by_el = SB.bbs_summary(B)
         print(f"BBS: {len(B.rows)} bar marks, total steel {steel_t:.2f} t  ("
               + ", ".join(f"{el} {w / 1000:.2f} t" for el, w in by_el.items()) + ")")
+    if res["resized"]:
+        print("RESIZED to pass ECP 203 (update the model with these sizes, re-analyse, design again):")
+        for el, mem, old, new, why, ok in res["resized"]:
+            print(f"  {el} {mem}: {old} -> {new}" + ("" if ok else "  (still failing at the step limit)")
+                  + f"   was failing: {why[:90]}")
     for s in res["skipped"]:
         print("  skipped: " + s)
     print("Files:")

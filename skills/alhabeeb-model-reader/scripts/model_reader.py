@@ -919,6 +919,54 @@ def _guess_type(name):
     return "Super Dead"
 
 
+def plan_fixes(M):
+    """Fixes as actions, shared by 'fix' (text file) and etabs_live --fix (API):
+    ('pattern', name, type, selfwt) | ('selfweight', name, mult) | ('support', point, story) | ('combo', name, [(case, sf)])"""
+    acts = []
+    refs = set()
+    for ld in M.area_loads + M.line_loads + M.point_loads:
+        lc = ld.get("LC") or ld.get("LOADPAT") or ld.get("PATTERN")
+        if lc:
+            refs.add(lc)
+    for c in M.combos.values():
+        for case, _ in c["items"]:
+            if case not in M.combos:
+                refs.add(case)
+    pats = {n: dict(p) for n, p in M.patterns.items()}
+    for r in sorted(refs - set(pats)):
+        t = _guess_type(r)
+        acts.append(("pattern", r, t, 0.0))
+        pats[r] = {"TYPE": t, "SELFWEIGHT": "0"}
+    sw = [n for n, p in pats.items() if fnum(p.get("SELFWEIGHT"), 0) > 0]
+    dead = [n for n, p in pats.items() if str(p.get("TYPE", "")).lower() == "dead"]
+    if len(sw) > 1:
+        keep = dead[0] if dead and dead[0] in sw else sw[0]
+        acts += [("selfweight", n, 0.0) for n in sw if n != keep]
+    elif not sw:
+        if dead:
+            acts.append(("selfweight", dead[0], 1.0))
+        else:
+            acts.append(("pattern", "Dead", "Dead", 1.0))
+            pats["Dead"] = {"TYPE": "Dead", "SELFWEIGHT": "1"}
+    base = M.stories[-1]["name"] if M.stories else None
+    restrained = {(pa["label"], pa["story"]) for pa in M.point_assigns if pa.get("RESTRAINT")}
+    seen = set()
+    for e in instances(M):
+        if e["kind"] == "column" and M.story_below(e["story"]) == base and (e["point"], base) not in restrained \
+                and e["point"] not in seen:
+            acts.append(("support", e["point"], base))
+            seen.add(e["point"])
+    LD, LL, _ = _load_factors()
+    types = {n: str(p.get("TYPE", "")).lower() for n, p in pats.items()}
+    dl = [n for n, t in types.items() if t in DEAD_TYPES]
+    ll = [n for n, t in types.items() if t in LIVE_TYPES]
+    has = any(set(dl) <= {c_ for c_, _ in c["items"]} and set(ll) <= {c_ for c_, _ in c["items"]}
+              for c in M.combos.values()) if dl else True
+    if not has:
+        acts.append(("combo", "ECP-U1", [(n, LD) for n in dl] + [(n, LL) for n in ll]))
+    return acts
+
+
 def cmd_fix(a):
     M = read_e2k(a.model)
     with open(a.model, encoding="utf-8", errors="replace") as f:

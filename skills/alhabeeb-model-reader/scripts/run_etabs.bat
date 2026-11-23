@@ -10,7 +10,7 @@ if "%~1"=="" (
 set QALLOW=%~2
 if "%QALLOW%"=="" set QALLOW=200
 python -m pip install -q comtypes openpyxl ezdxf matplotlib
-python "%~dp0etabs_live.py" --edb "%~f1" --q-allow %QALLOW% --project "%~n1" --project-code PRJ -o "%~dp1%~n1_design"
+python "%~dp0etabs_live.py" --edb "%~f1" --fix --q-allow %QALLOW% --project "%~n1" --project-code PRJ -o "%~dp1%~n1_design"
 echo.
 echo Results in "%~dp1%~n1_design"
 pause
