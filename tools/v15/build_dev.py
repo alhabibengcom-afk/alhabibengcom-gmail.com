@@ -90,8 +90,8 @@ PROJECTS = [
 
 PARTNERS = [
     (t('جهات حكومية', 'Government authorities'), [t('جهاز مدينة قنا الجديدة', 'New Qena City Authority'), t('جهاز مدينة أسوان الجديدة', 'New Aswan City Authority')]),
-    (t('البنوك', 'Banks'), [t('البنك الأهلي المصري', 'National Bank of Egypt')]),
-    (t('التطوير والمقاولات', 'Development & contracting'), [t('المقاولون العرب', 'The Arab Contractors'), t('أوراسكوم للإنشاءات', 'Orascom Construction'),
+    (t('البنوك', 'Banks'), [t('البنك الأهلي المصري', 'National Bank of Egypt'), t('البنك الأهلي القطري', 'QNB')]),
+    (t('التطوير والمقاولات', 'Development & contracting'), [t('AMA للتطوير العقاري', 'AMA Real Estate Development'), t('المقاولون العرب', 'The Arab Contractors'), t('أوراسكوم للإنشاءات', 'Orascom Construction'),
         t('مجموعة طلعت مصطفى', 'Talaat Moustafa Group'), t('البحر الأحمر الدولية', 'Red Sea Global'), t('معمار المرشدي', 'Memar Al-Morshedy')]),
     (t('مواد البناء', 'Building materials'), [t('سيمكس', 'CEMEX'), t('أسمنت النهضة', 'Al Nahda Cement'), t('حديد عز', 'Ezz Steel'), t('حديد المصريين', 'Egyptian Steel')]),
 ]
