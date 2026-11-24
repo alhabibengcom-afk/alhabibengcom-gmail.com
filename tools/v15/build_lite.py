@@ -158,18 +158,18 @@ def cut(sel_start, sel_end_tag):
     s = s[:i] + s[j:]
 
 
-rep('pro.css?v=15o', 'pro.css?v=15o')
+rep('pro.css?v=15p', 'pro.css?v=15p')
 # lite flag (static)
 s, nflag = re.subn(r'<script>\(function\(\)\{var (?:q=new URLSearchParams\(location\.search\),)?l=(?:q|new URLSearchParams\(location\.search\))\.get\("lite"\).*?</script>',
            '<script>window.HP_LITE=true;document.documentElement.classList.add("hp-lite")</script>', s, count=1, flags=re.S)
 assert nflag == 1, 'lite flag not set'
 # English dictionary + lite overrides
 rep('document.write(\'<script src="i18n-en.js?v=15n"><\\/script>\')',
-    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=3"><\\/script>\')')
+    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=4"><\\/script>\')')
 # own scripts
 rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=2"></script>')
 rep('<script src="unit-viewer.js?v=15b"></script>', '<script src="unit-viewer-lite.js?v=1"></script>')
-rep('<script src="lite.js?v=15b"></script>', '<script src="lite.js?v=2"></script>')
+rep('<script src="lite.js?v=15b"></script>', '<script src="lite.js?v=3"></script>')
 rep('launcher.js?v=15d', 'launcher.js?v=15d')
 # links that would leave the simple page
 s = s.replace('href="./#', 'href="lite.html#').replace('href="?', 'href="lite.html?')
@@ -225,7 +225,7 @@ rep('وخطة المواطن الاستثمارية لمحافظة قنا ٢٠٢
 
 # location (1.2, 1.3)
 rep('<strong>أرض ٢٠٬٠٠٠ م² وبلازا مفتوحة ٤٬٠٠٠ م²</strong>', '<strong>' + t('أرض ١٧٬٧٨٥ م² وبلازا مفتوحة ٤٬٠٠٠ م²', 'A 17,785 m² site and a 4,000 m² open plaza') + '</strong>')
-rep('<strong>جراج على مستويين لـ٥٠٠ سيارة</strong><span>سعة تصميمية، منها ٣٬٦٤٤ م² في البدروم الأول.</span>',
+rep('<strong>جراج على مستويين لـ٢٠٠ سيارة</strong><span>سعة تصميمية، منها ٣٬٦٤٤ م² في البدروم الأول.</span>',
     '<strong>' + t('جراج على مستويين بمساحة ٧٬٢٨٩ م²', 'A two-level garage of 7,289 m²') + '</strong><span>'
     + t('٣٬٦٤٤ م² لكل مستوى تحت البدروم.', '3,644 m² on each level, below ground.') + '</span>')
 rep('<strong>فندق وبحيرة وأنشطة ترفيهية</strong><span>فندق بلازا ١٤ غرفة،', '<strong>فندق وبحيرة وأنشطة ترفيهية</strong><span>فندق بلازا ١٤ غرفة وجناحًا،')
@@ -234,7 +234,7 @@ rep('<strong>فندق وبحيرة وأنشطة ترفيهية</strong><span>ف�
 rep('بدأ في ٢٠٢١ بمشروع هابينس بلازا عند مدخل قنا الجديدة: أرض ٢٠٬٠٠٠ م²، وبلازا مشتركة ٤٬٠٠٠ م²، وثلاث مراحل هي الفندق والترفيه ثم المحلات ثم الهايبر ماركت.',
     t('بدأ في ٢٠٢١ بمشروع هابينس بلازا عند مدخل قنا الجديدة: أرض ١٧٬٧٨٥ م²، وبلازا مشتركة ٤٬٠٠٠ م²، وثلاث مراحل هي الفندق والترفيه ثم المحلات ثم الهايبر ماركت.',
       'Launched in 2021 with Happiness Plaza at the entrance of New Qena: a 17,785 m² site, a 4,000 m² shared plaza and three phases: hotel and leisure, retail, then the hypermarket.'))
-rep('يعرض الملف جراجًا على مستويين بسعة تصميمية ٥٠٠ سيارة. وتُظهر لوحة البدروم المعروضة للتأجير ٣٬٦٤٤ م² للجراج على هذا المستوى.',
+rep('يعرض الملف جراجًا على مستويين بسعة تصميمية ٢٠٠ سيارة. وتُظهر لوحة البدروم المعروضة للتأجير ٣٬٦٤٤ م² للجراج على هذا المستوى.',
     t('جراج على مستويين بمساحة ٧٬٢٨٩ م²، منها ٣٬٦٤٤ م² في كل مستوى.', 'A two-level garage of 7,289 m², with 3,644 m² on each level.'))
 rep('ليصبح هابينس بلازا المكان اللي تقصده الأسرة', 'ليصبح هابينس بلازا المكان الذي تقصده الأسرة')
 
@@ -277,7 +277,7 @@ contact = ('<section class="section contact" id="contact"><div class="wrap"><spa
            f'<a class="action hp-wa" href="{WA}" rel="noopener" target="_blank">' + t('واتساب', 'WhatsApp') + ' <bdi>0122 777 7104</bdi></a>'
            '<a class="secondary" href="tel:+201227777104">' + t('اتصال', 'Call') + ' <bdi>0122 777 7104</bdi></a>'
            '<a class="secondary" href="mailto:info@happinessplaza.com"><bdi>info@happinessplaza.com</bdi></a>'
-           '</div></div></section>')
+           '</div><p class="hp-pack-row"><a class="action hp-pack" href="Happiness_Plaza_Leasing_Pack.pdf" download>' + t('حمّل ملف التأجير PDF', 'Download the Leasing Pack PDF') + '</a> <small>' + t('١٢ صفحة · ٢ م.ب', '12 pages · 2 MB') + '</small></p></div></section>')
 s = s[:a] + contact + s[b:]
 rep('<section class="section" id="deals">', '<section class="section" id="deals">', need=False)
 i = s.index('id="deals"'); b = s.index('</section>', i)
@@ -326,11 +326,11 @@ t('جراج على مستويين بمساحة ٧٬٢٨٩ م²، منها ٣٬٦
 
 # ---- second round: garage capacity, unit specs, full-mall visit estimate ----
 rep('<strong>جراج على مستويين بمساحة ٧٬٢٨٩ م²</strong><span>٣٬٦٤٤ م² لكل مستوى تحت البدروم.</span>',
-    '<strong>' + t('جراج على مستويين يتسع لـ١٤٥ سيارة', 'A two-level garage for 145 cars') + '</strong><span>'
+    '<strong>' + t('جراج على مستويين يتسع لـ٢٠٠ سيارة', 'A two-level garage for 200 cars') + '</strong><span>'
     + t('٧٬٢٨٩ م²، بواقع ٣٬٦٤٤ م² لكل مستوى.', '7,289 m², 3,644 m² on each level.') + '</span>')
 rep('جراج على مستويين بمساحة ٧٬٢٨٩ م²، منها ٣٬٦٤٤ م² في كل مستوى. يشمل البرنامج مصلى ودورات مياه للرجال والسيدات وذوي الإعاقة وماكينة صراف آلي.',
-    t('جراج على مستويين يتسع لـ١٤٥ سيارة بمساحة ٧٬٢٨٩ م² (٣٬٦٤٤ م² لكل مستوى). يشمل البرنامج مصلى ودورات مياه للرجال والسيدات وذوي الإعاقة وماكينة صراف آلي.',
-      'A two-level garage for 145 cars, 7,289 m² (3,644 m² on each level). The programme includes a prayer room, toilets for men, women and people with disabilities, and an ATM.'))
+    t('جراج على مستويين يتسع لـ٢٠٠ سيارة بمساحة ٧٬٢٨٩ م² (٣٬٦٤٤ م² لكل مستوى). يشمل البرنامج مصلى ودورات مياه للرجال والسيدات وذوي الإعاقة وماكينة صراف آلي.',
+      'A two-level garage for 200 cars, 7,289 m² (3,644 m² on each level). The programme includes a prayer room, toilets for men, women and people with disabilities, and an ATM.'))
 specs = ('<ul class="hp-specs">' + ''.join(f'<li><b>{a}</b><span>{b}</span></li>' for a, b in [
     (t('٤٫٦ م', '4.6 m'), t('ارتفاع السقف', 'Ceiling height')),
     (t('٢٫٨٠ م', '2.80 m'), t('ارتفاع الواجهة الزجاجية', 'Glass shopfront height')),

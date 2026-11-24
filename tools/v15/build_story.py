@@ -100,7 +100,7 @@ for title, body in [
          t('يشغّله الحبيب ماركت ويجلب زيارات يومية للمول.', 'Run by Al Habeeb Market, it brings daily visits to the mall.')),
         (t('٣ مداخل وحركة رأسية كاملة', '3 entrances and full vertical circulation'),
          t('مصعد بانورامي وسلّمان متحركان وسير كهربائي وسلالم رئيسية وطوارئ.', 'A panoramic lift, two escalators, a travelator, main and emergency stairs.')),
-        (t('جراج على مستويين لـ٥٠٠ سيارة', 'A two-level garage for 500 cars'),
+        (t('جراج على مستويين لـ٢٠٠ سيارة', 'A two-level garage for 200 cars'),
          t('سعة تصميمية، منها ٣٬٦٤٤ م² في البدروم الأول.', 'Design capacity, with 3,644 m² on basement level 1.')),
         (t('فندق وبحيرة وأنشطة ترفيهية', 'A hotel, a lake and leisure'),
          t('فندق بلازا ١٤ غرفة، وجزيرة بوخارست على البحيرة، وجيم ونادٍ صحي وألعاب أطفال.', 'The 14-room Plaza Hotel, Bokharest Island on the lake, a gym, spa and kids’ play.')),

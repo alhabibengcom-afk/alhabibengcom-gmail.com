@@ -3,14 +3,14 @@
    Pages and code: network first, cached copy when offline.
    Images and fonts: cache first, filled as the visitor browses.
    Videos and PDFs are never cached (large files, range requests). */
-const VERSION = 'hp-v15-19';
+const VERSION = 'hp-v15-20';
 const SHELL = [
   './',
   'index.html',
   'styles.css?v=15',
   'unit-viewer.css?v=15',
   'location-view.css?v=15',
-  'pro.css?v=15n',
+  'pro.css?v=15p',
   'i18n-en.js?v=15n',
   'i18n.js?v=15b',
   'unit-data.js?v=15',
@@ -28,10 +28,10 @@ const SHELL = [
   'documents.js?v=15f',
   'hospitality.js?v=15',
   'lite.html',
-  'i18n-en-lite.js?v=2',
+  'i18n-en-lite.js?v=4',
   'unit-viewer-lite.js?v=1',
-  'site-lite.js?v=1',
-  'lite.js?v=2',
+  'site-lite.js?v=2',
+  'lite.js?v=3',
   'manifest.webmanifest',
   'app/icon-192.png',
   'assets/Happiness_Plaza_Opening.jpg'
