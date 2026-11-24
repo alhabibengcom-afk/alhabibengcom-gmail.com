@@ -237,3 +237,7 @@ html.lang-en .pro-hero-shade {
   .dev-facts > div:nth-child(even) { padding-inline-start: 14px; }
   .dev-model, .dev-why, .dev-projects, .dev-pgroups { grid-template-columns: 1fr; }
 }
+
+/* Share button in the hero (v15) */
+button.hp-share { -webkit-appearance: none; appearance: none; background: transparent; color: #fbf8f0; border: 1px solid rgba(255, 255, 255, .55); font: inherit; font-weight: 700; cursor: pointer; }
+button.hp-share:hover { background: rgba(255, 255, 255, .1); }
