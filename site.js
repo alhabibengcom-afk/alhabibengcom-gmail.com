@@ -159,7 +159,7 @@ function openComparison(){
 }
 document.querySelector('.compare-open').addEventListener('click',openComparison);
 updateComparison();
-const chapterStops=[["home", "فيديو الموقع ونبذة عن المشروع"], ["stages", "مراحل تنفيذ المشروع"], ["phase", "المرحلة الأولى · الفندق والترفيه"], ["plaza", "بلازا المشروع"], ["lake", "البحيرة وجزيرة بوخارست"], ["rooms", "الفندق وغرفه"], ["owner", "شركة الحبيب للتنمية والاستثمار"], ["plan/g", "المرحلة الثانية · المحلات التجارية"], ["hyper", "المرحلة الثالثة · هايبر ماركت الحبيب"], ["market", "سوق قنا"], ["contact", "حجز معاينة"]];
+const chapterStops=[["home", "هابينس بلازا"], ["owner", "مين المالك؟"], ["why", "ليه قنا والصعيد؟"], ["location", "موقع المشروع ومميزاته"], ["goal", "هدفنا: مقصد أهالي قنا"], ["stages", "مراحل تنفيذ المشروع"], ["phase", "المرحلة الأولى قيد التشغيل"], ["lake", "البحيرة وجزيرة بوخارست"], ["rooms", "الفندق وغرفه"], ["market", "دراسة سوق قنا"], ["plan/g", "مخططات المحلات"], ["hyper", "المرحلة الثالثة · هايبر ماركت الحبيب"], ["contact", "حجز معاينة"]];
 let activeChapter=-1;
 const presentationBar=document.querySelector('#presentbar');
 function closePresentation(){
