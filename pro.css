@@ -181,18 +181,19 @@ html.lang-en .pro-hero-shade {
 .dev h3 { color: #fbf8f0; font-size: clamp(22px, 2.4vw, 32px); line-height: 1.45; margin-bottom: 22px; }
 .dev h4 { margin: 0; font-size: 20px; line-height: 1.5; color: #fbf8f0; }
 .dev p { color: #d4dbd2; }
-.dev-head { max-width: 860px; }
+.dev-head { max-width: 880px; }
 .dev-lead { margin-top: 18px; font-size: clamp(17px, 1.5vw, 20px); }
-.dev-motto { margin-top: 14px; font: 400 clamp(20px, 2vw, 26px)/1.5 Edition, Arabic, serif; color: var(--pro-gold) !important; }
 .dev-facts { display: grid; grid-template-columns: repeat(6, 1fr); margin-top: clamp(36px, 5vw, 60px); border-top: 1px solid rgba(255,255,255,.16); border-bottom: 1px solid rgba(255,255,255,.16); }
 .dev-facts > div { padding: 22px 18px 26px; border-inline-end: 1px solid rgba(255,255,255,.12); }
 .dev-facts > div:last-child { border-inline-end: 0; }
-.dev-facts b { display: block; font: 400 clamp(24px, 2.4vw, 34px)/1.3 Edition, Arabic, serif; color: var(--pro-gold); white-space: nowrap; }
+.dev-facts b { display: block; font: 400 clamp(20px, 1.9vw, 28px)/1.35 Edition, Arabic, serif; color: var(--pro-gold); }
 .dev-facts span { display: block; margin-top: 6px; font-size: 13.5px; line-height: 1.6; color: #cfd6cd; }
 .dev-block { margin-top: clamp(56px, 7vw, 96px); }
-.dev-model { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.dev-model { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .dev-model article { background: var(--pro-green-2); border: 1px solid rgba(255,255,255,.1); border-radius: 6px; padding: 26px 24px; }
-.dev-model i { display: block; font: 700 12px/1 Arial, sans-serif; letter-spacing: .18em; color: var(--pro-gold); font-style: normal; margin-bottom: 14px; }
+.dev-ic { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(226,195,139,.5); margin-bottom: 14px; }
+.dev-ic svg { width: 22px; height: 22px; fill: none; stroke: var(--pro-gold); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.dev-model i { display: block; font: 700 12px/1 Arial, sans-serif; letter-spacing: .18em; color: var(--pro-gold); font-style: normal; margin-bottom: 10px; }
 .dev-model p { margin-top: 8px; font-size: 15px; line-height: 1.85; }
 .dev-why { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(28px, 5vw, 72px); align-items: start; margin-top: clamp(56px, 7vw, 96px); }
 .dev-why ul { list-style: none; margin: 0; padding: 0; }
@@ -215,9 +216,6 @@ html.lang-en .pro-hero-shade {
 .dev-proj-body dl { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: auto 0 0; padding-top: 14px; }
 .dev-proj-body dt { font: 400 20px/1.3 Edition, Arabic, serif; color: var(--pro-green); white-space: nowrap; }
 .dev-proj-body dd { margin: 0; font-size: 12px; color: #6a716c; }
-.dev-vm { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: clamp(56px, 7vw, 96px); }
-.dev-vm > div { border-top: 2px solid var(--pro-gold); padding-top: 16px; }
-.dev-vm p { font-size: 16px; color: #e7ebe3; }
 .dev-partners { margin-top: clamp(56px, 7vw, 96px); }
 .dev-partners ul { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .dev-partners li { padding: 8px 16px; border: 1px solid rgba(226,195,139,.45); border-radius: 999px; font-size: 14px; color: #f1ead9; }
@@ -228,13 +226,12 @@ html.lang-en .pro-hero-shade {
   .dev-facts { grid-template-columns: repeat(3, 1fr); }
   .dev-facts > div:nth-child(3n) { border-inline-end: 0; }
   .dev-facts > div:nth-child(-n+3) { border-bottom: 1px solid rgba(255,255,255,.12); }
-  .dev-projects { grid-template-columns: 1fr 1fr; }
+  .dev-model, .dev-projects { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 760px) {
   .dev-facts { grid-template-columns: 1fr 1fr; }
   .dev-facts > div { border-inline-end: 0; border-bottom: 1px solid rgba(255,255,255,.12); padding: 18px 12px 20px 0; }
   .dev-facts > div:nth-child(odd) { border-inline-end: 1px solid rgba(255,255,255,.12); padding-inline-end: 12px; }
   .dev-facts > div:nth-child(even) { padding-inline-start: 14px; }
-  .dev-facts b { font-size: 26px; }
-  .dev-model, .dev-why, .dev-vm, .dev-projects { grid-template-columns: 1fr; }
+  .dev-model, .dev-why, .dev-projects { grid-template-columns: 1fr; }
 }
