@@ -1,8 +1,11 @@
-"""Replace the 'owner' section of the brand guide with a full developer profile.
+"""Replace the 'owner' section of the brand guide with the profile of
+Al-Habeeb for Development & Investment LLC.
 
 Usage: python3 build_dev.py SITE_DIR
-Facts come from the Al-Habeeb Company Profile 2026 (AR/EN, v2). Adds the English
-strings to i18n-en.js and the styles to pro.css.
+Order of the story: retail (Al Habeeb Market chain), farms, then real estate
+development, design and contracting. Facts come from the unit data, the leasing
+guide and the Al-Habeeb Company Profile 2026. Adds the English strings to
+i18n-en.js and the styles to pro.css.
 """
 import json
 import re
@@ -18,45 +21,52 @@ def t(ar, en):
 
 
 FACTS = [
-    (t('٢٠٠٨', '2008'), t('تأسست المجموعة في قنا', 'Group founded in Qena')),
-    (t('٣', '3'), t('مجالات عمل متكاملة: تصميم وتنفيذ وتطوير', 'Integrated business lines: design, build, develop')),
-    (t('٣', '3'), t('وحدات إنتاج داخلية: خرسانة سابقة الصب ومعادن ونجارة', 'In-house production units: precast, metal, joinery')),
-    (t('٢٠٬٠٠٠ م²', '20,000 m²'), t('أرض هابينس بلازا، المشروع الرئيسي للمجموعة', 'Happiness Plaza site, the group’s flagship development')),
-    (t('٧', '7'), t('قطاعات: تجاري وفندقي وترفيهي وإداري وطبي وسكني وديني', 'Sectors: retail, hospitality, leisure, workplace, healthcare, residential, religious')),
-    ('LOD 400', t('نماذج BIM حتى مستوى التنفيذ', 'BIM models developed to construction level')),
+    (t('التجزئة', 'Retail'), t('سلسلة الحبيب ماركت', 'The Al Habeeb Market chain')),
+    (t('الزراعة', 'Agriculture'), t('مزارع الحبيب', 'Al Habeeb Farms')),
+    (t('التطوير العقاري', 'Real estate'), t('منذ ٢٠٢١ بمشروع هابينس بلازا', 'Since 2021, with Happiness Plaza')),
+    (t('التصميم والمقاولات', 'Design & build'), t('منذ ٢٠٠٨ في قنا', 'Since 2008, in Qena')),
+    (t('٢٠٬٠٠٠ م²', '20,000 m²'), t('أرض هابينس بلازا', 'Happiness Plaza site')),
+    (t('٥٬٥٦٢ م²', '5,562 m²'), t('هايبر ماركت الحبيب داخل المول', 'Al Habeeb Hypermarket inside the mall')),
 ]
 
-MODEL = [
-    (t('٠١', '01'), t('تصميم', 'Design'),
-     t('معماري وإنشائي وكهروميكانيكا، ورسومات تنفيذية، ونماذج BIM حتى مستوى LOD 400، ومواصفات وحصر كميات.',
-       'Architecture, structure and MEP; construction drawings; LOD 300 and LOD 400 models; specifications and quantity take-off.')),
-    (t('٠٢', '02'), t('تنفيذ', 'Build'),
-     t('مقاولات عامة وإدارة تنفيذ وإشراف موقعي، تدعمها ورش الخرسانة سابقة الصب والمعادن والنجارة.',
-       'General contracting, construction management and site supervision, supported by our own precast, metal and joinery workshops.')),
-    (t('٠٣', '03'), t('تطوير', 'Develop'),
-     t('دخلت المجموعة التطوير العقاري في ٢٠٢١ بمشروع هابينس بلازا عند مدخل قنا الجديدة.',
-       'The group entered real estate development in 2021 with Happiness Plaza at the entrance of New Qena.')),
+LINES = [
+    (t('٠١', '01'), t('التجزئة: سلسلة الحبيب ماركت', 'Retail: the Al Habeeb Market chain'),
+     t('سلسلة الحبيب ماركت للأغذية والسلع اليومية. في هابينس بلازا يشغّل الحبيب هايبر ماركت B01 بمساحة ٥٬٥٦٢ م² بأقسام الأغذية الطازجة والسلع سريعة التداول والمنسوجات والسلع غير الغذائية، إلى جانب الحبيب ستور وصيدلية الحبيب.',
+       'Al Habeeb Market is the group’s grocery and daily-goods chain. At Happiness Plaza, Al-Habeeb runs the 5,562 m² B01 hypermarket with fresh food, fast-moving goods, textiles and non-food departments, alongside Al Habeeb Store and Al Habeeb Pharmacy.'),
+     'retail'),
+    (t('٠٢', '02'), t('الزراعة: مزارع الحبيب', 'Agriculture: Al Habeeb Farms'),
+     t('نشاط الاستثمار الزراعي للمجموعة من خلال مزارع الحبيب.',
+       'The group’s agricultural investment, through Al Habeeb Farms.'),
+     'farms'),
+    (t('٠٣', '03'), t('التطوير العقاري', 'Real estate development'),
+     t('بدأ في ٢٠٢١ بمشروع هابينس بلازا عند مدخل قنا الجديدة: أرض ٢٠٬٠٠٠ م²، وبلازا مشتركة ٤٬٠٠٠ م²، وثلاث مراحل هي الفندق والترفيه ثم المحلات ثم الهايبر ماركت.',
+       'Launched in 2021 with Happiness Plaza at the entrance of New Qena: a 20,000 m² site, a 4,000 m² shared plaza and three phases: hotel and leisure, retail, then the hypermarket.'),
+     'develop'),
+    (t('٠٤', '04'), t('التصميم والمقاولات', 'Design and contracting'),
+     t('من خلال الحبيب للهندسة والمقاولات منذ ٢٠٠٨: تصميم معماري وإنشائي وكهروميكانيكا، ومقاولات عامة وإدارة تنفيذ، ومصنع خرسانة سابقة الصب وورش معادن ونجارة.',
+       'Through Al-Habeeb Engineering & Contracting since 2008: architectural, structural and MEP design, general contracting and construction management, a precast factory and metal and joinery workshops.'),
+     'build'),
 ]
 
 WHY = [
-    (t('مطوّر ينفّذ بنفسه', 'A developer that builds'),
-     t('صمّمت المجموعة ونفّذت مبنى الفندق والترفيه في المرحلة الأولى: ٧٬٠٠٠ م² من بدروم وثلاثة أدوار، وفندق بوتيك من ١٤ غرفة، ومقر الحبيب. اكتمل التنفيذ والتشطيبات، والافتتاح مقرر في ديسمبر ٢٠٢٦.',
-       'The group designed and built the phase one hotel and leisure building: 7,000 m² over a basement and three levels, a 14-room boutique hotel and Al-Habeeb’s headquarters. Construction and finishes are complete; opening is planned for December 2026.')),
-    (t('فريق واحد من الفكرة إلى التسليم', 'One team from idea to handover'),
-     t('يُنسَّق المعماري والإنشائي والكهروميكانيكا قبل بدء التنفيذ، فتقل التعديلات في الموقع ويُسلَّم كل جزء بالمواصفة المتفق عليها.',
-       'Architecture, structure and MEP are coordinated before work starts, so fewer changes reach site and every package is delivered to the agreed specification.')),
-    (t('ورش إنتاج داخلية', 'In-house workshops'),
-     t('مصنع الخرسانة سابقة الصب وورش المعادن والنجارة تمنح المجموعة تحكمًا مباشرًا في الجودة والتكلفة والوقت.',
-       'The precast factory and the metal and joinery workshops give the group direct control over quality, cost and time.')),
-    (t('الحبيب يشغّل داخل المول', 'Al-Habeeb operates inside the mall'),
-     t('يشغّل الحبيب بنفسه هايبر ماركت B01 بمساحة ٥٬٥٦٢ م² والحبيب ستور وصيدلية الحبيب. وتتولى JKFacilities إدارة المشروع وتشغيله وتنسيق التأجير.',
-       'Al-Habeeb runs the 5,562 m² B01 hypermarket, Al Habeeb Store and Al Habeeb Pharmacy itself. JKFacilities manages and operates the project and coordinates leasing.')),
+    (t('تاجر تجزئة قبل أن يكون مطوّرًا', 'A retailer before a developer'),
+     t('المجموعة تعمل في التجزئة يوميًا من خلال الحبيب ماركت، فتعرف ما يحتاجه المتجر من موقع وحركة وخدمات، وتخطط المول على هذا الأساس.',
+       'The group trades every day through Al Habeeb Market, so it knows what a store needs from its location, footfall and services, and plans the mall on that basis.')),
+    (t('الهايبر ماركت مُشغَّل من المالك', 'An owner-operated anchor'),
+     t('هايبر ماركت الحبيب في البدروم يشغّله المالك نفسه، ومعه الحبيب ستور وصيدلية الحبيب، فيجلب زيارات متكررة للمول من أول يوم.',
+       'The owner runs Al Habeeb Hypermarket in the basement, together with Al Habeeb Store and Al Habeeb Pharmacy, bringing repeat visits to the mall from day one.')),
+    (t('مطوّر يبني بنفسه', 'A developer that builds'),
+     t('صمّمت المجموعة ونفّذت مبنى الفندق والترفيه في المرحلة الأولى: ٧٬٠٠٠ م² من بدروم وثلاثة أدوار، وفندق بوتيك من ١٤ غرفة. اكتمل التنفيذ والتشطيبات، والافتتاح مقرر في ديسمبر ٢٠٢٦.',
+       'The group designed and built the phase one hotel and leisure building: 7,000 m² over a basement and three levels, with a 14-room boutique hotel. Construction and finishes are complete; opening is planned for December 2026.')),
+    (t('إدارة وتشغيل متخصصة', 'Specialist management'),
+     t('تتولى JKFacilities إدارة المشروع وتشغيله وتنسيق التأجير ومزيج الأنشطة.',
+       'JKFacilities manages and operates the project and coordinates leasing and the tenant mix.')),
 ]
 
-PHASE1 = [('lakeside', t('الجزيرة على البحيرة', 'Lakeside island')),
-          ('restaurant', t('المطعم والكافيه', 'Restaurant & café')),
-          ('gym', t('الجيم', 'Gym')),
-          ('gallery', t('ممر المحلات', 'Retail gallery'))]
+PHASE1 = [('market-sign', t('الحبيب ماركت', 'Al Habeeb Market')),
+          ('market-fresh', t('قسم الخضار والفاكهة', 'Fresh produce')),
+          ('lakeside', t('الجزيرة على البحيرة', 'Lakeside island')),
+          ('restaurant', t('المطعم والكافيه', 'Restaurant & café'))]
 
 PROJECTS = [
     ('building', t('تطوير · تصميم · تنفيذ', 'Develop · Design · Build'), t('هابينس بلازا', 'Happiness Plaza'),
@@ -64,17 +74,18 @@ PROJECTS = [
        'Entrance of New Qena, District 1. A hotel, restaurants and cafés, a hypermarket, gym and spa, kids’ zone, food court and lakeside island around a shared plaza.'),
      [(t('٢٠٬٠٠٠ م²', '20,000 m²'), t('مساحة الأرض', 'Site area')), (t('٤٬٠٠٠ م²', '4,000 m²'), t('البلازا المشتركة', 'Shared plaza')),
       (t('٢٠٢١', '2021'), t('بدء التطوير', 'Development launched'))]),
+    ('market-sign', t('تجزئة · تشغيل المالك', 'Retail · Owner-operated'), t('هايبر ماركت الحبيب', 'Al Habeeb Hypermarket'),
+     t('الوحدة B01 في بدروم هابينس بلازا، بأقسام الأغذية الطازجة والسلع اليومية والمنسوجات والسلع غير الغذائية.',
+       'Unit B01 in the Happiness Plaza basement, with fresh food, daily goods, textiles and non-food departments.'),
+     [(t('٥٬٥٦٢ م²', '5,562 m²'), t('مساحة الوحدة', 'Unit area'))]),
     ('masa', t('تصميم · تنفيذ', 'Design · Build'), t('الماسة مول', 'Al Masa Mall'),
-     t('وحدات تجارية بواجهات حديثة وتفاصيل معمارية مدروسة، مخططة لتعظيم العائد الاستثماري وتجربة الزائر.',
-       'Retail units with modern shopfronts and careful architectural detailing, planned to maximise investment return and the visitor experience.'),
+     t('من أعمال الحبيب للهندسة والمقاولات: وحدات تجارية بواجهات حديثة، مخططة لتعظيم العائد وتجربة الزائر.',
+       'By Al-Habeeb Engineering & Contracting: retail units with modern shopfronts, planned for investment return and the visitor experience.'),
      [(t('٣٬٢٠٠ م²', '3,200 m²'), t('مساحة مبنية', 'Built-up area'))]),
     ('infinity', t('تصميم · تنفيذ', 'Design · Build'), t('إنفينيتي مول', 'Infinity Mall'),
-     t('مشروع متعدد الاستخدامات بفكرة معمارية تدعم التوسع التجاري ونمو الاستثمار على المدى الطويل.',
-       'A mixed-use scheme with an architectural concept designed to support commercial expansion and long-term investment growth.'),
+     t('من أعمال الحبيب للهندسة والمقاولات: مشروع متعدد الاستخدامات بفكرة معمارية تدعم التوسع التجاري.',
+       'By Al-Habeeb Engineering & Contracting: a mixed-use scheme designed to support commercial expansion.'),
      [(t('٢٠٬٠٠٠ م²', '20,000 m²'), t('إجمالي المساحة', 'Total area'))]),
-    ('homes', t('تصميم · تنفيذ', 'Design · Build'), t('فيلات وعمارات سكنية', 'Villas and residences'),
-     t('في قنا الجديدة وأسوان الجديدة، بواجهات كلاسيكية ومعاصرة تُنفَّذ كما رُسمت.',
-       'In New Qena and New Aswan, with classical and contemporary façades built exactly as drawn.'), []),
 ]
 
 PARTNERS = [t('البنك الأهلي المصري', 'National Bank of Egypt'), t('المقاولون العرب', 'The Arab Contractors'),
@@ -83,22 +94,28 @@ PARTNERS = [t('البنك الأهلي المصري', 'National Bank of Egypt'),
             t('سيمكس', 'CEMEX'), t('أسمنت النهضة', 'Al Nahda Cement'), t('حديد عز', 'Ezz Steel'),
             t('حديد المصريين', 'Egyptian Steel')]
 
+ICON = {
+    'retail': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16l-1.5 11h-13z M8 7a4 4 0 0 1 8 0"/></svg>',
+    'farms': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9 M12 13c-4 0-6-3-6-6 3 0 6 2 6 6z M12 11c4 0 6-3 6-6-3 0-6 2-6 6z M5 21h14"/></svg>',
+    'develop': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18 M5 21V9l7-5 7 5v12 M9 21v-6h6v6"/></svg>',
+    'build': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18 M6 21V5h4v16 M10 9h8l-2 4 M16 13v8"/></svg>',
+}
+
 h = []
 h.append('<section class="section dev" id="owner"><div class="wrap">')
-h.append('<header class="dev-head"><span class="over">ALHABEEB GROUP · EST. 2008</span>')
-h.append('<h2>' + t('شركة الحبيب للتنمية والاستثمار', 'Al-Habeeb for Development & Investment') + '</h2>')
+h.append('<header class="dev-head"><span class="over">AL-HABEEB FOR DEVELOPMENT &amp; INVESTMENT LLC</span>')
+h.append('<h2>' + t('الحبيب للتنمية والاستثمار ش.م.م.', 'Al-Habeeb for Development & Investment LLC') + '</h2>')
 h.append('<p class="dev-lead">' + t(
-    'المالكة والمطوّرة لهابينس بلازا. تنتمي إلى مجموعة الحبيب التي تأسست في قنا عام ٢٠٠٨، وتعمل في التصميم الهندسي والمقاولات والتطوير العقاري، إلى جانب تجارة التجزئة من خلال الحبيب ماركت والاستثمار الزراعي.',
-    'Owner and developer of Happiness Plaza. It is part of the Al-Habeeb group, founded in Qena in 2008, which works across engineering design, contracting and real estate development, as well as retail through Al Habeeb Market and agricultural investment.') + '</p>')
-h.append('<p class="dev-motto">' + t('نبني اليوم لمستقبل أفضل.', 'Building today for a better tomorrow.') + '</p></header>')
+    'المالكة والمطوّرة لهابينس بلازا. مجموعة من قنا تعمل في السوق في أكثر من مجال: تجارة التجزئة من خلال سلسلة الحبيب ماركت، والإنتاج الزراعي من خلال مزارع الحبيب، ثم التطوير العقاري والتصميم والمقاولات.',
+    'Owner and developer of Happiness Plaza. A Qena-based group active in several markets: retail through the Al Habeeb Market chain, agriculture through Al Habeeb Farms, then real estate development, design and contracting.') + '</p></header>')
 h.append('<div class="dev-facts" role="list">')
 for b, s in FACTS:
     h.append(f'<div role="listitem"><b>{b}</b><span>{s}</span></div>')
 h.append('</div>')
-h.append('<div class="dev-block"><span class="over">DESIGN · BUILD · DEVELOP</span><h3>' + t('من أول رسم حتى التسليم، تحت سقف واحد', 'From first sketch to handover, under one roof') + '</h3>')
-h.append('<div class="dev-model">')
-for n, title, body in MODEL:
-    h.append(f'<article><i>{n}</i><h4>{title}</h4><p>{body}</p></article>')
+h.append('<div class="dev-block"><span class="over">OUR BUSINESSES</span><h3>' + t('مجالات أعمال المجموعة', 'The group’s businesses') + '</h3>')
+h.append('<div class="dev-model dev-lines">')
+for n, title, body, ic in LINES:
+    h.append(f'<article><span class="dev-ic">{ICON[ic]}</span><i>{n}</i><h4>{title}</h4><p>{body}</p></article>')
 h.append('</div></div>')
 h.append('<div class="dev-why"><div class="dev-why-copy"><span class="over">WHY IT MATTERS TO YOUR BRAND</span><h3>' + t('ماذا يعني ذلك لبراندك؟', 'What this means for your brand') + '</h3><ul>')
 for title, body in WHY:
@@ -106,7 +123,7 @@ for title, body in WHY:
 h.append('</ul></div><figure class="dev-phase"><div class="dev-phase-grid">')
 for k, cap in PHASE1:
     h.append(f'<div><img loading="lazy" src="assets/developer/{k}.webp" alt="{cap}"><span>{cap}</span></div>')
-h.append('</div><figcaption>' + t('المرحلة الأولى كما نُفّذت: مبنى الفندق والترفيه بتصميم وتنفيذ الحبيب.', 'Phase one as built: the hotel and leisure building, designed and built by Al-Habeeb.') + '</figcaption></figure></div>')
+h.append('</div><figcaption>' + t('تصميم الحبيب ماركت داخل المول، والمرحلة الأولى كما نُفّذت.', 'The Al Habeeb Market design inside the mall, and phase one as built.') + '</figcaption></figure></div>')
 h.append('<div class="dev-block"><span class="over">SELECTED PROJECTS</span><h3>' + t('مشروعات مختارة', 'Selected projects') + '</h3><div class="dev-projects">')
 for img, tag, name, body, figs in PROJECTS:
     h.append(f'<article><img loading="lazy" src="assets/developer/{img}.webp" alt="{name}"><div class="dev-proj-body"><small>{tag}</small><h4>{name}</h4><p>{body}</p>')
@@ -114,11 +131,8 @@ for img, tag, name, body, figs in PROJECTS:
         h.append('<dl>' + ''.join(f'<div><dt>{v}</dt><dd>{l}</dd></div>' for v, l in figs) + '</dl>')
     h.append('</div></article>')
 h.append('</div></div>')
-h.append('<div class="dev-vm"><div><span class="over">VISION</span><p>' + t('أن نكون شركة رائدة في البناء والتشييد، نطوّر الابتكار والاستدامة باستمرار.', 'To be a leading company in construction and building, continuously advancing innovation and sustainability.') + '</p></div>')
-h.append('<div><span class="over">MISSION</span><p>' + t('تقديم حلول هندسية متكاملة تلبي احتياجات العملاء بأعلى جودة وكفاءة، وبشفافية واحترافية في كل مرحلة.', 'To deliver integrated engineering solutions that meet client needs with the highest quality and efficiency, and with transparency and professionalism at every stage.') + '</p></div>')
-h.append('<div><span class="over">VALUES</span><p>' + t('الجودة · الابتكار · الاستدامة · النزاهة', 'Quality · Innovation · Sustainability · Integrity') + '</p></div></div>')
 h.append('<div class="dev-partners"><span class="over">PARTNERS IN SUCCESS</span><h3>' + t('نعمل مع أسماء يثق بها السوق', 'We work alongside names the market trusts') + '</h3><p>'
-         + t('بنوك ومطورون ومقاولون وموردو مواد عملت معهم المجموعة.', 'Banks, developers, contractors and material suppliers the group has worked with.') + '</p><ul>')
+         + t('بنوك ومطورون ومقاولون وموردو مواد تعاملت معهم المجموعة.', 'Banks, developers, contractors and material suppliers the group has worked with.') + '</p><ul>')
 h.append(''.join(f'<li>{p}</li>' for p in PARTNERS) + '</ul></div>')
 h.append('<div class="dev-links p4links">')
 for href, small, strong in [
@@ -152,18 +166,19 @@ CSS = r'''
 .dev h3 { color: #fbf8f0; font-size: clamp(22px, 2.4vw, 32px); line-height: 1.45; margin-bottom: 22px; }
 .dev h4 { margin: 0; font-size: 20px; line-height: 1.5; color: #fbf8f0; }
 .dev p { color: #d4dbd2; }
-.dev-head { max-width: 860px; }
+.dev-head { max-width: 880px; }
 .dev-lead { margin-top: 18px; font-size: clamp(17px, 1.5vw, 20px); }
-.dev-motto { margin-top: 14px; font: 400 clamp(20px, 2vw, 26px)/1.5 Edition, Arabic, serif; color: var(--pro-gold) !important; }
 .dev-facts { display: grid; grid-template-columns: repeat(6, 1fr); margin-top: clamp(36px, 5vw, 60px); border-top: 1px solid rgba(255,255,255,.16); border-bottom: 1px solid rgba(255,255,255,.16); }
 .dev-facts > div { padding: 22px 18px 26px; border-inline-end: 1px solid rgba(255,255,255,.12); }
 .dev-facts > div:last-child { border-inline-end: 0; }
-.dev-facts b { display: block; font: 400 clamp(24px, 2.4vw, 34px)/1.3 Edition, Arabic, serif; color: var(--pro-gold); white-space: nowrap; }
+.dev-facts b { display: block; font: 400 clamp(20px, 1.9vw, 28px)/1.35 Edition, Arabic, serif; color: var(--pro-gold); }
 .dev-facts span { display: block; margin-top: 6px; font-size: 13.5px; line-height: 1.6; color: #cfd6cd; }
 .dev-block { margin-top: clamp(56px, 7vw, 96px); }
-.dev-model { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.dev-model { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .dev-model article { background: var(--pro-green-2); border: 1px solid rgba(255,255,255,.1); border-radius: 6px; padding: 26px 24px; }
-.dev-model i { display: block; font: 700 12px/1 Arial, sans-serif; letter-spacing: .18em; color: var(--pro-gold); font-style: normal; margin-bottom: 14px; }
+.dev-ic { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(226,195,139,.5); margin-bottom: 14px; }
+.dev-ic svg { width: 22px; height: 22px; fill: none; stroke: var(--pro-gold); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.dev-model i { display: block; font: 700 12px/1 Arial, sans-serif; letter-spacing: .18em; color: var(--pro-gold); font-style: normal; margin-bottom: 10px; }
 .dev-model p { margin-top: 8px; font-size: 15px; line-height: 1.85; }
 .dev-why { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(28px, 5vw, 72px); align-items: start; margin-top: clamp(56px, 7vw, 96px); }
 .dev-why ul { list-style: none; margin: 0; padding: 0; }
@@ -186,9 +201,6 @@ CSS = r'''
 .dev-proj-body dl { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: auto 0 0; padding-top: 14px; }
 .dev-proj-body dt { font: 400 20px/1.3 Edition, Arabic, serif; color: var(--pro-green); white-space: nowrap; }
 .dev-proj-body dd { margin: 0; font-size: 12px; color: #6a716c; }
-.dev-vm { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: clamp(56px, 7vw, 96px); }
-.dev-vm > div { border-top: 2px solid var(--pro-gold); padding-top: 16px; }
-.dev-vm p { font-size: 16px; color: #e7ebe3; }
 .dev-partners { margin-top: clamp(56px, 7vw, 96px); }
 .dev-partners ul { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .dev-partners li { padding: 8px 16px; border: 1px solid rgba(226,195,139,.45); border-radius: 999px; font-size: 14px; color: #f1ead9; }
@@ -199,15 +211,14 @@ CSS = r'''
   .dev-facts { grid-template-columns: repeat(3, 1fr); }
   .dev-facts > div:nth-child(3n) { border-inline-end: 0; }
   .dev-facts > div:nth-child(-n+3) { border-bottom: 1px solid rgba(255,255,255,.12); }
-  .dev-projects { grid-template-columns: 1fr 1fr; }
+  .dev-model, .dev-projects { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 760px) {
   .dev-facts { grid-template-columns: 1fr 1fr; }
   .dev-facts > div { border-inline-end: 0; border-bottom: 1px solid rgba(255,255,255,.12); padding: 18px 12px 20px 0; }
   .dev-facts > div:nth-child(odd) { border-inline-end: 1px solid rgba(255,255,255,.12); padding-inline-end: 12px; }
   .dev-facts > div:nth-child(even) { padding-inline-start: 14px; }
-  .dev-facts b { font-size: 26px; }
-  .dev-model, .dev-why, .dev-vm, .dev-projects { grid-template-columns: 1fr; }
+  .dev-model, .dev-why, .dev-projects { grid-template-columns: 1fr; }
 }
 '''
 p = B + '/pro.css'
