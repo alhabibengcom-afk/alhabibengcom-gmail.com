@@ -84,7 +84,14 @@
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, done); else done();
   }, true);
 
-  function run() { phase(); alts(); whatsapp(); }
+  // Leasing Pack PDF in the page language.
+  function pack() {
+    document.querySelectorAll('.hp-pack').forEach(function (a) {
+      a.href = window.HP_LANG === 'en' ? 'Happiness_Plaza_Leasing_Pack_EN.pdf' : 'Happiness_Plaza_Leasing_Pack.pdf';
+    });
+  }
+
+  function run() { phase(); alts(); whatsapp(); pack(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   ['pushState', 'replaceState'].forEach(function (k) {
     var o = history[k]; history[k] = function () { var r = o.apply(this, arguments); setTimeout(function () { whatsapp(); alts(); }, 0); return r; };
