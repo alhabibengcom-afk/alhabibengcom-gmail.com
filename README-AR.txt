@@ -85,7 +85,7 @@ brands/assets/documents/      صور صفحات ملفات PDF المعروضة 
 • الأكواد القديمة تتحوّل تلقائيًا للكود الجديد (مثل ?unit=G10 ← G07-12). الجدول في tools/aliases.json وداخل index.html.
 • دليل الوحدات PDF أصبح 181 صفحة (37 صفحة تعريفية + 144 بطاقة). لإعادة إنتاجه:
   python tools/rebuild_leasing_pdf.py --site-dir brands --output-dir out ثم انسخ محتوى out إلى brands، وبعدها شغّل أمر النسخة الإنجليزية أعلاه.
-• صفحات العرض 24 و25 و27 إلى 30 (أمثلة الوحدات، تفصيل G39، البدروم، أعداد الأنشطة لكل دور) تُولَّد من بيانات الوحدات:
+• صفحات العرض 15 و24 و25 و27 إلى 30 (تعريف المطوّر، أمثلة الوحدات، تفصيل G39، البدروم، أعداد الأنشطة لكل دور) تُولَّد من بيانات الوحدات:
   python tools/v15/intro_pages.py brands brands/Happiness_Plaza_Leasing.pdf ar tools/v15/fonts
   وبعد أمر النسخة الإنجليزية: python tools/v15/intro_pages.py brands brands/Happiness_Plaza_Leasing_EN.pdf en tools/v15/fonts
 • ملف البدروم PDF (5 صفحات) مأخوذ من صفحة البدروم وبطاقات B01 إلى B04 في الدليل الجديد.

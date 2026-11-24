@@ -307,6 +307,42 @@ floor_page(29, 'f2', 'الدور الثاني' if AR else 'Second floor',
             f'S08 of {num(U["S08"]["area"])} m² and S07 of {num(U["S07"]["area"])} m².'),
            counts('f2'), NOTE)
 
+# ---------- page 15: the owner and developer ----------
+p = doc[14]
+clear(p, (670, 15, 1400, 592), rgb(LIGHT))
+if not AR:
+    clear(p, (300, 15, 670, 110), rgb(LIGHT))
+put(p, (680, 26, 1374, 104), 'الحبيب للتنمية والاستثمار ش.م.م.' if AR else 'Al-Habeeb for Development & Investment LLC', 36, INK, True)
+put(p, (680, 116, 1374, 160), 'المالكة والمطوّرة لهابينس بلازا في قنا الجديدة.' if AR else 'Owner and developer of Happiness Plaza, New Qena.', 22, MUTED)
+put(p, (680, 172, 1374, 282),
+    'مجموعة من الشركات تعمل في تجارة التجزئة والإنتاج الزراعي والتطوير العقاري والتصميم والمقاولات. '
+    'تأسست المجموعة ونمت وتطورت في محافظة قنا.' if AR else
+    'A group of companies working in retail, agriculture, real estate development, design and contracting. '
+    'The group was founded, grew and developed in Qena Governorate.', 22, INK, True)
+LINES15 = [
+    ('التجزئة', 'Retail', 'سلسلة الحبيب ماركت، ومنها هايبر ماركت ' + L('B01') + ' داخل المول.',
+     'The Al Habeeb Market chain, including the B01 hypermarket in the mall.'),
+    ('الزراعة', 'Agriculture', 'الإنتاج الزراعي من خلال مزارع الحبيب.', 'Agricultural production through Al Habeeb Farms.'),
+    ('التطوير العقاري', 'Real estate', 'منذ ' + num(2021, 0).replace('٬', '') + ' بمشروع هابينس بلازا على أرض ' + m2(20000, 0) + '.',
+     'Since 2021 with Happiness Plaza, on a 20,000 m² site.'),
+    ('التصميم والمقاولات', 'Design & build', 'الحبيب للهندسة والمقاولات منذ ' + num(2008, 0).replace('٬', '') + '.',
+     'Al-Habeeb Engineering & Contracting, since 2008.'),
+]
+for r, (lab_ar, lab_en, txt_ar, txt_en) in enumerate(LINES15):
+    y = 300 + r * 58
+    box(p, (680, y, 1374, y + 1), RULE)
+    if AR:
+        put(p, (1160, y + 10, 1374, y + 52), lab_ar, 20, BROWN, True)
+        put(p, (680, y + 12, 1150, y + 52), txt_ar, 18, MUTED)
+    else:
+        put(p, (680, y + 10, 890, y + 52), lab_en, 20, BROWN, True)
+        put(p, (900, y + 12, 1374, y + 52), txt_en, 18, MUTED)
+box(p, (680, 532, 1374, 533), RULE)
+put(p, (680, 544, 1374, 588),
+    ('تتولى ' + L('JKFacilities') + ' إدارة المشروع وتشغيله وتنسيق التأجير.') if AR else
+    'JKFacilities manages and operates the project and coordinates leasing.', 18, MUTED)
+p.insert_link({'kind': pymupdf.LINK_URI, 'from': pymupdf.Rect(680, 172, 1374, 282), 'uri': 'https://alhabeeb.org/'})
+
 doc.save(PDF + '.tmp', garbage=3, deflate=True)
 doc.close()
 import os
