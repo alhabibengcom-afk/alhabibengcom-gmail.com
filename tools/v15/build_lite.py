@@ -31,6 +31,8 @@ t('الأنشطة التي تفتح مع المرحلة الأولى', 'Venues o
 NAMES_EN = {'جيم Guru Fit': 'Guru Fit gym', 'نادي صحي نسائي AURA': 'AURA women’s spa', 'مطعم بوخارست بلاك': 'Bokharest Black restaurant', 'ألعاب أطفال Joy Park': 'Joy Park kids’ play', 'فندق بلازا · ١٤ غرفة وجناحًا': 'Plaza Hotel · 14 rooms and suites', 'سندوتشات خفيفة وآيس كريم Joy Bites': 'Joy Bites sandwiches and ice cream', 'صيدلية هابينس': 'Happiness Pharmacy'}
 for _k, _v in NAMES_EN.items(): t(_k, _v)
 FLOOR = {'b1': 'البدروم', 'g': 'الأرضي', 'f1': 'الأول', 'f2': 'الثاني'}
+SPEC = t('سقف بارتفاع ٤٫٦ م، وواجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء والمياه والصرف ودكت الشفاط والغاز جاهزة.',
+         'Ceiling height 4.6 m, glass shopfront 2.80 m high; power, water, drainage, kitchen exhaust duct and gas are in place.')
 CONTACT = t('تواصل مع فريق التأجير', 'Contact the leasing team')
 LOADED = t('المساحات محمّلة، والإيجار يُحتسب على المساحة المحمّلة.', 'All areas are loaded areas; rent is charged on the loaded area.')
 FINAL = t('التوافر النهائي والحجز والتعاقد تتم من خلال فريق التأجير.', 'Final availability, booking and contracts are handled by the leasing team.')
@@ -109,6 +111,7 @@ for u in units:
     z = ZONE.get(u['id'], ('', ''))[1]
     if z:
         note = z + ' ' + note
+    note += ' ' + SPEC
     v['note'] = note
     v.pop('net', None)
     if u['id'] in SELF:
@@ -155,16 +158,16 @@ def cut(sel_start, sel_end_tag):
     s = s[:i] + s[j:]
 
 
-rep('pro.css?v=15n', 'pro.css?v=15n')
+rep('pro.css?v=15o', 'pro.css?v=15o')
 # lite flag (static)
 s, nflag = re.subn(r'<script>\(function\(\)\{var (?:q=new URLSearchParams\(location\.search\),)?l=(?:q|new URLSearchParams\(location\.search\))\.get\("lite"\).*?</script>',
            '<script>window.HP_LITE=true;document.documentElement.classList.add("hp-lite")</script>', s, count=1, flags=re.S)
 assert nflag == 1, 'lite flag not set'
 # English dictionary + lite overrides
 rep('document.write(\'<script src="i18n-en.js?v=15n"><\\/script>\')',
-    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=2"><\\/script>\')')
+    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=3"><\\/script>\')')
 # own scripts
-rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=1"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=2"></script>')
 rep('<script src="unit-viewer.js?v=15b"></script>', '<script src="unit-viewer-lite.js?v=1"></script>')
 rep('<script src="lite.js?v=15b"></script>', '<script src="lite.js?v=2"></script>')
 rep('launcher.js?v=15d', 'launcher.js?v=15d')
@@ -256,8 +259,8 @@ rep('من غرف فندق بلازا إلى مطعم الجزيرة ونوادي
 rep('في ٢٠٢٠/٢٠٢١ بحسب وزارة التخطيط.', t('في ٢٠٢٠/٢٠٢١، بحسب خطة المواطن الاستثمارية لمحافظة قنا ٢٠٢٣/٢٠٢٤ (وزارة التخطيط).',
                                              'in 2020/2021, per the Citizen’s Investment Plan for Qena Governorate 2023/2024 (Ministry of Planning).'))
 rep('التقدير لزيارات المقيمين بعد افتتاح المول التجاري واستقرار تشغيله مع المرحلة الأولى. قد يزور الشخص المشروع أكثر من مرة. حركة المسافرين والسياح والزيارات من محافظات أخرى خارج الحساب.',
-    t('نطاق التقدير: زيارات سكان قنا الجديدة وقسم ومركز قنا فقط، بعد افتتاح المحلات التجارية واستقرار تشغيلها مع أنشطة المرحلة الأولى، وقبل تشغيل هايبر ماركت الحبيب (المرحلة الثالثة). لا يشمل المسافرين والسياح والزوار من المحافظات الأخرى. يُضاف تقدير المول كاملًا مع الهايبر عند تشغيله.',
-      'Scope: visits by residents of New Qena and Qena district and markaz only, once the shops open and settle alongside the phase one venues, before Al Habeeb Hypermarket (phase three) opens. Travellers, tourists and visitors from other governorates are excluded. An estimate for the full mall with the hypermarket will be added when it opens.'))
+    t('نطاق التقدير: زيارات سكان قنا الجديدة وقسم ومركز قنا فقط، بعد افتتاح المحلات التجارية واستقرار تشغيلها مع أنشطة المرحلة الأولى، وقبل تشغيل هايبر ماركت الحبيب (المرحلة الثالثة). لا يشمل المسافرين والسياح والزوار من المحافظات الأخرى. تقدير المول كاملًا مع الهايبر موضّح أدناه.',
+      'Scope: visits by residents of New Qena and Qena district and markaz only, once the shops open and settle alongside the phase one venues, before Al Habeeb Hypermarket (phase three) opens. Travellers, tourists and visitors from other governorates are excluded. The estimate for the full mall with the hypermarket follows.'))
 s = re.sub(r'<a rel="noopener" href="https://drive\.google\.com/file/d/[^"]+">العرض التعريفي للمطوّر · PowerPoint</a>', '', s)
 
 # hyper (1.5)
@@ -319,6 +322,34 @@ t('شكّلت تجارة الجملة والتجزئة ١٥٪ من الناتج 
   'Wholesale and retail trade made up 15% of Qena Governorate’s GDP in 2020/2021, per the Citizen’s Investment Plan for Qena Governorate 2023/2024 (Ministry of Planning). The indicator shows trade’s weight in the local economy; demand at the site depends on trip frequency from Qena city and the pull of the hypermarket, dining and leisure.')
 t('جراج على مستويين بمساحة ٧٬٢٨٩ م²، منها ٣٬٦٤٤ م² في كل مستوى. يشمل البرنامج مصلى ودورات مياه للرجال والسيدات وذوي الإعاقة وماكينة صراف آلي.',
   'A two-level garage of 7,289 m², with 3,644 m² on each level. The programme includes a prayer room, toilets for men, women and people with disabilities, and an ATM.')
+
+
+# ---- second round: garage capacity, unit specs, full-mall visit estimate ----
+rep('<strong>جراج على مستويين بمساحة ٧٬٢٨٩ م²</strong><span>٣٬٦٤٤ م² لكل مستوى تحت البدروم.</span>',
+    '<strong>' + t('جراج على مستويين يتسع لـ١٤٥ سيارة', 'A two-level garage for 145 cars') + '</strong><span>'
+    + t('٧٬٢٨٩ م²، بواقع ٣٬٦٤٤ م² لكل مستوى.', '7,289 m², 3,644 m² on each level.') + '</span>')
+rep('جراج على مستويين بمساحة ٧٬٢٨٩ م²، منها ٣٬٦٤٤ م² في كل مستوى. يشمل البرنامج مصلى ودورات مياه للرجال والسيدات وذوي الإعاقة وماكينة صراف آلي.',
+    t('جراج على مستويين يتسع لـ١٤٥ سيارة بمساحة ٧٬٢٨٩ م² (٣٬٦٤٤ م² لكل مستوى). يشمل البرنامج مصلى ودورات مياه للرجال والسيدات وذوي الإعاقة وماكينة صراف آلي.',
+      'A two-level garage for 145 cars, 7,289 m² (3,644 m² on each level). The programme includes a prayer room, toilets for men, women and people with disabilities, and an ATM.'))
+specs = ('<ul class="hp-specs">' + ''.join(f'<li><b>{a}</b><span>{b}</span></li>' for a, b in [
+    (t('٤٫٦ م', '4.6 m'), t('ارتفاع السقف', 'Ceiling height')),
+    (t('٢٫٨٠ م', '2.80 m'), t('ارتفاع الواجهة الزجاجية', 'Glass shopfront height')),
+    (t('جاهزة', 'In place'), t('كهرباء ومياه وصرف ودكت شفاط وغاز لكل وحدة', 'Power, water, drainage, exhaust duct and gas for every unit'))]) + '</ul>')
+s = s.replace('<ul class="hp-units-sum">', specs + '<ul class="hp-units-sum">', 1)
+
+# full mall with the hypermarket (review 1.9): indicative estimate with its assumptions
+rep(' تقدير المول كاملًا مع الهايبر موضّح أدناه.</p>', ' تقدير المول كاملًا مع الهايبر موضّح أدناه.</p>' + (
+    '<div class="hp-est"><h3>' + t('تقدير المول كاملًا بعد تشغيل الهايبر', 'Full mall, once the hypermarket opens') + '</h3>'
+    '<div class="hp-est-figs">'
+    '<div><b>' + t('نحو ٣٬٠٠٠', 'About 3,000') + '</b><span>' + t('زيارة في اليوم', 'visits a day') + '</span></div>'
+    '<div><b>' + t('نحو ٩٠ ألف', 'About 90,000') + '</b><span>' + t('زيارة في الشهر', 'visits a month') + '</span></div>'
+    '<div><b>' + t('نحو ١٫١ مليون', 'About 1.1 million') + '</b><span>' + t('زيارة في السنة', 'visits a year') + '</span></div></div>'
+    '<table class="hp-est-table"><tbody>'
+    '<tr><td>' + t('زيارات سكان النطاق للمحلات والمطاعم والترفيه (السيناريو الأساسي أعلاه)', 'Catchment residents visiting shops, dining and leisure (base case above)') + '</td><td>' + t('٩٧٧ يوميًا', '977 a day') + '</td></tr>'
+    '<tr><td>' + t('تسوق أسبوعي من الهايبر: ٦٪ من نحو ١٨٠ ألف أسرة في النطاق (٤٫٥ فرد للأسرة)', 'Weekly hypermarket shopping: 6% of about 180,000 catchment households (4.5 people each)') + '</td><td>' + t('نحو ١٬٥٥٠ يوميًا', 'About 1,550 a day') + '</td></tr>'
+    '<tr><td>' + t('زوار من باقي المحافظة: ٠٫٥٪ من نحو ٢٫٩٥ مليون نسمة مرة شهريًا', 'Visitors from the rest of the governorate: 0.5% of about 2.95 million people once a month') + '</td><td>' + t('نحو ٥٠٠ يوميًا', 'About 500 a day') + '</td></tr>'
+    '</tbody></table><p class="p4source">' + t('تقدير استرشادي من فريق المشروع بافتراضات متحفظة، لا يشمل المسافرين والسياح. يُحدَّث بأرقام العدّادات الفعلية بعد التشغيل.',
+                                                  'Indicative estimate by the project team on conservative assumptions, excluding travellers and tourists. To be updated with actual footfall counts after opening.') + '</p></div>'))
 
 open(B + '/lite.html', 'w', encoding='utf-8').write(s)
 

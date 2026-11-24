@@ -324,3 +324,15 @@ body[data-view="section"] .hp-backbar { display: flex; position: sticky; top: 72
 .hp-toast a { color: #e2c38b; margin-inline-start: 8px; }
 .hp-lite body[data-view="section"]:has(#contact.hp-on) .hp-fab { display: none; }
 .hp-lite #mainpage > section:last-of-type { padding-bottom: 96px; }
+.hp-specs { list-style: none; padding: 0; margin: 18px 0 6px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.hp-specs li { background: #fffdf8; border: 1px solid #e4ddcd; border-radius: 6px; padding: 12px 14px; }
+.hp-specs b { display: block; font-size: 22px; color: #1f362d; }
+.hp-specs span { font-size: 13.5px; color: #5b605c; }
+.hp-est { margin: 26px 0; padding: 20px; border: 1px solid #d8d2c4; border-radius: 8px; background: #fffdf8; }
+.hp-est-figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 12px 0 16px; }
+.hp-est-figs b { display: block; font-size: clamp(20px, 2.4vw, 30px); color: #1f362d; }
+.hp-est-figs span { font-size: 13.5px; color: #5b605c; }
+.hp-est-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.hp-est-table td { padding: 8px 6px; border-top: 1px solid #e4ddcd; }
+.hp-est-table td:last-child { white-space: nowrap; font-weight: 700; color: #1f362d; }
+@media (max-width: 700px) { .hp-specs, .hp-est-figs { grid-template-columns: 1fr; } }
