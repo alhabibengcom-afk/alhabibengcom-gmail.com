@@ -70,8 +70,8 @@ def build(lang):
 
     # 7 specs + lease
     spec = [(T('ارتفاع السقف','Ceiling height'), T('٤٫٦ م','4.6 m')), (T('الواجهة الزجاجية','Glass shopfront'), T('بارتفاع ٢٫٨٠ م','2.80 m high')),
-            (T('الكهرباء','Power'), T('جاهزة لكل وحدة','In place for every unit')), (T('المياه والصرف','Water and drainage'), T('جاهزة لكل وحدة','In place for every unit')),
-            (T('دكت الشفاط','Kitchen exhaust duct'), T('جاهز لكل وحدة','In place for every unit')), (T('الغاز','Gas'), T('جاهز لكل وحدة','In place for every unit'))]
+            (T('الكهرباء','Power'), T('جاهزة لكل وحدة','In place for every unit')), (T('دكت الشفاط','Exhaust duct'), T('جاهز لكل وحدة','In place for every unit')),
+            (T('المياه والصرف','Water and drainage'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court')), (T('الغاز','Gas'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court'))]
     models = [(T('إيجار ثابت','Fixed rent'), T('قيمة شهرية للمتر تُحسب على المساحة المحمّلة.','A monthly rate per m² on the loaded area.')),
               (T('نسبة من المبيعات','Turnover rent'), T('نسبة تعاقدية من صافي مبيعات الفرع.','An agreed share of the store’s net sales.')),
               (T('إيجار مختلط','Hybrid'), T('حد أدنى مضمون مع نسبة من المبيعات.','A guaranteed minimum plus a share of sales.'))]

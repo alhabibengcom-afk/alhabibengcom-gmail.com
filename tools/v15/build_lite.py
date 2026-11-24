@@ -31,8 +31,10 @@ t('الأنشطة التي تفتح مع المرحلة الأولى', 'Venues o
 NAMES_EN = {'جيم Guru Fit': 'Guru Fit gym', 'نادي صحي نسائي AURA': 'AURA women’s spa', 'مطعم بوخارست بلاك': 'Bokharest Black restaurant', 'ألعاب أطفال Joy Park': 'Joy Park kids’ play', 'فندق بلازا · ١٤ غرفة وجناحًا': 'Plaza Hotel · 14 rooms and suites', 'سندوتشات خفيفة وآيس كريم Joy Bites': 'Joy Bites sandwiches and ice cream', 'صيدلية هابينس': 'Happiness Pharmacy'}
 for _k, _v in NAMES_EN.items(): t(_k, _v)
 FLOOR = {'b1': 'البدروم', 'g': 'الأرضي', 'f1': 'الأول', 'f2': 'الثاني'}
-SPEC = t('سقف بارتفاع ٤٫٦ م، وواجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء والمياه والصرف ودكت الشفاط والغاز جاهزة.',
-         'Ceiling height 4.6 m, glass shopfront 2.80 m high; power, water, drainage, kitchen exhaust duct and gas are in place.')
+SPEC = t('سقف بارتفاع ٤٫٦ م، وواجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء ودكت الشفاط جاهزة.',
+         'Ceiling height 4.6 m, glass shopfront 2.80 m high; power and exhaust duct are in place.')
+SPEC_FB = t('سقف بارتفاع ٤٫٦ م، وواجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء ودكت الشفاط والمياه والصرف والغاز جاهزة لأنها وحدة مطاعم.',
+            'Ceiling height 4.6 m, glass shopfront 2.80 m high; power, exhaust duct, water, drainage and gas are in place as a food and beverage unit.')
 CONTACT = t('تواصل مع فريق التأجير', 'Contact the leasing team')
 LOADED = t('المساحات محمّلة، والإيجار يُحتسب على المساحة المحمّلة.', 'All areas are loaded areas; rent is charged on the loaded area.')
 FINAL = t('التوافر النهائي والحجز والتعاقد تتم من خلال فريق التأجير.', 'Final availability, booking and contracts are handled by the leasing team.')
@@ -111,7 +113,7 @@ for u in units:
     z = ZONE.get(u['id'], ('', ''))[1]
     if z:
         note = z + ' ' + note
-    note += ' ' + SPEC
+    note += ' ' + (SPEC_FB if u['cat'] in ('أغذية ومشروبات', 'فود كورت') else SPEC)
     v['note'] = note
     v.pop('net', None)
     if u['id'] in SELF:
@@ -158,16 +160,16 @@ def cut(sel_start, sel_end_tag):
     s = s[:i] + s[j:]
 
 
-rep('pro.css?v=15p', 'pro.css?v=15p')
+rep('pro.css?v=15q', 'pro.css?v=15q')
 # lite flag (static)
 s, nflag = re.subn(r'<script>\(function\(\)\{var (?:q=new URLSearchParams\(location\.search\),)?l=(?:q|new URLSearchParams\(location\.search\))\.get\("lite"\).*?</script>',
            '<script>window.HP_LITE=true;document.documentElement.classList.add("hp-lite")</script>', s, count=1, flags=re.S)
 assert nflag == 1, 'lite flag not set'
 # English dictionary + lite overrides
 rep('document.write(\'<script src="i18n-en.js?v=15n"><\\/script>\')',
-    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=4"><\\/script>\')')
+    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=5"><\\/script>\')')
 # own scripts
-rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=2"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=3"></script>')
 rep('<script src="unit-viewer.js?v=15b"></script>', '<script src="unit-viewer-lite.js?v=1"></script>')
 rep('<script src="lite.js?v=15b"></script>', '<script src="lite.js?v=3"></script>')
 rep('launcher.js?v=15d', 'launcher.js?v=15d')
@@ -334,7 +336,8 @@ rep('جراج على مستويين بمساحة ٧٬٢٨٩ م²، منها ٣٬
 specs = ('<ul class="hp-specs">' + ''.join(f'<li><b>{a}</b><span>{b}</span></li>' for a, b in [
     (t('٤٫٦ م', '4.6 m'), t('ارتفاع السقف', 'Ceiling height')),
     (t('٢٫٨٠ م', '2.80 m'), t('ارتفاع الواجهة الزجاجية', 'Glass shopfront height')),
-    (t('جاهزة', 'In place'), t('كهرباء ومياه وصرف ودكت شفاط وغاز لكل وحدة', 'Power, water, drainage, exhaust duct and gas for every unit'))]) + '</ul>')
+    (t('كل الوحدات', 'All units'), t('كهرباء ودكت شفاط جاهزة', 'Power and exhaust duct in place')),
+    (t('المطاعم', 'Food & beverage'), t('مياه وصرف وغاز لوحدات المطاعم والكافيهات والفود كورت', 'Water, drainage and gas for restaurant, café and food-court units'))]) + '</ul>')
 s = s.replace('<ul class="hp-units-sum">', specs + '<ul class="hp-units-sum">', 1)
 
 # full mall with the hypermarket (review 1.9): indicative estimate with its assumptions
