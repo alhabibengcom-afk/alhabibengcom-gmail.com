@@ -326,7 +326,7 @@ body[data-view="section"] .hp-backbar { display: flex; position: sticky; top: 72
 .hp-lite #mainpage > section:last-of-type { padding-bottom: 96px; }
 .hp-specs { list-style: none; padding: 0; margin: 18px 0 6px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .hp-specs li { background: #fffdf8; border: 1px solid #e4ddcd; border-radius: 6px; padding: 12px 14px; }
-.hp-specs b { display: block; font-size: 22px; color: #1f362d; }
+.hp-specs b { display: block; font-size: 20px; color: #1f362d; }
 .hp-specs span { font-size: 13.5px; color: #5b605c; }
 .hp-est { margin: 26px 0; padding: 20px; border: 1px solid #d8d2c4; border-radius: 8px; background: #fffdf8; }
 .hp-est-figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 12px 0 16px; }
