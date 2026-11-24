@@ -151,7 +151,7 @@ function showUnitDetails(u) {
   const viewer=el('section','uv-viewer');viewer.setAttribute('aria-label','استكشاف الوحدة');
   const tabs=el('div','uv-tabs');tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','طريقة عرض الوحدة');
   const stage=el('div','uv-stage');stage.id='uv-stage';stage.setAttribute('role','tabpanel');
-  const modes=[['plan','المسقط'],['real','صور الموقع'],['tour','الجولة البصرية'],['corridor','من الممر'],['3d','منظور 3D']];
+  const modes=[['plan','المسقط'],['real','صور الموقع'],['tour','الجولة البصرية'],['corridor','من الممر'],['3d','منظور 3D']].filter(([m])=>!(window.HP_LITE&&(m==='corridor'||m==='3d')));
   let sitePhotoPreview;
   function show(mode,updateURL=true){
     if(updateURL){history.replaceState(null,'',routeURL('unit/'+u.id,mode));lastRouteURL=location.href;lastBaseURL=location.href;}

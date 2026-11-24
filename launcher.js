@@ -19,6 +19,7 @@
     phase: 'المرحلة الأولى', market: 'دراسة سوق قنا', plans: 'مخططات المحلات', leasing: 'التسليم والتعاقد',
     contact: 'احجز معاينة'
   };
+  if (window.HP_LITE) { GROUPS.phase = ['stages', 'phase']; GROUPS.location = ['location', 'film']; }
   var main = document.getElementById('mainpage');
   var bar = document.querySelector('.hp-backbar');
   var barTitle = bar && bar.querySelector('.hp-backbar-title');
