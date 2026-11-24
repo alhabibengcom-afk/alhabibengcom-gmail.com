@@ -78,14 +78,6 @@ PROJECTS = [
      t('الوحدة B01 في بدروم هابينس بلازا، بأقسام الأغذية الطازجة والسلع اليومية والمنسوجات والسلع غير الغذائية.',
        'Unit B01 in the Happiness Plaza basement, with fresh food, daily goods, textiles and non-food departments.'),
      [(t('٥٬٥٦٢ م²', '5,562 m²'), t('مساحة الوحدة', 'Unit area'))]),
-    ('masa', t('تصميم · تنفيذ', 'Design · Build'), t('الماسة مول', 'Al Masa Mall'),
-     t('من أعمال الحبيب للهندسة والمقاولات: وحدات تجارية بواجهات حديثة، مخططة لتعظيم العائد وتجربة الزائر.',
-       'By Al-Habeeb Engineering & Contracting: retail units with modern shopfronts, planned for investment return and the visitor experience.'),
-     [(t('٣٬٢٠٠ م²', '3,200 m²'), t('مساحة مبنية', 'Built-up area'))]),
-    ('infinity', t('تصميم · تنفيذ', 'Design · Build'), t('إنفينيتي مول', 'Infinity Mall'),
-     t('من أعمال الحبيب للهندسة والمقاولات: مشروع متعدد الاستخدامات بفكرة معمارية تدعم التوسع التجاري.',
-       'By Al-Habeeb Engineering & Contracting: a mixed-use scheme designed to support commercial expansion.'),
-     [(t('٢٠٬٠٠٠ م²', '20,000 m²'), t('إجمالي المساحة', 'Total area'))]),
 ]
 
 PARTNERS = [
@@ -197,9 +189,9 @@ CSS = r'''
 .dev-phase-grid img { width: 100%; height: 100%; object-fit: cover; }
 .dev-phase-grid span { position: absolute; inset-inline-start: 8px; bottom: 8px; padding: 2px 10px; font-size: 12.5px; color: #fff; background: rgba(12, 24, 20, .72); border-radius: 3px; }
 .dev-phase figcaption { margin-top: 10px; font-size: 13.5px; color: #b9c3b8; }
-.dev-projects { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.dev-projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .dev-projects article { background: #f4f1e9; color: var(--ink); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
-.dev-projects img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.dev-projects img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
 .dev-proj-body { padding: 18px 18px 20px; display: flex; flex-direction: column; flex: 1; }
 .dev-proj-body small { font-size: 12px; color: var(--pro-gold-ink); font-weight: 700; }
 .dev .dev-proj-body h4 { color: var(--ink); margin-top: 4px; }
