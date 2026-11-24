@@ -3,27 +3,28 @@
    Pages and code: network first, cached copy when offline.
    Images and fonts: cache first, filled as the visitor browses.
    Videos and PDFs are never cached (large files, range requests). */
-const VERSION = 'hp-v15-14';
+const VERSION = 'hp-v15-15';
 const SHELL = [
   './',
   'index.html',
   'styles.css?v=15',
   'unit-viewer.css?v=15',
   'location-view.css?v=15',
-  'pro.css?v=15',
-  'i18n-en.js?v=15',
+  'pro.css?v=15k',
+  'i18n-en.js?v=15l',
   'i18n.js?v=15',
   'unit-data.js?v=15',
   'corridor-view.js?v=15',
-  'location-links.js?v=15',
+  'location-links.js?v=15c',
   'location-url.js?v=15',
-  'location-view.js?v=15',
+  'location-view.js?v=15c',
   'panorama.js?v=15',
   'unit-viewer.js?v=15',
   'document-links.js?v=15',
   'document-data.js?v=15',
-  'site.js?v=15',
-  'documents.js?v=15',
+  'site.js?v=15k',
+  'launcher.js?v=15a',
+  'documents.js?v=15f',
   'hospitality.js?v=15',
   'manifest.webmanifest',
   'app/icon-192.png',
