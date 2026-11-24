@@ -89,3 +89,8 @@ brands/assets/documents/      صور صفحات ملفات PDF المعروضة 
   python tools/v15/intro_pages.py brands brands/Happiness_Plaza_Leasing.pdf ar tools/v15/fonts
   وبعد أمر النسخة الإنجليزية: python tools/v15/intro_pages.py brands brands/Happiness_Plaza_Leasing_EN.pdf en tools/v15/fonts
 • ملف البدروم PDF (5 صفحات) مأخوذ من صفحة البدروم وبطاقات B01 إلى B04 في الدليل الجديد.
+
+النسخة البسيطة (v15)
+• لينك: /lite/ (عربي) و /lite/en/ (إنجليزي). نفس الملفات والبيانات مع ?lite=1.
+• بتخفي: وضع العرض والفهرس، شركاء النجاح، أرشيف تصميم الهايبر، تابي "من الممر" و"منظور 3D"، وفيديوهات الأنشطة المنفصلة.
+• المرحلة الأولى فيها فيلم المرحلة كامل وكروت الأنشطة اللي بتفتح معاها. التحكم في brands/lite.js وآخر pro.css.
