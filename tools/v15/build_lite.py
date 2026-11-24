@@ -36,10 +36,10 @@ HEIGHT = {'g': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal 
           'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('', '')}
 SPECS = {}
 for _f, (_ha, _he) in HEIGHT.items():
-    SPECS[_f, False] = t(_ha + ('و' if _ha else '') + 'واجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء ودكت الشفاط جاهزة.',
-                         _he + 'glass shopfront 2.80 m high; power and exhaust duct are in place.' if _he else 'Glass shopfront 2.80 m high; power and exhaust duct are in place.')
-    SPECS[_f, True] = t(_ha + ('و' if _ha else '') + 'واجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء ودكت الشفاط والمياه والصرف والغاز جاهزة لأنها وحدة مطاعم.',
-                        (_he + 'glass shopfront 2.80 m high' if _he else 'Glass shopfront 2.80 m high') + '; power, exhaust duct, water, drainage and gas are in place as a food and beverage unit.')
+    SPECS[_f, False] = t(_ha + ('و' if _ha else '') + 'واجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء جاهزة.',
+                         _he + 'glass shopfront 2.80 m high; power is in place.' if _he else 'Glass shopfront 2.80 m high; power is in place.')
+    SPECS[_f, True] = t(_ha + ('و' if _ha else '') + 'واجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء والمياه والصرف والغاز ودكت شفاط الهود جاهزة لأنها وحدة مطاعم.',
+                        (_he + 'glass shopfront 2.80 m high' if _he else 'Glass shopfront 2.80 m high') + '; power, water, drainage, gas and a hood exhaust duct are in place as a food and beverage unit.')
 CONTACT = t('تواصل مع فريق التأجير', 'Contact the leasing team')
 LOADED = t('المساحات محمّلة، والإيجار يُحتسب على المساحة المحمّلة.', 'All areas are loaded areas; rent is charged on the loaded area.')
 FINAL = t('التوافر النهائي والحجز والتعاقد تتم من خلال فريق التأجير.', 'Final availability, booking and contracts are handled by the leasing team.')
@@ -172,9 +172,9 @@ s, nflag = re.subn(r'<script>\(function\(\)\{var (?:q=new URLSearchParams\(locat
 assert nflag == 1, 'lite flag not set'
 # English dictionary + lite overrides
 rep('document.write(\'<script src="i18n-en.js?v=15n"><\\/script>\')',
-    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=6"><\\/script>\')')
+    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=7"><\\/script>\')')
 # own scripts
-rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=4"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=5"></script>')
 rep('<script src="unit-viewer.js?v=15b"></script>', '<script src="unit-viewer-lite.js?v=1"></script>')
 rep('<script src="lite.js?v=15b"></script>', '<script src="lite.js?v=3"></script>')
 rep('launcher.js?v=15d', 'launcher.js?v=15d')
@@ -341,8 +341,8 @@ rep('جراج على مستويين بمساحة ٧٬٢٨٩ م²، منها ٣٬
 specs = ('<ul class="hp-specs">' + ''.join(f'<li><b>{a}</b><span>{b}</span></li>' for a, b in [
     (t('٤٫٦ م · ٣٫٦ م', '4.6 m · 3.6 m'), t('الارتفاع الداخلي: الأرضي والأول ٤٫٦ م، والثاني ٣٫٦ م', 'Clear height: ground and first floors 4.6 m, second floor 3.6 m')),
     (t('٢٫٨٠ م', '2.80 m'), t('ارتفاع الواجهة الزجاجية', 'Glass shopfront height')),
-    (t('كل الوحدات', 'All units'), t('كهرباء ودكت شفاط جاهزة', 'Power and exhaust duct in place')),
-    (t('المطاعم', 'Food & beverage'), t('مياه وصرف وغاز لوحدات المطاعم والكافيهات والفود كورت', 'Water, drainage and gas for restaurant, café and food-court units'))]) + '</ul>')
+    (t('كل الوحدات', 'All units'), t('الكهرباء جاهزة', 'Power in place')),
+    (t('المطاعم', 'Food & beverage'), t('مياه وصرف وغاز ودكت شفاط للهود لوحدات المطاعم والكافيهات والفود كورت', 'Water, drainage, gas and a hood exhaust duct for restaurant, café and food-court units'))]) + '</ul>')
 s = s.replace('<ul class="hp-units-sum">', specs + '<ul class="hp-units-sum">', 1)
 
 # full mall with the hypermarket (review 1.9): indicative estimate with its assumptions
