@@ -19,7 +19,10 @@
     phase: 'المرحلة الأولى', market: 'دراسة سوق قنا', plans: 'مخططات المحلات', leasing: 'التسليم والتعاقد',
     contact: 'احجز معاينة'
   };
-  if (window.HP_LITE) { GROUPS.phase = ['stages', 'phase']; GROUPS.location = ['location', 'film']; }
+  if (window.HP_LITE) {
+    GROUPS.phase = ['stages', 'phase']; GROUPS.location = ['location', 'film']; GROUPS.plans = ['units-list', 'atlas', 'sitevideo', 'hyper'];
+    TITLES.owner = 'المالك والمطوّر'; TITLES.why = 'لماذا قنا وصعيد مصر؟'; TITLES.contact = 'تواصل مع فريق التأجير'; TITLES.plans = 'الوحدات المتاحة والمخططات';
+  }
   var main = document.getElementById('mainpage');
   var bar = document.querySelector('.hp-backbar');
   var barTitle = bar && bar.querySelector('.hp-backbar-title');
@@ -41,7 +44,11 @@
   function apply() {
     var r = route();
     var body = document.body;
-    if (r.indexOf('unit/') === 0) { body.setAttribute('data-view', 'unit'); return; }
+    if (r.indexOf('unit/') === 0) {
+      var known = typeof byId === 'undefined' || byId.get(r.slice(5));
+      if (known) { body.setAttribute('data-view', 'unit'); return; }
+      r = '';
+    }
     var target = null, g = null;
     if (r.indexOf('plan/') === 0) { g = 'plans'; target = 'atlas'; }
     else if (r && r !== 'home') {

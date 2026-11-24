@@ -61,7 +61,9 @@
     var N = '([0-9٠-٩٬٫,.]+)';
     n = n.replace(new RegExp('وحدة مضمومة من (.+?) تُعرض كوحدة واحدة\\.', 'g'), function (m, a) { return 'Combined unit made of ' + a.split(/ و(?=[A-Z])/).join(', ') + ', offered as one unit.'; })
       .replace(new RegExp('المساحة المحملة ' + N + ' م² والصافي داخل حدود الوحدة ' + N + ' م²\\.', 'g'), 'Loaded area $1 m², net area inside the unit $2 m².')
-      .replace(new RegExp('لها تراس خارجي على البلازا مساحته ' + N + ' م² غير محسوب في المساحة المحملة\\.', 'g'), 'It has an outdoor terrace on the plaza of $1 m², not counted in the loaded area.');
+      .replace(new RegExp('لها تراس خارجي على البلازا مساحته ' + N + ' م² غير محسوب في المساحة المحملة\\.', 'g'), 'It has an outdoor terrace on the plaza of $1 m², not counted in the loaded area.')
+      .replace(new RegExp('لها تراس خارجي على البلازا مساحته ' + N + ' م² غير محسوب في المساحة المحمّلة\\.', 'g'), 'It has an outdoor terrace on the plaza of $1 m², not counted in the loaded area.')
+      .replace(new RegExp('المساحة المحمّلة ' + N + ' م²\\. الإيجار يُحتسب على المساحة المحمّلة\\.', 'g'), 'Loaded area $1 m². Rent is charged on the loaded area.');
     if (exact[n] !== undefined) return lead + flip(exact[n]) + tail;
     var out = big ? n.replace(big, function (m) { return exact[m]; }) : n;
     return lead + flip(finish(out)) + tail;
