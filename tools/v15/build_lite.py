@@ -31,10 +31,15 @@ t('الأنشطة التي تفتح مع المرحلة الأولى', 'Venues o
 NAMES_EN = {'جيم Guru Fit': 'Guru Fit gym', 'نادي صحي نسائي AURA': 'AURA women’s spa', 'مطعم بوخارست بلاك': 'Bokharest Black restaurant', 'ألعاب أطفال Joy Park': 'Joy Park kids’ play', 'فندق بلازا · ١٤ غرفة وجناحًا': 'Plaza Hotel · 14 rooms and suites', 'سندوتشات خفيفة وآيس كريم Joy Bites': 'Joy Bites sandwiches and ice cream', 'صيدلية هابينس': 'Happiness Pharmacy'}
 for _k, _v in NAMES_EN.items(): t(_k, _v)
 FLOOR = {'b1': 'البدروم', 'g': 'الأرضي', 'f1': 'الأول', 'f2': 'الثاني'}
-SPEC = t('سقف بارتفاع ٤٫٦ م، وواجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء ودكت الشفاط جاهزة.',
-         'Ceiling height 4.6 m, glass shopfront 2.80 m high; power and exhaust duct are in place.')
-SPEC_FB = t('سقف بارتفاع ٤٫٦ م، وواجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء ودكت الشفاط والمياه والصرف والغاز جاهزة لأنها وحدة مطاعم.',
-            'Ceiling height 4.6 m, glass shopfront 2.80 m high; power, exhaust duct, water, drainage and gas are in place as a food and beverage unit.')
+# clear internal height: ground and first 4.6 m, second 3.6 m; basement not confirmed yet
+HEIGHT = {'g': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '), 'f1': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '),
+          'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('', '')}
+SPECS = {}
+for _f, (_ha, _he) in HEIGHT.items():
+    SPECS[_f, False] = t(_ha + ('و' if _ha else '') + 'واجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء ودكت الشفاط جاهزة.',
+                         _he + 'glass shopfront 2.80 m high; power and exhaust duct are in place.' if _he else 'Glass shopfront 2.80 m high; power and exhaust duct are in place.')
+    SPECS[_f, True] = t(_ha + ('و' if _ha else '') + 'واجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء ودكت الشفاط والمياه والصرف والغاز جاهزة لأنها وحدة مطاعم.',
+                        (_he + 'glass shopfront 2.80 m high' if _he else 'Glass shopfront 2.80 m high') + '; power, exhaust duct, water, drainage and gas are in place as a food and beverage unit.')
 CONTACT = t('تواصل مع فريق التأجير', 'Contact the leasing team')
 LOADED = t('المساحات محمّلة، والإيجار يُحتسب على المساحة المحمّلة.', 'All areas are loaded areas; rent is charged on the loaded area.')
 FINAL = t('التوافر النهائي والحجز والتعاقد تتم من خلال فريق التأجير.', 'Final availability, booking and contracts are handled by the leasing team.')
@@ -113,7 +118,7 @@ for u in units:
     z = ZONE.get(u['id'], ('', ''))[1]
     if z:
         note = z + ' ' + note
-    note += ' ' + (SPEC_FB if u['cat'] in ('أغذية ومشروبات', 'فود كورت') else SPEC)
+    note += ' ' + SPECS[u['f'], u['cat'] in ('أغذية ومشروبات', 'فود كورت')]
     v['note'] = note
     v.pop('net', None)
     if u['id'] in SELF:
@@ -160,16 +165,16 @@ def cut(sel_start, sel_end_tag):
     s = s[:i] + s[j:]
 
 
-rep('pro.css?v=15q', 'pro.css?v=15q')
+rep('pro.css?v=15r', 'pro.css?v=15r')
 # lite flag (static)
 s, nflag = re.subn(r'<script>\(function\(\)\{var (?:q=new URLSearchParams\(location\.search\),)?l=(?:q|new URLSearchParams\(location\.search\))\.get\("lite"\).*?</script>',
            '<script>window.HP_LITE=true;document.documentElement.classList.add("hp-lite")</script>', s, count=1, flags=re.S)
 assert nflag == 1, 'lite flag not set'
 # English dictionary + lite overrides
 rep('document.write(\'<script src="i18n-en.js?v=15n"><\\/script>\')',
-    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=5"><\\/script>\')')
+    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=6"><\\/script>\')')
 # own scripts
-rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=3"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=4"></script>')
 rep('<script src="unit-viewer.js?v=15b"></script>', '<script src="unit-viewer-lite.js?v=1"></script>')
 rep('<script src="lite.js?v=15b"></script>', '<script src="lite.js?v=3"></script>')
 rep('launcher.js?v=15d', 'launcher.js?v=15d')
@@ -334,7 +339,7 @@ rep('جراج على مستويين بمساحة ٧٬٢٨٩ م²، منها ٣٬
     t('جراج على مستويين يتسع لـ٢٠٠ سيارة بمساحة ٧٬٢٨٩ م² (٣٬٦٤٤ م² لكل مستوى). يشمل البرنامج مصلى ودورات مياه للرجال والسيدات وذوي الإعاقة وماكينة صراف آلي.',
       'A two-level garage for 200 cars, 7,289 m² (3,644 m² on each level). The programme includes a prayer room, toilets for men, women and people with disabilities, and an ATM.'))
 specs = ('<ul class="hp-specs">' + ''.join(f'<li><b>{a}</b><span>{b}</span></li>' for a, b in [
-    (t('٤٫٦ م', '4.6 m'), t('ارتفاع السقف', 'Ceiling height')),
+    (t('٤٫٦ م · ٣٫٦ م', '4.6 m · 3.6 m'), t('الارتفاع الداخلي: الأرضي والأول ٤٫٦ م، والثاني ٣٫٦ م', 'Clear height: ground and first floors 4.6 m, second floor 3.6 m')),
     (t('٢٫٨٠ م', '2.80 m'), t('ارتفاع الواجهة الزجاجية', 'Glass shopfront height')),
     (t('كل الوحدات', 'All units'), t('كهرباء ودكت شفاط جاهزة', 'Power and exhaust duct in place')),
     (t('المطاعم', 'Food & beverage'), t('مياه وصرف وغاز لوحدات المطاعم والكافيهات والفود كورت', 'Water, drainage and gas for restaurant, café and food-court units'))]) + '</ul>')

@@ -69,7 +69,7 @@ def build(lang):
 <figure class="strip"><img src="assets/entry-square.jpg" alt=""></figure><p class="small">{T('تقدير استرشادي من فريق المشروع بافتراضات متحفظة، لا يشمل المسافرين والسياح. المصادر: تقديرات السكان (الجهاز المركزي للتعبئة العامة والإحصاء) وخطة المواطن الاستثمارية لمحافظة قنا ٢٠٢٣/٢٠٢٤. يُحدَّث بعدّادات الزوار الفعلية بعد التشغيل.','Indicative project-team estimate on conservative assumptions, excluding travellers and tourists. Sources: CAPMAS population estimates and the Citizen’s Investment Plan for Qena Governorate 2023/2024. To be updated with actual footfall counts after opening.')}</p>''')
 
     # 7 specs + lease
-    spec = [(T('ارتفاع السقف','Ceiling height'), T('٤٫٦ م','4.6 m')), (T('الواجهة الزجاجية','Glass shopfront'), T('بارتفاع ٢٫٨٠ م','2.80 m high')),
+    spec = [(T('الارتفاع الداخلي: الأرضي والأول','Clear height: ground and first floors'), T('٤٫٦ م','4.6 m')), (T('الارتفاع الداخلي: الدور الثاني','Clear height: second floor'), T('٣٫٦ م','3.6 m')), (T('الواجهة الزجاجية','Glass shopfront'), T('بارتفاع ٢٫٨٠ م','2.80 m high')),
             (T('الكهرباء','Power'), T('جاهزة لكل وحدة','In place for every unit')), (T('دكت الشفاط','Exhaust duct'), T('جاهز لكل وحدة','In place for every unit')),
             (T('المياه والصرف','Water and drainage'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court')), (T('الغاز','Gas'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court'))]
     models = [(T('إيجار ثابت','Fixed rent'), T('قيمة شهرية للمتر تُحسب على المساحة المحمّلة.','A monthly rate per m² on the loaded area.')),
