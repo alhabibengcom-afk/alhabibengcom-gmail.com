@@ -200,7 +200,7 @@ function photographicVisit(u, tour = false) {
     photoName.textContent=photo.caption;
     count.textContent=(idx+1).toLocaleString('ar-EG')+' / '+photos.length.toLocaleString('ar-EG');
     original.hidden=!photo.original || Boolean(point) || (otherPins&&other);
-    detail.textContent=point?(point.basis==='field-confirmed'?'موضع الوحدة '+codeText(u)+' مؤكد من الموقع.':point.basis==='facade-projection'?'موضع الوحدة '+codeText(u)+' مُسقط على امتداد الواجهة من المخطط.':'العلامة على واجهة الوحدة '+codeText(u)+' وفق المطابقة المعمارية.'):
+    detail.textContent=point?(point.basis==='field-confirmed'?'موضع الوحدة '+codeText(u)+' مؤكد من الموقع.':point.basis==='approximate'?'موضع تقريبي للوحدة '+codeText(u)+' على الواجهة بحسب ترتيب الوحدات في المسقط.':point.basis==='facade-projection'?'موضع الوحدة '+codeText(u)+' مُسقط على امتداد الواجهة من المخطط.':'العلامة على واجهة الوحدة '+codeText(u)+' وفق المطابقة المعمارية.'):
       photo.group==='hall'?'صورة عامة لقاعة بالمشروع. موضع الوحدة محدد على المسقط المرافق.':
       'مشهد عام من الموقع. موضع الوحدة '+codeText(u)+' محدد على المسقط المرافق.';
     for(const [i,button] of [...filmstrip.children].entries())button.setAttribute('aria-current',String(i===idx));
