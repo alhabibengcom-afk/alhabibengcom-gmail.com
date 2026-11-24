@@ -88,11 +88,13 @@ PROJECTS = [
      [(t('٢٠٬٠٠٠ م²', '20,000 m²'), t('إجمالي المساحة', 'Total area'))]),
 ]
 
-PARTNERS = [t('البنك الأهلي المصري', 'National Bank of Egypt'), t('المقاولون العرب', 'The Arab Contractors'),
-            t('أوراسكوم للإنشاءات', 'Orascom Construction'), t('مجموعة طلعت مصطفى', 'Talaat Moustafa Group'),
-            t('البحر الأحمر الدولية', 'Red Sea Global'), t('معمار المرشدي', 'Memar Al-Morshedy'),
-            t('سيمكس', 'CEMEX'), t('أسمنت النهضة', 'Al Nahda Cement'), t('حديد عز', 'Ezz Steel'),
-            t('حديد المصريين', 'Egyptian Steel')]
+PARTNERS = [
+    (t('جهات حكومية', 'Government authorities'), [t('جهاز مدينة قنا الجديدة', 'New Qena City Authority'), t('جهاز مدينة أسوان الجديدة', 'New Aswan City Authority')]),
+    (t('البنوك', 'Banks'), [t('البنك الأهلي المصري', 'National Bank of Egypt')]),
+    (t('التطوير والمقاولات', 'Development & contracting'), [t('المقاولون العرب', 'The Arab Contractors'), t('أوراسكوم للإنشاءات', 'Orascom Construction'),
+        t('مجموعة طلعت مصطفى', 'Talaat Moustafa Group'), t('البحر الأحمر الدولية', 'Red Sea Global'), t('معمار المرشدي', 'Memar Al-Morshedy')]),
+    (t('مواد البناء', 'Building materials'), [t('سيمكس', 'CEMEX'), t('أسمنت النهضة', 'Al Nahda Cement'), t('حديد عز', 'Ezz Steel'), t('حديد المصريين', 'Egyptian Steel')]),
+]
 
 ICON = {
     'retail': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16l-1.5 11h-13z M8 7a4 4 0 0 1 8 0"/></svg>',
@@ -106,8 +108,8 @@ h.append('<section class="section dev" id="owner"><div class="wrap">')
 h.append('<header class="dev-head"><span class="over">AL-HABEEB FOR DEVELOPMENT &amp; INVESTMENT LLC</span>')
 h.append('<h2>' + t('الحبيب للتنمية والاستثمار ش.م.م.', 'Al-Habeeb for Development & Investment LLC') + '</h2>')
 h.append('<p class="dev-lead">' + t(
-    'المالكة والمطوّرة لهابينس بلازا. مجموعة من قنا تعمل في السوق في أكثر من مجال: تجارة التجزئة من خلال سلسلة الحبيب ماركت، والإنتاج الزراعي من خلال مزارع الحبيب، ثم التطوير العقاري والتصميم والمقاولات.',
-    'Owner and developer of Happiness Plaza. A Qena-based group active in several markets: retail through the Al Habeeb Market chain, agriculture through Al Habeeb Farms, then real estate development, design and contracting.') + '</p></header>')
+    'المالكة والمطوّرة لهابينس بلازا، وهي مجموعة من الشركات تعمل في تجارة التجزئة من خلال سلسلة الحبيب ماركت، والإنتاج الزراعي من خلال مزارع الحبيب، والتطوير العقاري والتصميم والمقاولات. تأسست المجموعة ونمت وتطورت في محافظة قنا.',
+    'Owner and developer of Happiness Plaza. It is a group of companies working in retail through the Al Habeeb Market chain, agriculture through Al Habeeb Farms, and real estate development, design and contracting. The group was founded, grew and developed in Qena Governorate.') + '</p></header>')
 h.append('<div class="dev-facts" role="list">')
 for b, s in FACTS:
     h.append(f'<div role="listitem"><b>{b}</b><span>{s}</span></div>')
@@ -132,8 +134,10 @@ for img, tag, name, body, figs in PROJECTS:
     h.append('</div></article>')
 h.append('</div></div>')
 h.append('<div class="dev-partners"><span class="over">PARTNERS IN SUCCESS</span><h3>' + t('نعمل مع أسماء يثق بها السوق', 'We work alongside names the market trusts') + '</h3><p>'
-         + t('بنوك ومطورون ومقاولون وموردو مواد تعاملت معهم المجموعة.', 'Banks, developers, contractors and material suppliers the group has worked with.') + '</p><ul>')
-h.append(''.join(f'<li>{p}</li>' for p in PARTNERS) + '</ul></div>')
+         + t('جهات حكومية وبنوك ومطورون ومقاولون وموردون تعاملت معهم المجموعة.', 'Government authorities, banks, developers, contractors and suppliers the group has worked with.') + '</p><div class="dev-pgroups">')
+for label, names in PARTNERS:
+    h.append(f'<div class="dev-pgroup"><h4>{label}</h4><ul>' + ''.join(f'<li>{n}</li>' for n in names) + '</ul></div>')
+h.append('</div></div>')
 h.append('<div class="dev-links p4links">')
 for href, small, strong in [
         ('https://alhabeeb.org/', t('المالك والمطوّر', 'Owner and developer'), t('مجموعة شركات الحبيب', 'Al-Habeeb Group')),
@@ -202,7 +206,9 @@ CSS = r'''
 .dev-proj-body dt { font: 400 20px/1.3 Edition, Arabic, serif; color: var(--pro-green); white-space: nowrap; }
 .dev-proj-body dd { margin: 0; font-size: 12px; color: #6a716c; }
 .dev-partners { margin-top: clamp(56px, 7vw, 96px); }
-.dev-partners ul { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.dev-pgroups { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px 24px; margin-top: 22px; }
+.dev-pgroup h4 { font-size: 15px; color: var(--pro-gold); margin-bottom: 10px; }
+.dev-partners ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .dev-partners li { padding: 8px 16px; border: 1px solid rgba(226,195,139,.45); border-radius: 999px; font-size: 14px; color: #f1ead9; }
 .dev-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
 .dev .company-action { color: #f4f1e9; border-color: rgba(255,255,255,.28); }
@@ -211,14 +217,14 @@ CSS = r'''
   .dev-facts { grid-template-columns: repeat(3, 1fr); }
   .dev-facts > div:nth-child(3n) { border-inline-end: 0; }
   .dev-facts > div:nth-child(-n+3) { border-bottom: 1px solid rgba(255,255,255,.12); }
-  .dev-model, .dev-projects { grid-template-columns: 1fr 1fr; }
+  .dev-model, .dev-projects, .dev-pgroups { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 760px) {
   .dev-facts { grid-template-columns: 1fr 1fr; }
   .dev-facts > div { border-inline-end: 0; border-bottom: 1px solid rgba(255,255,255,.12); padding: 18px 12px 20px 0; }
   .dev-facts > div:nth-child(odd) { border-inline-end: 1px solid rgba(255,255,255,.12); padding-inline-end: 12px; }
   .dev-facts > div:nth-child(even) { padding-inline-start: 14px; }
-  .dev-model, .dev-why, .dev-projects { grid-template-columns: 1fr; }
+  .dev-model, .dev-why, .dev-projects, .dev-pgroups { grid-template-columns: 1fr; }
 }
 '''
 p = B + '/pro.css'

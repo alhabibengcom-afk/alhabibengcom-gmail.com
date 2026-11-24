@@ -228,9 +228,32 @@ def remap(d):
     return out
 
 
-links['photos'] = remap(links.get('photos', {}))
+def merge_marks(d, key):
+    # A combined unit gets one marker per photo or scene, at the middle of its parts.
+    out = {}
+    for uid, marks in d.items():
+        groups = {}
+        for m in marks:
+            groups.setdefault(m[key], []).append(m)
+        res = []
+        for g in groups.values():
+            xs = [m['x'] for m in g]
+            if len(g) > 1 and max(xs) - min(xs) < 0.35:
+                m = dict(g[0])
+                m['x'] = round(sum(xs) / len(g), 4)
+                m['y'] = round(sum(m2['y'] for m2 in g) / len(g), 4)
+                res.append(m)
+            else:
+                res.extend(g)
+        out[uid] = res
+    return out
+
+
+links['photos'] = merge_marks(remap(links.get('photos', {})), 'photo')
 if 'tours' in links:
     links['tours'] = remap(links['tours'])
+if 'panoramas' in links:
+    links['panoramas'] = merge_marks(remap(links['panoramas']), 'scene')
 gallery['zones'] = remap(gallery.get('zones', {}))
 gallery['units'] = remap(gallery.get('units', {}))
 
