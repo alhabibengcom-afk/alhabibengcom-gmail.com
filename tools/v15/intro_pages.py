@@ -320,9 +320,10 @@ put(p, (680, 172, 1374, 282),
     'A group of companies working in retail, agriculture, real estate development, design and contracting. '
     'The group was founded, grew and developed in Qena Governorate.', 22, INK, True)
 LINES15 = [
-    ('التجزئة', 'Retail', 'سلسلة الحبيب ماركت، ومنها هايبر ماركت ' + L('B01') + ' داخل المول.',
-     'The Al Habeeb Market chain, including the B01 hypermarket in the mall.'),
-    ('الزراعة', 'Agriculture', 'الإنتاج الزراعي من خلال مزارع الحبيب.', 'Agricultural production through Al Habeeb Farms.'),
+    ('التجزئة', 'Retail', 'سلسلة الحبيب ماركت منذ ' + num(2008, 0).replace('٬', '') + ': ' + num(4, 0) + ' فروع في قنا والبحر الأحمر، ومنها هايبر ماركت ' + L('B01') + ' داخل المول.',
+     'Al Habeeb Market since 2008: 4 branches in Qena and the Red Sea, plus the B01 hypermarket in the mall.'),
+    ('الزراعة', 'Agriculture', 'مزارع الحبيب منذ ' + num(2014, 0).replace('٬', '') + ': ' + num(2, 0) + ' مليون طائر و' + num(3000, 0) + ' رأس ماشية سنويًا.',
+     'Al Habeeb Farms since 2014: 2 million birds and 3,000 head of livestock a year.'),
     ('التطوير العقاري', 'Real estate', 'منذ ' + num(2021, 0).replace('٬', '') + ' بمشروع هابينس بلازا على أرض ' + m2(20000, 0) + '.',
      'Since 2021 with Happiness Plaza, on a 20,000 m² site.'),
     ('التصميم والمقاولات', 'Design & build', 'الحبيب للهندسة والمقاولات منذ ' + num(2008, 0).replace('٬', '') + '.',

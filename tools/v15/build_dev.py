@@ -21,22 +21,22 @@ def t(ar, en):
 
 
 FACTS = [
-    (t('التجزئة', 'Retail'), t('سلسلة الحبيب ماركت', 'The Al Habeeb Market chain')),
-    (t('الزراعة', 'Agriculture'), t('مزارع الحبيب', 'Al Habeeb Farms')),
+    (t('٤ فروع', '4 branches'), t('سلسلة الحبيب ماركت منذ ٢٠٠٨ في قنا والبحر الأحمر', 'Al Habeeb Market, since 2008, in Qena and the Red Sea')),
+    (t('٢ مليون طائر', '2 million birds'), t('طاقة الدواجن السنوية في مزارع الحبيب', 'Annual poultry capacity at Al Habeeb Farms')),
+    (t('٣٬٠٠٠ رأس', '3,000 head'), t('ماشية سنويًا في مزارع الحبيب', 'Of livestock a year at Al Habeeb Farms')),
     (t('التطوير العقاري', 'Real estate'), t('منذ ٢٠٢١ بمشروع هابينس بلازا', 'Since 2021, with Happiness Plaza')),
     (t('التصميم والمقاولات', 'Design & build'), t('منذ ٢٠٠٨ في قنا', 'Since 2008, in Qena')),
     (t('٢٠٬٠٠٠ م²', '20,000 m²'), t('أرض هابينس بلازا', 'Happiness Plaza site')),
-    (t('٥٬٥٦٢ م²', '5,562 m²'), t('هايبر ماركت الحبيب داخل المول', 'Al Habeeb Hypermarket inside the mall')),
 ]
 
 LINES = [
     (t('٠١', '01'), t('التجزئة: سلسلة الحبيب ماركت', 'Retail: the Al Habeeb Market chain'),
-     t('سلسلة الحبيب ماركت للأغذية والسلع اليومية. في هابينس بلازا يشغّل الحبيب هايبر ماركت B01 بمساحة ٥٬٥٦٢ م² بأقسام الأغذية الطازجة والسلع سريعة التداول والمنسوجات والسلع غير الغذائية، إلى جانب الحبيب ستور وصيدلية الحبيب.',
-       'Al Habeeb Market is the group’s grocery and daily-goods chain. At Happiness Plaza, Al-Habeeb runs the 5,562 m² B01 hypermarket with fresh food, fast-moving goods, textiles and non-food departments, alongside Al Habeeb Store and Al Habeeb Pharmacy.'),
+     t('تأسست سلسلة الحبيب ماركت عام ٢٠٠٨، ولها ٤ فروع في محافظتي قنا والبحر الأحمر، منها الفرع الرئيسي في قنا وفرع الغردقة، وتطبيق للطلب أونلاين. وفي هابينس بلازا يشغّل الحبيب هايبر ماركت B01 بمساحة ٥٬٥٦٢ م² بأقسام الأغذية الطازجة والسلع سريعة التداول والمنسوجات والسلع غير الغذائية، إلى جانب الحبيب ستور وصيدلية الحبيب.',
+       'Al Habeeb Market was founded in 2008 and has 4 branches in Qena and Red Sea governorates, including its main Qena branch and a Hurghada branch, plus an app for online orders. At Happiness Plaza, Al-Habeeb runs the 5,562 m² B01 hypermarket with fresh food, fast-moving goods, textiles and non-food departments, alongside Al Habeeb Store and Al Habeeb Pharmacy.'),
      'retail'),
     (t('٠٢', '02'), t('الزراعة: مزارع الحبيب', 'Agriculture: Al Habeeb Farms'),
-     t('نشاط الاستثمار الزراعي للمجموعة من خلال مزارع الحبيب.',
-       'The group’s agricultural investment, through Al Habeeb Farms.'),
+     t('تأسست مزارع الحبيب عام ٢٠١٤ على الكيلو ١٧ طريق قنا سفاجا للإنتاج الحيواني والداجني: تسمين العجول، وإنتاج الدواجن، وتربية الأغنام. نمت طاقة الدواجن من ٥٠٠ ألف طائر سنويًا إلى ٢ مليون طائر في ٢٠٢٢، وطاقة الماشية ٣٬٠٠٠ رأس سنويًا.',
+       'Founded in 2014 at kilometre 17 on the Qena–Safaga road for livestock and poultry production: calf fattening, poultry and sheep. Poultry capacity grew from 500,000 birds a year to 2 million in 2022; livestock capacity is 3,000 head a year.'),
      'farms'),
     (t('٠٣', '03'), t('التطوير العقاري', 'Real estate development'),
      t('بدأ في ٢٠٢١ بمشروع هابينس بلازا عند مدخل قنا الجديدة: أرض ٢٠٬٠٠٠ م²، وبلازا مشتركة ٤٬٠٠٠ م²، وثلاث مراحل هي الفندق والترفيه ثم المحلات ثم الهايبر ماركت.',
@@ -50,8 +50,8 @@ LINES = [
 
 WHY = [
     (t('تاجر تجزئة قبل أن يكون مطوّرًا', 'A retailer before a developer'),
-     t('المجموعة تعمل في التجزئة يوميًا من خلال الحبيب ماركت، فتعرف ما يحتاجه المتجر من موقع وحركة وخدمات، وتخطط المول على هذا الأساس.',
-       'The group trades every day through Al Habeeb Market, so it knows what a store needs from its location, footfall and services, and plans the mall on that basis.')),
+     t('تعمل المجموعة في التجزئة منذ ٢٠٠٨ من خلال ٤ فروع للحبيب ماركت، فتعرف ما يحتاجه المتجر من موقع وحركة وخدمات، وتخطط المول على هذا الأساس.',
+       'The group has run Al Habeeb Market since 2008, with 4 branches today, so it knows what a store needs from its location, footfall and services, and plans the mall on that basis.')),
     (t('الهايبر ماركت مُشغَّل من المالك', 'An owner-operated anchor'),
      t('هايبر ماركت الحبيب في البدروم يشغّله المالك نفسه، ومعه الحبيب ستور وصيدلية الحبيب، فيجلب زيارات متكررة للمول من أول يوم.',
        'The owner runs Al Habeeb Hypermarket in the basement, together with Al Habeeb Store and Al Habeeb Pharmacy, bringing repeat visits to the mall from day one.')),
@@ -141,6 +141,8 @@ h.append('</div></div>')
 h.append('<div class="dev-links p4links">')
 for href, small, strong in [
         ('https://alhabeeb.org/', t('المالك والمطوّر', 'Owner and developer'), t('مجموعة شركات الحبيب', 'Al-Habeeb Group')),
+        ('https://alhabeebmarket.com/', t('التجزئة', 'Retail'), t('الحبيب ماركت', 'Al Habeeb Market')),
+        ('https://alhabeebfarms.com/', t('الإنتاج الحيواني والداجني', 'Livestock and poultry'), t('مزارع الحبيب', 'Al Habeeb Farms')),
         ('https://alhabeebconst.com/', t('التصميم والتنفيذ', 'Design and construction'), t('الحبيب للهندسة والمقاولات', 'Al-Habeeb Engineering & Contracting')),
         ('https://alhabeebconst.com/Virtual-Tour/', t('هابينس بلازا', 'Happiness Plaza'), t('الجولة الافتراضية', 'Virtual tour'))]:
     h.append(f'<a class="company-action" href="{href}" rel="noopener noreferrer"><span aria-hidden="true" class="company-glyph">↗</span><span><small>{small}</small><strong>{strong}</strong></span></a>')
