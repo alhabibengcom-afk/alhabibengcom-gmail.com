@@ -68,3 +68,12 @@ h2{font-size:19pt;line-height:1.3;font-weight:700;color:#1f362d}
 .cover .cv.end{background:linear-gradient(0deg,rgba(15,28,23,.94) 0,rgba(15,28,23,.82) 55%,rgba(15,28,23,0) 85%)}
 .tb.xs{font-size:7.6pt}.tb.xs td{padding:.45mm 1.5mm;line-height:1.35}
 .plan .tb.xs ~ .small{display:none}
+.phc{list-style:none;display:grid;gap:4mm}
+.phc li{border-inline-start:1mm solid #c9a96e;padding-inline-start:4mm}
+.phc li:first-child{border-color:#1f362d}
+.phc span{font-size:8.8pt;color:#a8834a;font-weight:700}
+.phc b{display:block;font-size:14pt;color:#1f362d;margin:.5mm 0 1mm}
+.phc p{font-size:9.6pt;line-height:1.55;color:#4b504c}
+.tb td.op{font-weight:400;color:#5b605c;font-size:.95em}
+.tb td.nm{text-align:start}
+.plan .tb.xs ~ .small{display:block;font-size:7.6pt;margin-top:1.5mm}

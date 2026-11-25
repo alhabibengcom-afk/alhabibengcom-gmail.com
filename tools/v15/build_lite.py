@@ -40,6 +40,17 @@ for _f, (_ha, _he) in HEIGHT.items():
                          _he + 'glass shopfront 2.80 m high; power is in place.' if _he else 'Glass shopfront 2.80 m high; power is in place.')
     SPECS[_f, True] = t(_ha + ('و' if _ha else '') + 'واجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء والمياه والصرف والغاز ودكت شفاط الهود جاهزة لأنها وحدة مطاعم.',
                         (_he + 'glass shopfront 2.80 m high' if _he else 'Glass shopfront 2.80 m high') + '; power, water, drainage, gas and a hood exhaust duct are in place as a food and beverage unit.')
+# operating phases (owner, Nov 2026): phase one runs now; phase two June 2027; everything else incl. hypermarket December 2027
+PHASE2 = ['G39', 'G40', 'G41', 'G42', 'G42-1', 'G26-28', 'G30-32', 'G34-36', 'G38',
+          'G06', 'G07-12', 'G08', 'G09', 'G11', 'G12-14', 'G13', 'G15', 'G16-21', 'F16-20']
+BACK = {'G25-27': 'G26-28', 'G29-31': 'G30-32', 'G33-35': 'G34-36', 'G37': 'G38'}  # phase two only if taken with the front unit
+P2 = t('يونيو ٢٠٢٧', 'June 2027'); P3 = t('ديسمبر ٢٠٢٧', 'December 2027')
+PH_NOTE2 = t('ضمن المرحلة الثانية، والتشغيل في يونيو ٢٠٢٧.', 'Part of phase two, opening in June 2027.')
+PH_NOTE3 = t('ضمن المرحلة الثالثة، والتشغيل في ديسمبر ٢٠٢٧.', 'Part of phase three, opening in December 2027.')
+PH_BACK = {k: t(f'ضمن المرحلة الثالثة (ديسمبر ٢٠٢٧)، وتنضم للمرحلة الثانية (يونيو ٢٠٢٧) إذا استأجرها مستأجر الوحدة {v} الملاصقة لها من الظهر.',
+                f'Part of phase three (December 2027); it joins phase two (June 2027) if leased together with unit {v} directly behind it.') for k, v in BACK.items()}
+def phase_of(uid):
+    return 2 if uid in PHASE2 else 3
 CONTACT = t('تواصل مع فريق التأجير', 'Contact the leasing team')
 LOADED = t('المساحات محمّلة، والإيجار يُحتسب على المساحة المحمّلة.', 'All areas are loaded areas; rent is charged on the loaded area.')
 FINAL = t('التوافر النهائي والحجز والتعاقد تتم من خلال فريق التأجير.', 'Final availability, booking and contracts are handled by the leasing team.')
@@ -79,7 +90,7 @@ for uid, (cat, _) in ZONE.items():
 DAILY = ['B01', 'G16-21', 'F16-20', 'G46']
 groups = [
     ('daily', t('تسوق يومي', 'Daily shopping'), lambda u: u['id'] in DAILY,
-     t('هايبر ماركت الحبيب والحبيب ستور وصيدلية الحبيب، يشغّلها المالك.', 'Al Habeeb Hypermarket, Al Habeeb Store and Al Habeeb Pharmacy, run by the owner.')),
+     t('هايبر ماركت ومحلّا تجزئة وصيدلية.', 'A hypermarket, two retail stores and a pharmacy.')),
     ('fashion', t('أزياء وإكسسوارات ولايف ستايل', 'Fashion, accessories & lifestyle'),
      lambda u: u['cat'] in ('أزياء', 'إكسسوارات', 'لايف ستايل', 'موبايلات', 'اتصالات'),
      t('أزياء وإكسسوارات وموبايلات واتصالات ولايف ستايل.', 'Fashion, accessories, mobiles, telecom and lifestyle.')),
@@ -119,10 +130,12 @@ for u in units:
     if z:
         note = z + ' ' + note
     note += ' ' + SPECS[u['f'], u['cat'] in ('أغذية ومشروبات', 'فود كورت')]
+    note += ' ' + (PH_NOTE2 if u['id'] in PHASE2 else PH_BACK.get(u['id'], PH_NOTE3))
     v['note'] = note
     v.pop('net', None)
     if u['id'] in SELF:
-        v['held'] = True; v['status'] = 'يشغّلها الحبيب مباشرة'
+        v['held'] = True; v['status'] = t('غير معروضة للإيجار', 'Not offered for lease')
+        v['title'] = {'B01': t('هايبر ماركت', 'Hypermarket'), 'G16-21': t('محل تجزئة', 'Retail store'), 'F16-20': t('محل تجزئة', 'Retail store')}.get(u['id'], v.get('title'))
     else:
         v['held'] = False; v['status'] = t('متاحة للإيجار', 'Available for lease')
     lite_units.append(v)
@@ -131,6 +144,8 @@ assert len([u for u in lite_units if not u['held']]) == len(OFFER), (len(lite_un
 slite = site[:i0] + json.dumps(lite_units, ensure_ascii=False, separators=(',', ':')) + site[i1:]
 # no booking form: contact the leasing team instead
 slite = re.sub(r'function booking\(u\)\{', 'function booking(u){window.HP_LAST_UNIT=u&&u.id;navigateSite("contact");return;', slite, count=1)
+slite = slite.replace("'لوحة تصميم هايبر ماركت الحبيب'", "'لوحة تصميم الهايبر ماركت'").replace('"المرحلة الثالثة · هايبر ماركت الحبيب"', '"المرحلة الثالثة · الهايبر ماركت"')
+t('لوحة تصميم الهايبر ماركت', 'Hypermarket design plan')
 open(B + '/site-lite.js', 'w', encoding='utf-8').write(slite)
 
 uv = open(B + '/unit-viewer.js', encoding='utf-8').read()
@@ -165,19 +180,19 @@ def cut(sel_start, sel_end_tag):
     s = s[:i] + s[j:]
 
 
-rep('pro.css?v=15r', 'pro.css?v=15r')
+rep('pro.css?v=15s', 'pro.css?v=15s')
 # lite flag (static)
 s, nflag = re.subn(r'<script>\(function\(\)\{var (?:q=new URLSearchParams\(location\.search\),)?l=(?:q|new URLSearchParams\(location\.search\))\.get\("lite"\).*?</script>',
            '<script>window.HP_LITE=true;document.documentElement.classList.add("hp-lite")</script>', s, count=1, flags=re.S)
 assert nflag == 1, 'lite flag not set'
 # English dictionary + lite overrides
 rep('document.write(\'<script src="i18n-en.js?v=15n"><\\/script>\')',
-    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=7"><\\/script>\')')
+    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=8"><\\/script>\')')
 # own scripts
-rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=5"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=6"></script>')
 rep('<script src="unit-viewer.js?v=15b"></script>', '<script src="unit-viewer-lite.js?v=1"></script>')
 rep('<script src="lite.js?v=15b"></script>', '<script src="lite.js?v=3"></script>')
-rep('launcher.js?v=15d', 'launcher.js?v=15d')
+rep('launcher.js?v=15e', 'launcher.js?v=15e')
 # links that would leave the simple page
 s = s.replace('href="./#', 'href="lite.html#').replace('href="?', 'href="lite.html?')
 rep('<link rel="manifest" href="manifest.webmanifest">', '<link rel="manifest" href="manifest.webmanifest">', need=False)
@@ -304,7 +319,8 @@ rows, tot = [], {}
 for u in avail:
     tot.setdefault(u['f'], [0, 0.0]); tot[u['f']][0] += 1; tot[u['f']][1] += u['area']
     rows.append(f'<tr><td><a href="lite.html?unit={u["id"]}" data-route="unit/{u["id"]}"><bdi>{u["id"]}</bdi></a></td>'
-                f'<td>{FLOOR[u["f"]]}</td><td>{u["title"] if u.get("title") else u["cat"]}</td><td class="num">{num(u["area"])}</td></tr>')
+                f'<td>{FLOOR[u["f"]]}</td><td>{u["title"] if u.get("title") else u["cat"]}</td><td class="num">{num(u["area"])}</td>'
+                f'<td class="ph{phase_of(u["id"])}">{P2 if u["id"] in PHASE2 else P3 + ("*" if u["id"] in BACK else "")}</td></tr>')
 summary = ''.join(f'<li><b>{FLOOR[f]}</b> {num(n, 0)} · {num(a)} م²</li>' for f, (n, a) in sorted(tot.items(), key=lambda x: order[x[0]]))
 allsum = sum(a for _, a in tot.values())
 table = ('<section class="section hp-units" id="units-list"><div class="wrap"><span class="over">AVAILABLE FOR LEASE</span>'
@@ -312,7 +328,8 @@ table = ('<section class="section hp-units" id="units-list"><div class="wrap"><s
          f'<p class="hp-units-lead">{num(len(avail), 0)} ' + t('وحدة متاحة للإيجار بمساحة محمّلة إجمالية', 'units available for lease, with a total loaded area of') + f' {num(allsum)} م². {LOADED} {FINAL}</p>'
          f'<ul class="hp-units-sum">{summary}</ul>'
          '<div class="hp-units-scroll"><table class="hp-units-table"><thead><tr><th>' + t('الوحدة', 'Unit') + '</th><th>' + t('الدور', 'Level') + '</th><th>'
-         + t('النشاط', 'Use') + '</th><th>' + t('المحمّلة م²', 'Loaded m²') + '</th></tr></thead><tbody>' + ''.join(rows) + '</tbody></table></div></div></section>')
+         + t('النشاط', 'Use') + '</th><th>' + t('المحمّلة م²', 'Loaded m²') + '</th><th>' + t('التشغيل', 'Opening') + '</th></tr></thead><tbody>' + ''.join(rows) + '</tbody></table></div>'
+         '<p class="hp-units-foot">* ' + t('تنضم للمرحلة الثانية (يونيو ٢٠٢٧) إذا استأجرها مستأجر الوحدة الملاصقة لها من الظهر.', 'Joins phase two (June 2027) if leased together with the unit directly behind it.') + '</p></div></section>')
 i = s.index('id="atlas"'); a = s.rfind('<section', 0, i)
 s = s[:a] + table + s[a:]
 t('الأرضي', 'Ground'); t('الأول', 'First'); t('الثاني', 'Second'); t('البدروم', 'Basement')
@@ -358,6 +375,81 @@ rep(' تقدير المول كاملًا مع الهايبر موضّح أدنا
     '<tr><td>' + t('زوار من باقي المحافظة: ٠٫٥٪ من نحو ٢٫٩٥ مليون نسمة مرة شهريًا', 'Visitors from the rest of the governorate: 0.5% of about 2.95 million people once a month') + '</td><td>' + t('نحو ٥٠٠ يوميًا', 'About 500 a day') + '</td></tr>'
     '</tbody></table><p class="p4source">' + t('تقدير استرشادي من فريق المشروع بافتراضات متحفظة، لا يشمل المسافرين والسياح. يُحدَّث بأرقام العدّادات الفعلية بعد التشغيل.',
                                                   'Indicative estimate by the project team on conservative assumptions, excluding travellers and tourists. To be updated with actual footfall counts after opening.') + '</p></div>'))
+
+# ---- operating phases (Nov 2026): phase one runs, phase two June 2027, rest Dec 2027; no market study, no operator for the hypermarket ----
+# market section becomes the phases section (same id, so tile and launcher keep working)
+i = s.index('id="market"'); a = s.rfind('<section', 0, i); b = s.index('</section>', i) + len('</section>')
+p2 = [byid[k] for k in PHASE2]
+p2_avail = [u for u in p2 if u['id'] in OFFER]
+p2_rows = ''.join(f'<tr><td><a href="lite.html?unit={u["id"]}" data-route="unit/{u["id"]}"><bdi>{u["id"]}</bdi></a></td><td>{FLOOR[u["f"]]}</td>'
+                  f'<td>{u["cat"]}</td><td class="num">{num(u["area"])}</td></tr>' for u in p2_avail)
+phases = ('<section class="section hp-phases" id="market"><div class="wrap"><span class="over">OPENING PHASES</span>'
+          '<h2>' + t('مراحل تشغيل هابينس بلازا', 'Happiness Plaza opening phases') + '</h2>'
+          '<ol class="hp-phase-cards">'
+          '<li class="on"><span>' + t('المرحلة الأولى', 'Phase one') + '</span><b>' + t('تعمل بالفعل', 'Already open') + '</b><p>'
+          + t('فندق بلازا ومطعم بوخارست بلاك والجيم والنادي الصحي وألعاب الأطفال حول البحيرة.', 'Plaza Hotel, Bokharest Black restaurant, the gym, the wellness club and the kids’ play area around the lake.') + '</p></li>'
+          '<li><span>' + t('المرحلة الثانية', 'Phase two') + '</span><b>' + t('تشغيل يونيو ٢٠٢٧', 'Opening June 2027') + '</b><p>'
+          + t('مطاعم البلازا وواجهة الأزياء والمحلات المطلة على البلازا في الدور الأرضي، والوحدة F16-20 في الدور الأول.', 'The plaza restaurants, the fashion frontage and the shops facing the plaza on the ground floor, plus unit F16-20 on the first floor.') + '</p></li>'
+          '<li><span>' + t('المرحلة الثالثة', 'Phase three') + '</span><b>' + t('تشغيل ديسمبر ٢٠٢٧', 'Opening December 2027') + '</b><p>'
+          + t('باقي المحلات التجارية بالكامل في كل الأدوار، ومعها الهايبر ماركت في البدروم.', 'All remaining shops on every level, together with the basement hypermarket.') + '</p></li></ol>'
+          '<h3>' + t('وحدات المرحلة الثانية المتاحة للإيجار', 'Phase two units available for lease') + '</h3>'
+          '<div class="hp-units-scroll"><table class="hp-units-table"><thead><tr><th>' + t('الوحدة', 'Unit') + '</th><th>' + t('الدور', 'Level') + '</th><th>'
+          + t('النشاط', 'Use') + '</th><th>' + t('المحمّلة م²', 'Loaded m²') + '</th></tr></thead><tbody>' + p2_rows + '</tbody></table></div>'
+          '<p class="hp-units-foot">' + t('الوحدات G25-27 وG29-31 وG33-35 وG37 خلف واجهة الأزياء ضمن المرحلة الثالثة، وتنضم للمرحلة الثانية إذا استأجرها مستأجر الوحدة الأمامية الملاصقة لها من الظهر.',
+                                          'Units G25-27, G29-31, G33-35 and G37 behind the fashion frontage are in phase three; each joins phase two if leased together with the front unit directly behind it.') + '</p>'
+          '</div></section>')
+s = s[:a] + phases + s[b:]
+
+# tile, menus and links that pointed at the market study
+rep('<strong>دراسة سوق قنا</strong><small>السكان والزيارات</small>', '<strong>' + t('مراحل التشغيل', 'Opening phases') + '</strong><small>' + t('المرحلة الثانية يونيو ٢٠٢٧', 'Phase two June 2027') + '</small>')
+rep('<a href="lite.html#market" data-route="market">سوق قنا</a>', '<a href="lite.html#market" data-route="market">' + t('مراحل التشغيل', 'Opening phases') + '</a>')
+rep('<strong>٣ · السوق والمخططات</strong><a href="lite.html#market" data-route="market">دراسة سوق قنا</a>', '<strong>' + t('٣ · المراحل والمخططات', '3 · Phases and plans') + '</strong><a href="lite.html#market" data-route="market">' + t('مراحل التشغيل', 'Opening phases') + '</a>')
+rep(' <a href="lite.html#market" data-route="market">دراسة سوق قنا كاملة</a>', '')
+
+# phases roadmap
+i = s.index('id="stages"'); a = s.rfind('<section', 0, i); b = s.index('</section>', i) + len('</section>')
+s = s[:a] + ('<section class="phase-roadmap" id="stages"><div class="wrap"><h2>' + t('مراحل التشغيل', 'Opening phases') + '</h2><ol>'
+             '<li><a href="lite.html#phase" data-route="phase"><span>' + t('المرحلة الأولى', 'Phase one') + '</span><strong>' + t('الفندق والأنشطة الترفيهية', 'Hotel and leisure') + '</strong><small>' + t('تعمل بالفعل', 'Already open') + '</small></a></li>'
+             '<li><a href="lite.html#market" data-route="market"><span>' + t('المرحلة الثانية', 'Phase two') + '</span><strong>' + t('مطاعم البلازا وواجهة الأزياء', 'Plaza restaurants and fashion frontage') + '</strong><small>' + t('تشغيل يونيو ٢٠٢٧', 'Opening June 2027') + '</small></a></li>'
+             '<li><a href="lite.html?floor=g" data-route="plan/g"><span>' + t('المرحلة الثالثة', 'Phase three') + '</span><strong>' + t('باقي المحلات التجارية والهايبر ماركت', 'All remaining shops and the hypermarket') + '</strong><small>' + t('تشغيل ديسمبر ٢٠٢٧', 'Opening December 2027') + '</small></a></li>'
+             '</ol></div></section>') + s[b:]
+
+# phase one is running; no December 2026 date
+rep('المرحلة الأولى قيد التشغيل، والافتتاح الرسمي في ديسمبر ٢٠٢٦.', t('المرحلة الأولى تعمل بالفعل.', 'Phase one is already open.'), count=0)
+rep('<strong>المرحلة الأولى</strong><small>قيد التشغيل</small>', '<strong>' + t('المرحلة الأولى', 'Phase one') + '</strong><small>' + t('تعمل بالفعل', 'Already open') + '</small>')
+rep('<h2>المرحلة الثانية · المحلات التجارية</h2>', '<h2>' + t('المحلات التجارية · المرحلتان الثانية والثالثة', 'Retail units · phases two and three') + '</h2>')
+
+# hypermarket without an operator
+rep('<h2>المرحلة الثالثة · هايبر ماركت الحبيب</h2>', '<h2>' + t('المرحلة الثالثة · الهايبر ماركت', 'Phase three · the hypermarket') + '</h2>')
+s = re.sub(r'<span class="over">ALHABEEB HYPERMARKET', '<span class="over">HYPERMARKET', s, count=1)
+rep(' مساحة محمّلة للوحدة B01 في البدروم، ويشغّلها الحبيب ماركت.', t(' مساحة محمّلة للوحدة B01 في البدروم، والتشغيل في ديسمبر ٢٠٢٧ مع باقي المحلات.', ' loaded area for unit B01 in the basement, opening in December 2027 with the remaining shops.'))
+rep('<span>يشغّله الحبيب ماركت ويجلب زيارات يومية للمول.</span>', '<span>' + t('ضمن المرحلة الثالثة، والتشغيل في ديسمبر ٢٠٢٧.', 'Part of phase three, opening in December 2027.') + '</span>')
+rep('<h4>أمام هايبر ماركت الحبيب</h4>', '<h4>' + t('أمام الهايبر ماركت', 'In front of the hypermarket') + '</h4>')
+rep('alt="تصميم توزيع أقسام هايبر ماركت الحبيب والكاشيرات"', 'alt="' + t('تصميم توزيع أقسام الهايبر ماركت والكاشيرات', 'Hypermarket department and checkout layout') + '"')
+rep('<span role="listitem">هايبر ماركت الحبيب ٥٬٥٦٢ م²</span>', '<span role="listitem">' + t('هايبر ماركت ٥٬٥٦٢ م²', 'Hypermarket 5,562 m²') + '</span>')
+s = re.sub(r'<div class="wrap marketlook">.*?</div></div>', '', s, count=1, flags=re.S) if 'class="wrap marketlook"' in s else s
+rep(' وفي هابينس بلازا يشغّل الحبيب هايبر ماركت B01 بمساحة ٥٬٥٦٢ م² بأقسام الأغذية الطازجة والسلع سريعة التداول والمنسوجات والسلع غير الغذائية، إلى جانب الحبيب ستور وصيدلية الحبيب.', '')
+s = re.sub(r'<li><strong>الهايبر ماركت مُشغَّل من المالك</strong><p>[^<]*</p></li>', '', s, count=1)
+s = re.sub(r'<article><img loading="lazy" src="assets/developer/market-sign\.webp"[^>]*>.*?</article>', '', s, count=1, flags=re.S)
+s = re.sub(r'<div><img loading="lazy" src="assets/developer/market-fresh\.webp"[^>]*><span>[^<]*</span></div>', '', s, count=1)
+rep('<figcaption>تصميم الحبيب ماركت داخل المول، والمرحلة الأولى كما نُفّذت.</figcaption>', '<figcaption>' + t('المرحلة الأولى كما صمّمتها المجموعة ونفّذتها.', 'Phase one as designed and built by the group.') + '</figcaption>')
+s = re.sub(r'<div><img loading="lazy" src="assets/developer/market-sign\.webp"[^>]*><span>[^<]*</span></div>', '', s, count=1)
+rep('بدأ في ٢٠٢١ بمشروع هابينس بلازا عند مدخل قنا الجديدة: أرض ١٧٬٧٨٥ م²، وبلازا مشتركة ٤٬٠٠٠ م²، وثلاث مراحل هي الفندق والترفيه ثم المحلات ثم الهايبر ماركت.',
+    t('بدأ في ٢٠٢١ بمشروع هابينس بلازا عند مدخل قنا الجديدة: أرض ١٧٬٧٨٥ م²، وبلازا مشتركة ٤٬٠٠٠ م²، وثلاث مراحل: الفندق والترفيه، ثم مطاعم البلازا وواجهة الأزياء، ثم باقي المحلات والهايبر ماركت.',
+      'Launched in 2021 with Happiness Plaza at the entrance of New Qena: a 17,785 m² site, a 4,000 m² shared plaza and three phases: the hotel and leisure, then the plaza restaurants and fashion frontage, then the remaining shops and the hypermarket.'))
+rep('تأسست سلسلة الحبيب ماركت عام ٢٠٠٨، ولها ٤ فروع في محافظتي قنا والبحر الأحمر، منها الفرع الرئيسي في قنا وفرع الغردقة، وتطبيق للطلب أونلاين.</p>',
+    t('تأسست سلسلة الحبيب ماركت عام ٢٠٠٨، ولها ٤ فروع في محافظتي قنا والبحر الأحمر، منها الفرع الرئيسي في قنا وفرع الغردقة، وتطبيق للطلب أونلاين.',
+      'Alhabeeb Market was founded in 2008 and has 4 branches in Qena and Red Sea governorates, including its main Qena branch and a Hurghada branch, plus an app for online orders.') + '</p>')
+rep('صمّمت المجموعة ونفّذت مبنى الفندق والترفيه في المرحلة الأولى، وفيه فندق بوتيك من ١٤ غرفة وجناحًا. المرحلة الأولى تعمل بالفعل.',
+    t('صمّمت المجموعة ونفّذت مبنى الفندق والترفيه في المرحلة الأولى، وفيه فندق بوتيك من ١٤ غرفة وجناحًا. المرحلة الأولى تعمل بالفعل.',
+      'The group designed and built the phase one hotel and leisure building, with a 14-room boutique hotel. Phase one is already open.'))
+rep('فندق بلازا ومطعم الجزيرة والجيم والنادي الصحي وألعاب الأطفال. المرحلة الأولى تعمل بالفعل.',
+    t('فندق بلازا ومطعم الجزيرة والجيم والنادي الصحي وألعاب الأطفال. المرحلة الأولى تعمل بالفعل.',
+      'Plaza Hotel, the island restaurant, the gym, the wellness club and the kids’ play area. Phase one is already open.'))
+rep('<strong>٢ · المرحلة الأولى قيد التشغيل</strong><a href="lite.html#stages" data-route="stages">مراحل التنفيذ</a>',
+    '<strong>' + t('٢ · المرحلة الأولى تعمل بالفعل', '2 · Phase one is open') + '</strong><a href="lite.html#stages" data-route="stages">' + t('مراحل التشغيل', 'Opening phases') + '</a>')
+for _bad in ['هايبر ماركت الحبيب', 'يشغّلها الحبيب', 'يشغّله الحبيب', 'الحبيب ستور', 'ديسمبر ٢٠٢٦', 'دراسة سوق', 'زيارة في اليوم', 'hp-est']:
+    assert _bad not in s, _bad
 
 open(B + '/lite.html', 'w', encoding='utf-8').write(s)
 

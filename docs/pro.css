@@ -340,3 +340,13 @@ body[data-view="section"] .hp-backbar { display: flex; position: sticky; top: 72
 .hp-pack-row small { color: #6b6f6a; }
 @media (max-width: 900px) { .hp-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 420px) { .hp-specs { grid-template-columns: 1fr; } }
+.hp-phase-cards { list-style: none; padding: 0; margin: 18px 0 26px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.hp-phase-cards li { background: #fffdf8; border: 1px solid #e4ddcd; border-top: 4px solid #c9a96e; border-radius: 6px; padding: 16px; }
+.hp-phase-cards li.on { border-top-color: #1f362d; }
+.hp-phase-cards span { font-size: 13px; color: #8a6d3b; font-weight: 700; }
+.hp-phase-cards b { display: block; font-size: 21px; color: #1f362d; margin: 4px 0 8px; }
+.hp-phase-cards p { font-size: 14.5px; line-height: 1.7; color: #4b504c; margin: 0; }
+.hp-units-foot { font-size: 13.5px; color: #5b605c; margin-top: 10px; }
+.hp-units-table td.ph2 { color: #1f362d; font-weight: 700; white-space: nowrap; }
+.hp-units-table td.ph3 { white-space: nowrap; }
+@media (max-width: 700px) { .hp-phase-cards { grid-template-columns: 1fr; } }
