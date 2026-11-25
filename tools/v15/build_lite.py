@@ -203,7 +203,7 @@ def cut(sel_start, sel_end_tag):
     s = s[:i] + s[j:]
 
 
-rep('pro.css?v=15t', 'pro.css?v=15t')
+rep('pro.css?v=15u', 'pro.css?v=15u')
 # lite flag (static)
 s, nflag = re.subn(r'<script>\(function\(\)\{var (?:q=new URLSearchParams\(location\.search\),)?l=(?:q|new URLSearchParams\(location\.search\))\.get\("lite"\).*?</script>',
            '<script>window.HP_LITE=true;document.documentElement.classList.add("hp-lite")</script>', s, count=1, flags=re.S)
@@ -501,6 +501,12 @@ s, _k = re.subn(r'<h3>وحدات المرحلة الثانية المتاحة ل
                 '<a class="secondary" href="lite.html#phase3" data-route="phase3">' + t('استكشف المرحلة الثالثة', 'Explore phase three') + '</a></p>', s, count=1, flags=re.S)
 assert _k == 1, 'overview table'
 s = s.replace('<script src="launcher.js?v=15f"></script>', '<script src="launcher.js?v=15g"></script><script src="phases.js?v=1"></script>')
+
+# ---- app: install button, screen mode, own manifest ----
+s = s.replace('<script src="phases.js?v=1"></script>', '<script src="phases.js?v=1"></script><script src="app.js?v=1"></script>', 1)
+s = s.replace('<div class="hp-mini">', '<div class="hp-mini"><a class="hp-screen-link" href="lite.html?screen=1">' + t('عرض على الشاشة', 'Show on a screen') + ' <span aria-hidden="true">▶</span></a>'
+              '<button type="button" class="hp-install">' + t('ثبّت التطبيق', 'Install the app') + ' <span aria-hidden="true">⤓</span></button>', 1)
+s = s.replace('<link rel="manifest" href="manifest.webmanifest">', '<link rel="manifest" href="manifest-lite.webmanifest">', 1)
 
 import importlib.util as _iu
 _sp = _iu.spec_from_file_location('drive_fix', __file__.rsplit('/', 1)[0] + '/drive_fix.py'); _df = _iu.module_from_spec(_sp); _sp.loader.exec_module(_df)

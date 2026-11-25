@@ -379,3 +379,12 @@ body[data-view="section"] .hp-backbar { display: flex; position: sticky; top: 72
 .hp-grid > .hp-tile:last-child:nth-child(3n+1) { grid-column: 1 / -1; }
 @media (max-width: 700px) { .hp-grid > .hp-tile:last-child:nth-child(3n+1) { grid-column: auto; } .hp-grid > .hp-tile:last-child:nth-child(2n+1) { grid-column: 1 / -1; } }
 .hp-units-table td:first-child, .hp-units-table td:first-child a { white-space: nowrap; }
+.hp-install-row { display: inline-flex; }
+.hp-installed .hp-install { display: none; }
+.hp-screen .hp-fab, .hp-screen .hp-backbar, .hp-screen .appbar, .hp-screen .hp-mini, .hp-screen .mast-tools { display: none !important; }
+.hp-screen body { scroll-behavior: auto; }
+.hp-sidle, .hp-sidle * { cursor: none !important; }
+.hp-sbar { position: fixed; inset-inline: 0; bottom: 0; height: 5px; background: rgba(31,54,45,.25); z-index: 9999; }
+.hp-sbar i { display: block; height: 100%; width: 0; background: #e2c38b; }
+.hp-shint { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 9999; background: #1f362d; color: #fff; border: 0; border-radius: 999px; padding: 12px 22px; font: inherit; font-size: 16px; cursor: pointer; box-shadow: 0 6px 24px rgba(0,0,0,.25); }
+.hp-mini .hp-install { background: none; border: 0; padding: 0; font: inherit; color: #fbf8f0; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }

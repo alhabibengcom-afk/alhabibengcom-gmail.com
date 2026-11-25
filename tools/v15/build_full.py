@@ -260,6 +260,12 @@ s, _k = re.subn(r'<h3>وحدات المرحلة الثانية المتاحة ل
 assert _k == 1, 'overview table'
 s = s.replace('<script src="launcher.js?v=15f"></script>', '<script src="launcher.js?v=15g"></script><script src="phases.js?v=1"></script>')
 
+# ---- app: install button, screen mode, own manifest ----
+s = s.replace('<script src="phases.js?v=1"></script>', '<script src="phases.js?v=1"></script><script src="app.js?v=1"></script>', 1)
+s = s.replace('<div class="hp-mini">', '<div class="hp-mini"><a class="hp-screen-link" href="./?screen=1">' + t('عرض على الشاشة', 'Show on a screen') + ' <span aria-hidden="true">▶</span></a>'
+              '<button type="button" class="hp-install">' + t('ثبّت التطبيق', 'Install the app') + ' <span aria-hidden="true">⤓</span></button>', 1)
+
+
 import importlib.util as _iu
 _sp = _iu.spec_from_file_location('drive_fix', __file__.rsplit('/', 1)[0] + '/drive_fix.py'); _df = _iu.module_from_spec(_sp); _sp.loader.exec_module(_df)
 s = _df.apply(s, t)
