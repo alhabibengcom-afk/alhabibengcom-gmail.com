@@ -89,6 +89,9 @@
     document.querySelectorAll('.hp-pack').forEach(function (a) {
       a.href = window.HP_LANG === 'en' ? 'Happiness_Plaza_Leasing_Pack_EN.pdf' : 'Happiness_Plaza_Leasing_Pack.pdf';
     });
+    document.querySelectorAll('.hp-book').forEach(function (a) {
+      a.href = window.HP_LANG === 'en' ? 'Happiness_Plaza_Book_EN.pdf' : 'Happiness_Plaza_Book.pdf';
+    });
   }
 
   function run() { phase(); alts(); whatsapp(); pack(); }
