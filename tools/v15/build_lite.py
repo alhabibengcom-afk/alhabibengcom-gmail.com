@@ -155,7 +155,7 @@ open(B + '/unit-viewer-lite.js', 'w', encoding='utf-8').write(uv)
 t('المساحة المحمّلة (أساس الإيجار)', 'Loaded area (rent basis)')
 
 # ---------------- page ----------------
-s = open(B + '/index.html', encoding='utf-8').read()
+s = open(B + '/index.src.html', encoding='utf-8').read()
 
 
 def rep(a, b, count=1, need=True):
@@ -192,7 +192,7 @@ rep('document.write(\'<script src="i18n-en.js?v=15n"><\\/script>\')',
 rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=6"></script>')
 rep('<script src="unit-viewer.js?v=15b"></script>', '<script src="unit-viewer-lite.js?v=1"></script>')
 rep('<script src="lite.js?v=15b"></script>', '<script src="lite.js?v=3"></script>')
-rep('launcher.js?v=15e', 'launcher.js?v=15e')
+rep('launcher.js?v=15f', 'launcher.js?v=15f')
 # links that would leave the simple page
 s = s.replace('href="./#', 'href="lite.html#').replace('href="?', 'href="lite.html?')
 rep('<link rel="manifest" href="manifest.webmanifest">', '<link rel="manifest" href="manifest.webmanifest">', need=False)
@@ -448,6 +448,7 @@ rep('فندق بلازا ومطعم الجزيرة والجيم والنادي �
       'Plaza Hotel, the island restaurant, the gym, the wellness club and the kids’ play area. Phase one is already open.'))
 rep('<strong>٢ · المرحلة الأولى قيد التشغيل</strong><a href="lite.html#stages" data-route="stages">مراحل التنفيذ</a>',
     '<strong>' + t('٢ · المرحلة الأولى تعمل بالفعل', '2 · Phase one is open') + '</strong><a href="lite.html#stages" data-route="stages">' + t('مراحل التشغيل', 'Opening phases') + '</a>')
+s = s.replace('١٤٤ وحدة تجارية للإيجار', '٥٨ وحدة متاحة للإيجار').replace('144 retail units for lease', '58 units for lease')
 for _bad in ['هايبر ماركت الحبيب', 'يشغّلها الحبيب', 'يشغّله الحبيب', 'الحبيب ستور', 'ديسمبر ٢٠٢٦', 'دراسة سوق', 'زيارة في اليوم', 'hp-est']:
     assert _bad not in s, _bad
 
