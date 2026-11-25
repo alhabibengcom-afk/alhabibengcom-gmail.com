@@ -84,8 +84,8 @@ def section(id_):
     i = s.index(f'id="{id_}"'); a = s.rfind('<section', 0, i); b = s.index('</section>', i) + len('</section>')
     return a, b
 
-rep('<script src="site.js?v=15k"></script>', '<script src="site-full.js?v=3"></script>')
-rep('<script src="i18n.js?v=15b"></script>', '<script src="i18n-en-full.js?v=3"></script><script src="i18n.js?v=15b"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-full.js?v=4"></script>')
+rep('<script src="i18n.js?v=15b"></script>', '<script src="i18n-en-full.js?v=4"></script><script src="i18n.js?v=15b"></script>')
 
 # phases section replaces the market study (same id)
 a, b = section('market')
