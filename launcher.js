@@ -10,13 +10,13 @@
     goal: ['goal'],
     phase: ['stages', 'phase', 'phase-scenes', 'lake', 'rooms'],
     market: ['market'],
-    plans: ['atlas', 'sitevideo', 'hyper'],
+    plans: ['units-list', 'atlas', 'sitevideo', 'hyper'],
     leasing: ['facilities', 'handover', 'deals'],
     contact: ['contact']
   };
   var TITLES = {
     owner: 'مين المالك؟', why: 'ليه قنا والصعيد؟', location: 'الموقع والمميزات', goal: 'هدفنا',
-    phase: 'المرحلة الأولى', market: 'دراسة سوق قنا', plans: 'مخططات المحلات', leasing: 'التسليم والتعاقد',
+    phase: 'المرحلة الأولى', market: 'مراحل التشغيل', plans: 'الوحدات المتاحة والمخططات', leasing: 'التسليم والتعاقد',
     contact: 'احجز معاينة'
   };
   if (window.HP_LITE) {
