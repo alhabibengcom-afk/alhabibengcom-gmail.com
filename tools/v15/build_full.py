@@ -31,6 +31,18 @@ for f, (ha, he) in HEIGHT.items():
                        (he + 'glass shopfront 2.80 m high' if he else 'Glass shopfront 2.80 m high') + '; power, water, drainage, gas and a hood exhaust duct are in place as a food and beverage unit.')
 FB = ('أغذية ومشروبات', 'فود كورت')
 
+
+def spec_text(u):
+    """Clear height by floor; glass shopfront 3.20 m for the phase-two units on the plaza (ground), 2.80 m elsewhere;
+    water, drainage, gas and hood duct only for food and beverage units."""
+    ha, he = {'g': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '), 'f1': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '),
+              'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('', '')}[u['f']]
+    plaza = u['id'] in PHASE2 and u['f'] == 'g'
+    ga, ge = ('٣٫٢٠', '3.20') if plaza else ('٢٫٨٠', '2.80')
+    fb = u['cat'] in ('أغذية ومشروبات', 'فود كورت')
+    ar = ha + ('و' if ha else '') + f'واجهة زجاجية بارتفاع {ga} م، ' + ('والكهرباء والمياه والصرف والغاز ودكت شفاط الهود جاهزة لأنها وحدة مطاعم.' if fb else 'والكهرباء جاهزة.')
+    en = (he + 'glass shopfront' if he else 'Glass shopfront') + f' {ge} m high; ' + ('power, water, drainage, gas and a hood exhaust duct are in place as a food and beverage unit.' if fb else 'power is in place.')
+    return t(ar, en)
 # ---------- units (site-full.js) ----------
 site = open(B + '/site.js', encoding='utf-8').read()
 i0 = site.index('const UNITS=') + len('const UNITS=')
@@ -44,8 +56,8 @@ for u in units:
         u['held'] = False; u['status'] = 'متاحة للإيجار'
     else:
         u['held'] = True; u['status'] = NOT
-    u['note'] = (u.get('note') or '').strip() + ' ' + SPECS[u['f'], u['cat'] in FB] + ' ' + (PH2 if u['id'] in PHASE2 else PHB.get(u['id'], PH3))
-assert sum(1 for u in units if not u['held']) == len(OFFER) == 58
+    u['note'] = (u.get('note') or '').strip() + ' ' + spec_text(u) + ' ' + (PH2 if u['id'] in PHASE2 else PHB.get(u['id'], PH3))
+assert sum(1 for u in units if not u['held']) == len(OFFER) == 59
 sfull = site[:i0] + json.dumps(units, ensure_ascii=False, separators=(',', ':')) + site[i1:]
 sfull = sfull.replace("'لوحة تصميم هايبر ماركت الحبيب'", "'" + t('لوحة تصميم الهايبر ماركت', 'Hypermarket design plan') + "'")
 sfull = sfull.replace('"المرحلة الثالثة · هايبر ماركت الحبيب"', '"' + t('المرحلة الثالثة · الهايبر ماركت', 'Phase three · the hypermarket') + '"')
@@ -62,8 +74,8 @@ def section(id_):
     i = s.index(f'id="{id_}"'); a = s.rfind('<section', 0, i); b = s.index('</section>', i) + len('</section>')
     return a, b
 
-rep('<script src="site.js?v=15k"></script>', '<script src="site-full.js?v=1"></script>')
-rep('<script src="i18n.js?v=15b"></script>', '<script src="i18n-en-full.js?v=1"></script><script src="i18n.js?v=15b"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-full.js?v=2"></script>')
+rep('<script src="i18n.js?v=15b"></script>', '<script src="i18n-en-full.js?v=2"></script><script src="i18n.js?v=15b"></script>')
 
 # phases section replaces the market study (same id)
 a, b = section('market')
@@ -94,7 +106,7 @@ for u in avail:
     tot.setdefault(u['f'], [0, 0.0]); tot[u['f']][0] += 1; tot[u['f']][1] += u['area']
 specs = ('<ul class="hp-specs">' + ''.join(f'<li><b>{x}</b><span>{y}</span></li>' for x, y in [
     (t('٤٫٦ م · ٣٫٦ م', '4.6 m · 3.6 m'), t('الارتفاع الداخلي: الأرضي والأول ٤٫٦ م، والثاني ٣٫٦ م', 'Clear height: ground and first floors 4.6 m, second floor 3.6 m')),
-    (t('٢٫٨٠ م', '2.80 m'), t('ارتفاع الواجهة الزجاجية', 'Glass shopfront height')),
+    (t('٣٫٢٠ م · ٢٫٨٠ م', '3.20 m · 2.80 m'), t('الواجهة الزجاجية: ٣٫٢٠ م لمحلات المرحلة الثانية على البلازا، و٢٫٨٠ م لباقي المحلات', 'Glass shopfront: 3.20 m for the phase-two shops on the plaza, 2.80 m for the other shops')),
     (t('كل الوحدات', 'All units'), t('الكهرباء جاهزة', 'Power in place')),
     (t('المطاعم', 'Food & beverage'), t('مياه وصرف وغاز ودكت شفاط للهود لوحدات المطاعم والكافيهات والفود كورت', 'Water, drainage, gas and a hood exhaust duct for restaurant, café and food-court units'))]) + '</ul>')
 summary = ''.join(f'<li><b>{FLOOR[f]}</b> {num(n, 0)} · {num(ar)} م²</li>' for f, (n, ar) in sorted(tot.items(), key=lambda x: order[x[0]]))
@@ -111,7 +123,7 @@ table = ('<section class="section hp-units" id="units-list"><div class="wrap"><s
 a, b = section('atlas'); s = s[:a] + table + s[a:]
 s = re.sub(r'<a class="hp-tile hp-gold" href="\?floor=g" data-route="plan/g"><strong>مخططات المحلات</strong><small>[^<]*</small></a>',
            '<a class="hp-tile hp-gold" href="./#units-list" data-route="units-list"><strong>' + t('الوحدات المتاحة', 'Available units') + '</strong><small>'
-           + t('٥٨ وحدة متاحة للإيجار والمخططات', '58 units for lease, with plans') + '</small></a>', s, count=1)
+           + t('٥٩ وحدة متاحة للإيجار والمخططات', '59 units for lease, with plans') + '</small></a>', s, count=1)
 
 # menus and tiles that pointed at the market study
 rep('<strong>دراسة سوق قنا</strong><small>السكان والزيارات</small>', '<strong>' + t('مراحل التشغيل', 'Opening phases') + '</strong><small>' + t('المرحلة الثانية يونيو ٢٠٢٧', 'Phase two June 2027') + '</small>')
@@ -157,8 +169,8 @@ s = re.sub(r'<div><img loading="lazy" src="assets/developer/market-(sign|fresh)\
 rep('<figcaption>تصميم الحبيب ماركت داخل المول، والمرحلة الأولى كما نُفّذت.</figcaption>', '<figcaption>' + t('المرحلة الأولى كما صمّمتها المجموعة ونفّذتها.', 'Phase one as designed and built by the group.') + '</figcaption>')
 rep('<p>هايبر ماركت الحبيب والحبيب ستور وصيدلية الحبيب، يشغّلها المالك نفسه.</p>', '<p>' + t('هايبر ماركت ومحلّا تجزئة وصيدلية.', 'A hypermarket, two retail stores and a pharmacy.') + '</p>')
 m = re.search(r'<p>بدأ في ٢٠٢١ بمشروع هابينس بلازا[^<]*</p>', s)
-s = s[:m.start()] + '<p>' + t('بدأ في ٢٠٢١ بمشروع هابينس بلازا عند مدخل قنا الجديدة: أرض ١٧٬٧٨٥ م²، وبلازا مشتركة ٤٬٠٠٠ م²، وثلاث مراحل: الفندق والترفيه، ثم مطاعم البلازا وواجهة الأزياء، ثم باقي المحلات والهايبر ماركت.',
-      'Launched in 2021 with Happiness Plaza at the entrance of New Qena: a 17,785 m² site, a 4,000 m² shared plaza and three phases: the hotel and leisure, then the plaza restaurants and fashion frontage, then the remaining shops and the hypermarket.') + '</p>' + s[m.end():]
+s = s[:m.start()] + '<p>' + t('بدأ في ٢٠٢١ بمشروع هابينس بلازا عند مدخل قنا الجديدة: أرض ١٧٬٧٨٥ م²، وبلازا داخلية ١٬٨٥٧ م²، وثلاث مراحل: الفندق والترفيه، ثم مطاعم البلازا وواجهة الأزياء، ثم باقي المحلات والهايبر ماركت.',
+      'Launched in 2021 with Happiness Plaza at the entrance of New Qena: a 17,785 m² site, a 1,857 m² internal plaza and three phases: the hotel and leisure, then the plaza restaurants and fashion frontage, then the remaining shops and the hypermarket.') + '</p>' + s[m.end():]
 
 # garage 200 cars
 rep('<strong>جراج على مستويين لـ٢٠٠ سيارة</strong><span>سعة تصميمية، منها ٣٬٦٤٤ م² في البدروم الأول.</span>',
@@ -167,10 +179,51 @@ s = re.sub(r'<p>يعرض الملف جراجًا[^<]*</p>', lambda m: (
     '<p>' + t('جراج على مستويين يتسع لـ٢٠٠ سيارة بمساحة ٧٬٢٨٩ م² (٣٬٦٤٤ م² لكل مستوى). يشمل البرنامج مصلى ودورات مياه للرجال والسيدات وذوي الإعاقة وماكينة صراف آلي.',
               'A two-level garage for 200 cars, 7,289 m² (3,644 m² on each level). The programme includes a prayer room, toilets for men, women and people with disabilities, and an ATM.') + '</p>'), s, count=1)
 
-rep('مقصد التسوق الجديد لأهالي قنا · ١٤٤ وحدة تجارية للإيجار', t('مقصد التسوق الجديد لأهالي قنا · ٥٨ وحدة متاحة للإيجار', 'Qena’s new shopping destination · 58 units for lease'))
-s = s.replace('١٤٤ وحدة تجارية للإيجار', '٥٨ وحدة متاحة للإيجار').replace('144 retail units for lease', '58 units for lease')
+rep('مقصد التسوق الجديد لأهالي قنا · ١٤٤ وحدة تجارية للإيجار', t('مقصد التسوق الجديد لأهالي قنا · ٥٩ وحدة متاحة للإيجار', 'Qena’s new shopping destination · 59 units for lease'))
+s = s.replace('١٤٤ وحدة تجارية للإيجار', '٥٩ وحدة متاحة للإيجار').replace('144 retail units for lease', '59 units for lease')
 for bad in ['هايبر ماركت الحبيب', 'يشغّلها الحبيب', 'يشغّله الحبيب', 'يشغّلها المالك', 'الحبيب ستور', 'ديسمبر ٢٠٢٦', 'دراسة سوق', 'زيارة في اليوم', 'سعة تصميمية', 'Qena_Market_and_Footfall']:
     assert bad not in s, bad
+DAILY = ['B01', 'G16-21', 'F16-20', 'G46']
+groups = [
+    ('daily', t('تسوق يومي', 'Daily shopping'), lambda u: u['id'] in DAILY,
+     t('هايبر ماركت ومحلّا تجزئة وصيدلية.', 'A hypermarket, two retail stores and a pharmacy.')),
+    ('fashion', t('أزياء وإكسسوارات ولايف ستايل', 'Fashion, accessories & lifestyle'),
+     lambda u: u['cat'] in ('أزياء', 'إكسسوارات', 'لايف ستايل', 'موبايلات', 'اتصالات'),
+     t('أزياء وإكسسوارات وموبايلات واتصالات ولايف ستايل.', 'Fashion, accessories, mobiles, telecom and lifestyle.')),
+    ('food', t('مطاعم وكافيهات وفود كورت', 'Restaurants, cafés & food court'),
+     lambda u: u['cat'] in ('أغذية ومشروبات', 'فود كورت'),
+     t('مطاعم وكافيهات بتراسات على البلازا، وفود كورت في الدور الأول.', 'Restaurants and cafés with plaza terraces, and a first-floor food court.')),
+    ('fun', t('ترفيه وأطفال', 'Entertainment & kids'),
+     lambda u: u['cat'] in ('ترفيه', 'منطقة أطفال وحضانة'),
+     t('مساحتان للترفيه في الدور الثاني، ومنطقة أطفال وحضانة في البدروم.', 'Two entertainment spaces on the second floor and a kids’ area and nursery in the basement.')),
+    ('show', t('معارض وخدمات مالية وطبية', 'Showrooms, finance & medical'),
+     lambda u: u['cat'] in ('معرض', 'خدمات مالية', 'صالون وبيوتي سنتر', 'صيدلية وخدمات طبية') and u['id'] not in DAILY,
+     t('معارض وفروع بنوك وخدمات طبية.', 'Showrooms, bank branches and medical services.')),
+    ('retail', t('محلات تجارية', 'Retail shops'), lambda u: True,
+     t('محلات بمساحات متنوعة على الأدوار الأربعة.', 'Shops in a range of sizes across the four levels.')),
+]
+counts, seen = {}, set()
+for key, _, test, _ in groups:
+    n = 0
+    for u in units:
+        if u['id'] not in seen and test(u):
+            seen.add(u['id']); n += 1
+    counts[key] = n
+assert sum(counts.values()) == len(units) == 144, counts
+mix = ''.join(f'<article><b>{num(counts[k], 0)} {"وحدة" if counts[k] > 10 or counts[k] < 3 else "وحدات"}</b><h3>{title}</h3><p>{body}</p></article>'
+              for k, title, _, body in groups)
+for k, v in counts.items():
+    EN[num(v, 0) + ' وحدة'] = f'{v} units'; EN[num(v, 0) + ' وحدات'] = f'{v} units'
+s = re.sub(r'<div class="story-mix">.*?</div><p class="story-note">',
+           '<div class="story-mix">' + mix + '</div><p class="story-total">'
+           + t('المجموع: ١٤٤ وحدة تجارية على أربعة أدوار، إلى جانب فندق بلازا (١٤ غرفة وجناحًا) وأنشطة المرحلة الأولى.',
+               'Total: 144 retail units on four levels, plus the Plaza Hotel (14 rooms) and the phase one leisure venues.')
+           + '</p><p class="story-note">', s, count=1, flags=re.S)
+
+import importlib.util as _iu
+_sp = _iu.spec_from_file_location('drive_fix', __file__.rsplit('/', 1)[0] + '/drive_fix.py'); _df = _iu.module_from_spec(_sp); _sp.loader.exec_module(_df)
+s = _df.apply(s, t)
+
 open(B + '/index.html', 'w', encoding='utf-8').write(s)
 open(B + '/i18n-en-full.js', 'w', encoding='utf-8').write(
     '/* English for the detailed guide: phases, specs and edited sentences. Loaded after i18n-en.js. */\n'

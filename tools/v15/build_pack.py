@@ -12,6 +12,7 @@ def build(lang):
     def short(s):
         star = '*' if s.endswith('*') else ''
         return (T('يونيو ٢٠٢٧','06/2027') if s.startswith(T('يونيو','June')) else T('ديسمبر ٢٠٢٧','12/2027')) + star
+    total = sum(float(r[3].translate(str.maketrans('٠١٢٣٤٥٦٧٨٩٫٬', '0123456789.,')).replace(',', '')) for r in rows)
     floors = {}
     for r in rows: floors.setdefault(r[1], []).append(r)
     F = 'هابينس بلازا · ملف التأجير' if ar else 'Happiness Plaza · Leasing Pack'
@@ -25,12 +26,12 @@ def build(lang):
 <div class="cv"><p class="ey">{T('مدينة قنا الجديدة · محافظة قنا · مصر','New Qena City · Qena Governorate · Egypt')}</p>
 <h1>{T('هابينس بلازا','Happiness Plaza')}</h1>
 <p class="sub">{T('ملف التأجير للعلامات التجارية','Leasing Pack for Brands')}</p>
-<p class="tag">{T('مقصد التسوق الجديد لأهالي قنا','Qena’s new shopping destination')} · {n('58')} {T('وحدة متاحة للإيجار','units available for lease')}</p>
+<p class="tag">{T('مقصد التسوق الجديد لأهالي قنا','Qena’s new shopping destination')} · {n(str(len(rows)))} {T('وحدة متاحة للإيجار','units available for lease')}</p>
 <p class="dt">{T('نوفمبر ٢٠٢٦','November 2026')}</p></div>''', 'cover', False)
 
     # 2 at a glance
     page(f'''<div class="hd"><p class="ey">{T('المشروع في سطور','At a glance')}</p><h2>{T('مول تجاري وفندق وترفيه حول بلازا واحدة عند مدخل قنا الجديدة','Retail, hotel and leisure around one plaza at the entrance of New Qena')}</h2></div>
-<div class="grid4">{stat(n('144'), T('وحدة تجارية على أربعة أدوار','retail units on four levels'))}{stat(n('58'), T('وحدة متاحة للإيجار بإجمالي ٩٬٤٥٩ م² محمّلة','units for lease, 9,459 m² loaded in total'))}{stat(n('17,785')+' '+T('م²','m²'), T('مساحة أرض المشروع','site area'))}{stat(n('4,000')+' '+T('م²','m²'), T('بلازا مفتوحة تطل عليها المحلات','open plaza the shops face'))}
+<div class="grid4">{stat(n('144'), T('وحدة تجارية على أربعة أدوار','retail units on four levels'))}{stat(n(str(len(rows))), T('وحدة متاحة للإيجار بإجمالي ','units for lease, ') + n(f'{total:,.0f}') + T(' م² محمّلة',' m² loaded in total'))}{stat(n('17,785')+' '+T('م²','m²'), T('مساحة أرض المشروع','site area'))}{stat(n('1,857')+' '+T('م²','m²'), T('بلازا داخلية مع تراسات المطاعم','internal plaza with restaurant terraces'))}
 {stat(n('5,562')+' '+T('م²','m²'), T('هايبر ماركت في البدروم','hypermarket in the basement'))}{stat(n('200'), T('سيارة في جراج على مستويين','cars in a two-level garage'))}{stat(n('8')+' '+T('كم','km'), T('من مدينة قنا','from Qena city'))}{stat(T('يونيو ٢٠٢٧','June 2027'), T('تشغيل المرحلة الثانية، والمرحلة الأولى تعمل بالفعل','phase two opens; phase one is already open'))}</div>''')
 
     # 3 developer
@@ -45,7 +46,7 @@ def build(lang):
 
     # 4 location
     loc = [(T('على مدخل مدينة قنا الجديدة','At the entrance of New Qena City'), T('الحي الأول، على بعد نحو ٨ كم من مدينة قنا، وعلى محاور قنا–سفاجا وقنا–الأقصر والطريق الصحراوي إلى القاهرة.','District 1, about 8 km from Qena city, on the Qena–Safaga and Qena–Luxor roads and the desert road to Cairo.')),
-           (T('بلازا مفتوحة ٤٬٠٠٠ م²','A 4,000 m² open plaza'), T('المحلات والمطاعم والفندق والبحيرة كلها حول بلازا واحدة.','Shops, restaurants, the hotel and the lake all face one plaza.')),
+           (T('بلازا داخلية مفتوحة ١٬٨٥٧ م²','A 1,857 m² open internal plaza'), T('مع تراسات المطاعم، والمحلات والمطاعم والفندق والبحيرة حولها.','With the restaurant terraces; the shops, restaurants, hotel and lake are around it.')),
            (T('هايبر ماركت ٥٬٥٦٢ م²','A 5,562 m² hypermarket'), T('في البدروم، والتشغيل في ديسمبر ٢٠٢٧ مع باقي المحلات.','In the basement, opening in December 2027 with the remaining shops.')),
            (T('جراج على مستويين لـ٢٠٠ سيارة','A two-level garage for 200 cars'), T('٧٬٢٨٩ م²، بواقع ٣٬٦٤٤ م² لكل مستوى.','7,289 m², 3,644 m² on each level.')),
            (T('٣ مداخل وحركة رأسية كاملة','3 entrances and full vertical circulation'), T('مصعد بانورامي وسلّمان متحركان وسلالم رئيسية وطوارئ.','Panoramic lift, two escalators, main and emergency stairs.')),
@@ -75,7 +76,7 @@ def build(lang):
 <table class="tb sm"><thead><tr><th>{T('الوحدة','Unit')}</th><th>{T('الدور','Level')}</th><th>{T('النشاط','Use')}</th><th>{T('المحمّلة م²','Loaded m²')}</th></tr></thead><tbody>{p2rows}</tbody></table></div></div>''')
 
     # 7 specs + lease
-    spec = [(T('الارتفاع الداخلي: الأرضي والأول','Clear height: ground and first floors'), T('٤٫٦ م','4.6 m')), (T('الارتفاع الداخلي: الدور الثاني','Clear height: second floor'), T('٣٫٦ م','3.6 m')), (T('الواجهة الزجاجية','Glass shopfront'), T('بارتفاع ٢٫٨٠ م','2.80 m high')),
+    spec = [(T('الارتفاع الداخلي: الأرضي والأول','Clear height: ground and first floors'), T('٤٫٦ م','4.6 m')), (T('الارتفاع الداخلي: الدور الثاني','Clear height: second floor'), T('٣٫٦ م','3.6 m')), (T('الواجهة الزجاجية: محلات المرحلة الثانية على البلازا','Glass shopfront: phase-two shops on the plaza'), T('٣٫٢٠ م','3.20 m')), (T('الواجهة الزجاجية: باقي المحلات','Glass shopfront: other shops'), T('٢٫٨٠ م','2.80 m')),
             (T('الكهرباء','Power'), T('جاهزة لكل وحدة','In place for every unit')), (T('دكت شفاط الهود','Hood exhaust duct'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court')),
             (T('المياه والصرف','Water and drainage'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court')), (T('الغاز','Gas'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court'))]
     models = [(T('إيجار ثابت','Fixed rent'), T('قيمة شهرية للمتر تُحسب على المساحة المحمّلة.','A monthly rate per m² on the loaded area.')),
