@@ -21,7 +21,7 @@ function calculate(){
  document.getElementById('mnote').textContent='عدد الزيارات المصحوبة بشراء وفق المدخلات الحالية: '+nb.format(vis*(+conv.value)/100)+' شهريًا.';
 }
 function scenario(n){active=n;conv.value=ranges[n][4];basket.value=ranges[n][5];buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===n)));calculate()}
-buttons.forEach(b=>b.addEventListener('click',()=>scenario(Number(b.dataset.sc))));conv.addEventListener('input',calculate);basket.addEventListener('input',calculate);scenario(1);
+if(conv&&basket){buttons.forEach(b=>b.addEventListener('click',()=>scenario(Number(b.dataset.sc))));conv.addEventListener('input',calculate);basket.addEventListener('input',calculate);scenario(1);}
 document.addEventListener('play', event => {
   if (!(event.target instanceof HTMLVideoElement)) return;
   for (const video of document.querySelectorAll('video')) {

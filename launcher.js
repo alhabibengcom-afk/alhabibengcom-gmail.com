@@ -21,7 +21,7 @@
   };
   if (window.HP_LITE) {
     GROUPS.phase = ['stages', 'phase']; GROUPS.location = ['location', 'film']; GROUPS.plans = ['units-list', 'atlas', 'sitevideo', 'hyper'];
-    TITLES.owner = 'المالك والمطوّر'; TITLES.why = 'لماذا قنا وصعيد مصر؟'; TITLES.contact = 'تواصل مع فريق التأجير'; TITLES.plans = 'الوحدات المتاحة والمخططات';
+    TITLES.owner = 'المالك والمطوّر'; TITLES.why = 'لماذا قنا وصعيد مصر؟'; TITLES.contact = 'تواصل مع فريق التأجير'; TITLES.plans = 'الوحدات المتاحة والمخططات'; TITLES.market = 'مراحل التشغيل';
   }
   var main = document.getElementById('mainpage');
   var bar = document.querySelector('.hp-backbar');
