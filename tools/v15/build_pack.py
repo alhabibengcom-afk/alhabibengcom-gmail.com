@@ -76,7 +76,7 @@ def build(lang):
 <table class="tb sm"><thead><tr><th>{T('الوحدة','Unit')}</th><th>{T('الدور','Level')}</th><th>{T('النشاط','Use')}</th><th>{T('المحمّلة م²','Loaded m²')}</th></tr></thead><tbody>{p2rows}</tbody></table></div></div>''')
 
     # 7 specs + lease
-    spec = [(T('الارتفاع الداخلي: الأرضي والأول','Clear height: ground and first floors'), T('٤٫٦ م','4.6 m')), (T('الارتفاع الداخلي: الدور الثاني','Clear height: second floor'), T('٣٫٦ م','3.6 m')), (T('الواجهة الزجاجية: محلات المرحلة الثانية على البلازا','Glass shopfront: phase-two shops on the plaza'), T('٣٫٢٠ م','3.20 m')), (T('الواجهة الزجاجية: باقي المحلات','Glass shopfront: other shops'), T('٢٫٨٠ م','2.80 m')),
+    spec = [(T('الارتفاع الداخلي: البدروم','Clear height: basement'), T('٥٫٦ م','5.6 m')), (T('الارتفاع الداخلي: الأرضي والأول','Clear height: ground and first floors'), T('٤٫٦ م','4.6 m')), (T('الارتفاع الداخلي: الدور الثاني','Clear height: second floor'), T('٣٫٦ م','3.6 m')), (T('الواجهة الزجاجية: محلات المرحلة الثانية على البلازا','Glass shopfront: phase-two shops on the plaza'), T('٣٫٢٠ م','3.20 m')), (T('الواجهة الزجاجية: باقي المحلات','Glass shopfront: other shops'), T('٢٫٨٠ م','2.80 m')),
             (T('الكهرباء','Power'), T('جاهزة لكل وحدة','In place for every unit')), (T('دكت شفاط الهود','Hood exhaust duct'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court')),
             (T('المياه والصرف','Water and drainage'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court')), (T('الغاز','Gas'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court'))]
     models = [(T('إيجار ثابت','Fixed rent'), T('قيمة شهرية للمتر تُحسب على المساحة المحمّلة.','A monthly rate per m² on the loaded area.')),

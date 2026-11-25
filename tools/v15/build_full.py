@@ -30,7 +30,7 @@ PH3 = t('ضمن المرحلة الثالثة، والتشغيل في ديسمب
 PHB = {k: t(f'ضمن المرحلة الثالثة (ديسمبر ٢٠٢٧)، وتنضم للمرحلة الثانية (يونيو ٢٠٢٧) إذا استأجرها مستأجر الوحدة {v} الملاصقة لها من الظهر.',
             f'Part of phase three (December 2027); it joins phase two (June 2027) if leased together with unit {v} directly behind it.') for k, v in BACK.items()}
 HEIGHT = {'g': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '), 'f1': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '),
-          'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('', '')}
+          'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('الارتفاع الداخلي ٥٫٦ م، ', 'Clear internal height 5.6 m; ')}
 SPECS = {}
 for f, (ha, he) in HEIGHT.items():
     SPECS[f, False] = t(ha + ('و' if ha else '') + 'واجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء جاهزة.',
@@ -44,7 +44,7 @@ def spec_text(u):
     """Clear height by floor; glass shopfront 3.20 m for the phase-two units on the plaza (ground), 2.80 m elsewhere;
     water, drainage, gas and hood duct only for food and beverage units."""
     ha, he = {'g': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '), 'f1': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '),
-              'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('', '')}[u['f']]
+              'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('الارتفاع الداخلي ٥٫٦ م، ', 'Clear internal height 5.6 m; ')}[u['f']]
     plaza = u['id'] in PHASE2 and u['f'] == 'g'
     ga, ge = ('٣٫٢٠', '3.20') if plaza else ('٢٫٨٠', '2.80')
     if u['id'] in GLASS:
@@ -84,8 +84,8 @@ def section(id_):
     i = s.index(f'id="{id_}"'); a = s.rfind('<section', 0, i); b = s.index('</section>', i) + len('</section>')
     return a, b
 
-rep('<script src="site.js?v=15k"></script>', '<script src="site-full.js?v=2"></script>')
-rep('<script src="i18n.js?v=15b"></script>', '<script src="i18n-en-full.js?v=2"></script><script src="i18n.js?v=15b"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-full.js?v=3"></script>')
+rep('<script src="i18n.js?v=15b"></script>', '<script src="i18n-en-full.js?v=3"></script><script src="i18n.js?v=15b"></script>')
 
 # phases section replaces the market study (same id)
 a, b = section('market')
@@ -115,7 +115,7 @@ tot = {}
 for u in avail:
     tot.setdefault(u['f'], [0, 0.0]); tot[u['f']][0] += 1; tot[u['f']][1] += u['area']
 specs = ('<ul class="hp-specs">' + ''.join(f'<li><b>{x}</b><span>{y}</span></li>' for x, y in [
-    (t('٤٫٦ م · ٣٫٦ م', '4.6 m · 3.6 m'), t('الارتفاع الداخلي: الأرضي والأول ٤٫٦ م، والثاني ٣٫٦ م', 'Clear height: ground and first floors 4.6 m, second floor 3.6 m')),
+    (t('٥٫٦ · ٤٫٦ · ٣٫٦ م', '5.6 · 4.6 · 3.6 m'), t('الارتفاع الداخلي: البدروم ٥٫٦ م، والأرضي والأول ٤٫٦ م، والثاني ٣٫٦ م', 'Clear height: basement 5.6 m, ground and first floors 4.6 m, second floor 3.6 m')),
     (t('٣٫٢٠ م · ٢٫٨٠ م', '3.20 m · 2.80 m'), t('الواجهة الزجاجية: ٣٫٢٠ م لمحلات المرحلة الثانية على البلازا، و٢٫٨٠ م لباقي المحلات', 'Glass shopfront: 3.20 m for the phase-two shops on the plaza, 2.80 m for the other shops')),
     (t('كل الوحدات', 'All units'), t('الكهرباء جاهزة', 'Power in place')),
     (t('المطاعم', 'Food & beverage'), t('مياه وصرف وغاز ودكت شفاط للهود لوحدات المطاعم والكافيهات والفود كورت', 'Water, drainage, gas and a hood exhaust duct for restaurant, café and food-court units'))]) + '</ul>')

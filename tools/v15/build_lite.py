@@ -33,7 +33,7 @@ for _k, _v in NAMES_EN.items(): t(_k, _v)
 FLOOR = {'b1': 'البدروم', 'g': 'الأرضي', 'f1': 'الأول', 'f2': 'الثاني'}
 # clear internal height: ground and first 4.6 m, second 3.6 m; basement not confirmed yet
 HEIGHT = {'g': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '), 'f1': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '),
-          'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('', '')}
+          'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('الارتفاع الداخلي ٥٫٦ م، ', 'Clear internal height 5.6 m; ')}
 SPECS = {}
 for _f, (_ha, _he) in HEIGHT.items():
     SPECS[_f, False] = t(_ha + ('و' if _ha else '') + 'واجهة زجاجية بارتفاع ٢٫٨٠ م، والكهرباء جاهزة.',
@@ -124,7 +124,7 @@ def spec_text(u):
     """Clear height by floor; glass shopfront 3.20 m for the phase-two units on the plaza (ground), 2.80 m elsewhere;
     water, drainage, gas and hood duct only for food and beverage units."""
     ha, he = {'g': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '), 'f1': ('الارتفاع الداخلي ٤٫٦ م، ', 'Clear internal height 4.6 m; '),
-              'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('', '')}[u['f']]
+              'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('الارتفاع الداخلي ٥٫٦ م، ', 'Clear internal height 5.6 m; ')}[u['f']]
     plaza = u['id'] in PHASE2 and u['f'] == 'g'
     ga, ge = ('٣٫٢٠', '3.20') if plaza else ('٢٫٨٠', '2.80')
     if u['id'] in GLASS:
@@ -205,9 +205,9 @@ s, nflag = re.subn(r'<script>\(function\(\)\{var (?:q=new URLSearchParams\(locat
 assert nflag == 1, 'lite flag not set'
 # English dictionary + lite overrides
 rep('document.write(\'<script src="i18n-en.js?v=15n"><\\/script>\')',
-    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=9"><\\/script>\')')
+    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=10"><\\/script>\')')
 # own scripts
-rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=7"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=8"></script>')
 rep('<script src="unit-viewer.js?v=15b"></script>', '<script src="unit-viewer-lite.js?v=1"></script>')
 rep('<script src="lite.js?v=15b"></script>', '<script src="lite.js?v=3"></script>')
 rep('launcher.js?v=15f', 'launcher.js?v=15f')
@@ -374,7 +374,7 @@ rep('جراج على مستويين بمساحة ٧٬٢٨٩ م²، منها ٣٬
     t('جراج على مستويين يتسع لـ٢٠٠ سيارة بمساحة ٧٬٢٨٩ م² (٣٬٦٤٤ م² لكل مستوى). يشمل البرنامج مصلى ودورات مياه للرجال والسيدات وذوي الإعاقة وماكينة صراف آلي.',
       'A two-level garage for 200 cars, 7,289 m² (3,644 m² on each level). The programme includes a prayer room, toilets for men, women and people with disabilities, and an ATM.'))
 specs = ('<ul class="hp-specs">' + ''.join(f'<li><b>{a}</b><span>{b}</span></li>' for a, b in [
-    (t('٤٫٦ م · ٣٫٦ م', '4.6 m · 3.6 m'), t('الارتفاع الداخلي: الأرضي والأول ٤٫٦ م، والثاني ٣٫٦ م', 'Clear height: ground and first floors 4.6 m, second floor 3.6 m')),
+    (t('٥٫٦ · ٤٫٦ · ٣٫٦ م', '5.6 · 4.6 · 3.6 m'), t('الارتفاع الداخلي: البدروم ٥٫٦ م، والأرضي والأول ٤٫٦ م، والثاني ٣٫٦ م', 'Clear height: basement 5.6 m, ground and first floors 4.6 m, second floor 3.6 m')),
     (t('٣٫٢٠ م · ٢٫٨٠ م', '3.20 m · 2.80 m'), t('الواجهة الزجاجية: ٣٫٢٠ م لمحلات المرحلة الثانية على البلازا، و٢٫٨٠ م لباقي المحلات', 'Glass shopfront: 3.20 m for the phase-two shops on the plaza, 2.80 m for the other shops')),
     (t('كل الوحدات', 'All units'), t('الكهرباء جاهزة', 'Power in place')),
     (t('المطاعم', 'Food & beverage'), t('مياه وصرف وغاز ودكت شفاط للهود لوحدات المطاعم والكافيهات والفود كورت', 'Water, drainage, gas and a hood exhaust duct for restaurant, café and food-court units'))]) + '</ul>')
