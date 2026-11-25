@@ -61,19 +61,30 @@ def build(lang):
             ('Happiness_Pharmacy.jpg', T('صيدلية هابينس','Happiness Pharmacy'))]
     page(f'''<div class="hd"><p class="ey">{T('المرحلة الأولى · تعمل بالفعل','Phase one · already open')}</p><h2>{T('الفندق والأنشطة الترفيهية تعمل بالفعل','The hotel and leisure venues are already open')}</h2></div>
 <div class="acts">{''.join(f'<figure><img src="assets/{f}" alt=""><figcaption>{c}</figcaption></figure>' for f,c in acts)}
-<div class="note"><b>{T('مراحل المشروع','Project phases')}</b><span>{T('١. الفندق والترفيه: تعمل بالفعل','1. Hotel and leisure: already open')}</span><span>{T('٢. مطاعم البلازا وواجهة الأزياء: يونيو ٢٠٢٧','2. Plaza restaurants and fashion frontage: June 2027')}</span><span>{T('٣. باقي المحلات والهايبر ماركت: ديسمبر ٢٠٢٧','3. Remaining shops and hypermarket: December 2027')}</span></div></div>''')
+<div class="note"><b>{T('مراحل المشروع','Project phases')}</b><span>{T('١. الفندق والترفيه: تعمل بالفعل','1. Hotel and leisure: already open')}</span><span>{T('٢. وحدات البلازا والفود كورت: يونيو ٢٠٢٧','2. Plaza units and food court: June 2027')}</span><span>{T('٣. باقي المحلات والهايبر ماركت: ديسمبر ٢٠٢٧','3. Remaining shops and hypermarket: December 2027')}</span></div></div>''')
 
-    # 6 opening phases
-    p2 = [r for r in rows if r[4].startswith(T('يونيو','June'))]
-    p2rows = ''.join(f'<tr><td><bdi>{r[0]}</bdi></td><td>{r[1]}</td><td>{html.escape(r[2])}</td><td class="nm">{r[3]}</td></tr>' for r in p2)
+    # 6 opening phases: overview, phase two (map + table with outdoor terraces), phase three (maps per floor)
+    tonum = lambda x: float(x.translate(str.maketrans('٠١٢٣٤٥٦٧٨٩٫٬', '0123456789.,')).replace(',', '')) if x and x not in ('—', '-') else 0.0
+    p2 = [r for r in rows if r[5].startswith(T('يونيو','June'))]
+    p3 = [r for r in rows if not r[5].startswith(T('يونيو','June'))]
+    out2 = sum(tonum(r[4]) for r in p2)
     cards = [(T('المرحلة الأولى','Phase one'), T('تعمل بالفعل','Already open'), T('فندق بلازا ومطعم بوخارست بلاك والجيم والنادي الصحي وألعاب الأطفال حول البحيرة.','Plaza Hotel, Bokharest Black, the gym, the wellness club and the kids’ play area around the lake.')),
-             (T('المرحلة الثانية','Phase two'), T('تشغيل يونيو ٢٠٢٧','Opening June 2027'), T('مطاعم البلازا وواجهة الأزياء والمحلات المطلة على البلازا في الدور الأرضي، والوحدة F16-20 في الدور الأول.','The plaza restaurants, the fashion frontage and the shops facing the plaza on the ground floor, plus unit F16-20 on the first floor.')),
+             (T('المرحلة الثانية','Phase two'), T('تشغيل يونيو ٢٠٢٧','Opening June 2027'), T('وحدات الأرضي المطلة على البلازا: المطاعم بتراساتها الخارجية، وواجهة الأزياء، والشوروم والبنوك، ومعها في الدور الأول الفود كورت والبنك والشوروم الدوبلكس.','The ground-floor units facing the plaza: restaurants with outdoor terraces, the fashion frontage, showrooms and banks, plus the first-floor food court and the duplex bank and showroom.')),
              (T('المرحلة الثالثة','Phase three'), T('تشغيل ديسمبر ٢٠٢٧','Opening December 2027'), T('باقي المحلات التجارية بالكامل في كل الأدوار، ومعها الهايبر ماركت في البدروم.','All remaining shops on every level, together with the basement hypermarket.'))]
-    page(f'''<div class="two ph"><div><div class="hd"><p class="ey">{T('مراحل التشغيل','Opening phases')}</p><h2>{T('ثلاث مراحل حتى ديسمبر ٢٠٢٧','Three phases through December 2027')}</h2></div>
-<ol class="phc">{''.join(f'<li><span>{a}</span><b>{b}</b><p>{c}</p></li>' for a,b,c in cards)}</ol>
-<p class="small">{T('الوحدات G25-27 وG29-31 وG33-35 وG37 خلف واجهة الأزياء ضمن المرحلة الثالثة، وتنضم للمرحلة الثانية إذا استأجرها مستأجر الوحدة الأمامية الملاصقة لها من الظهر.','Units G25-27, G29-31, G33-35 and G37 behind the fashion frontage are in phase three; each joins phase two if leased together with the front unit directly behind it.')}</p></div>
-<div><div class="hd"><p class="ey">{T('المرحلة الثانية · يونيو ٢٠٢٧','Phase two · June 2027')}</p><h2>{n(str(len(p2)))} {T('وحدة متاحة للإيجار','units available for lease')}</h2></div>
-<table class="tb sm"><thead><tr><th>{T('الوحدة','Unit')}</th><th>{T('الدور','Level')}</th><th>{T('النشاط','Use')}</th><th>{T('المحمّلة م²','Loaded m²')}</th></tr></thead><tbody>{p2rows}</tbody></table></div></div>''')
+    page(f"""<div class="hd"><p class="ey">{T('مراحل التشغيل','Opening phases')}</p><h2>{T('ثلاث مراحل حتى ديسمبر ٢٠٢٧','Three phases through December 2027')}</h2></div>
+<ol class="phc big">{''.join(f'<li><span>{a}</span><b>{b}</b><p>{c}</p></li>' for a,b,c in cards)}</ol>
+<div class="grid3 phs">{stat(n(str(len(p2))), T('وحدة متاحة في المرحلة الثانية','units for lease in phase two'))}{stat(n(str(len(p3))), T('وحدة متاحة في المرحلة الثالثة','units for lease in phase three'))}{stat(n(f'{out2:,.2f}') + ' ' + T('م²','m²'), T('تراسات خارجية لمطاعم المرحلة الثانية','outdoor terraces of the phase-two restaurants'))}</div>""")
+    p2rows = ''.join(f'<tr><td><bdi>{r[0]}</bdi></td><td>{r[1]}</td><td>{html.escape(r[2])}</td><td class="nm">{r[3]}</td><td class="nm">{r[4]}</td></tr>' for r in p2)
+    page(f"""<div class="plan ph2"><figure><img src="assets/map-p2-g.jpg" alt=""></figure><div>
+<div class="hd"><p class="ey">{T('المرحلة الثانية · يونيو ٢٠٢٧','Phase two · June 2027')}</p><h2>{n(str(len(p2)))} {T('وحدة متاحة للإيجار','units available for lease')}</h2></div>
+<table class="tb sm xs"><thead><tr><th>{T('الوحدة','Unit')}</th><th>{T('الدور','Level')}</th><th>{T('النشاط','Use')}</th><th>{T('المحمّلة م²','Loaded m²')}</th><th>{T('أوت دور م²','Outdoor m²')}</th></tr></thead><tbody>{p2rows}</tbody></table>
+<p class="small">{T('المخطط للدور الأرضي: وحدات المرحلة بألوانها والمتاحة بإطار ذهبي. التراسات الخارجية للمطاعم (أوت دور) غير محسوبة في المساحة المحمّلة.','Ground-floor plan: phase units in colour, units for lease outlined in gold. Restaurant outdoor terraces are not counted in the loaded area.')}</p></div></div>""")
+    fl3 = [('b1', T('البدروم','Basement')), ('g', T('الأرضي','Ground')), ('f1', T('الأول','First')), ('f2', T('الثاني','Second'))]
+    cnt = {}
+    for r in p3: cnt.setdefault(r[1], [0, 0.0]); cnt[r[1]][0] += 1; cnt[r[1]][1] += tonum(r[3])
+    page(f"""<div class="hd"><p class="ey">{T('المرحلة الثالثة · ديسمبر ٢٠٢٧','Phase three · December 2027')}</p><h2>{n(str(len(p3)))} {T('وحدة متاحة للإيجار في الأدوار الأربعة، ومعها الهايبر ماركت','units for lease on the four levels, plus the hypermarket')}</h2></div>
+<div class="maps4">{''.join(f'<figure><img src="assets/map-p3-{f}.jpg" alt=""><figcaption><b>{lab}</b> {n(str(cnt.get(lab,[0])[0]))} {T('وحدة','units')} · {n(f"{cnt.get(lab,[0,0.0])[1]:,.2f}")} {T('م²','m²')}</figcaption></figure>' for f, lab in fl3)}</div>
+<p class="small">{T('تفاصيل كل وحدة في صفحات الأدوار التالية. الوحدات G25-27 وG29-31 وG33-35 وG37 تنضم للمرحلة الثانية إذا استأجرها مستأجر الوحدة الأمامية الملاصقة لها من الظهر.','Unit details follow on the floor pages. Units G25-27, G29-31, G33-35 and G37 join phase two if leased together with the front unit directly behind them.')}</p>""")
 
     # 7 specs + lease
     spec = [(T('الارتفاع الداخلي: البدروم','Clear height: basement'), T('٥٫٦ م','5.6 m')), (T('الارتفاع الداخلي: الأرضي والأول','Clear height: ground and first floors'), T('٤٫٦ م','4.6 m')), (T('الارتفاع الداخلي: الدور الثاني','Clear height: second floor'), T('٣٫٦ م','3.6 m')), (T('الواجهة الزجاجية: محلات المرحلة الثانية على البلازا','Glass shopfront: phase-two shops on the plaza'), T('٣٫٢٠ م','3.20 m')), (T('الواجهة الزجاجية: باقي المحلات','Glass shopfront: other shops'), T('٢٫٨٠ م','2.80 m')),
@@ -98,8 +109,8 @@ def build(lang):
 <div class="hd"><p class="ey">{T('مخطط الدور','Floor plan')}</p><h2>{(fl if fl in ('البدروم','Basement') else (('الدور ' + fl) if ar else (fl + ' floor')))}</h2></div>
 <p class="lead">{n(str(len(rs)))} {T('وحدة متاحة للإيجار بإجمالي','units for lease,')} {n(f'{tot:,.2f}')} {T('م² محمّلة','m² loaded')}</p>
 <table class="tb sm{' xs' if len(rs) > 18 else ''}"><thead><tr><th>{T('الوحدة','Unit')}</th><th>{T('النشاط المقترح','Suggested use')}</th><th>{T('المحمّلة م²','Loaded m²')}</th><th>{T('التشغيل','Opens')}</th></tr></thead><tbody>
-{''.join(f'<tr><td><bdi>{r[0]}</bdi></td><td>{html.escape(r[2])}</td><td class="nm">{r[3]}</td><td class="op">{short(r[4])}</td></tr>' for r in rs)}</tbody></table>
-<p class="small">{T('الألوان في المخطط تبيّن تصنيف الأنشطة. الوحدات غير الواردة في الجدول غير معروضة للإيجار.','Plan colours show the use mix. Units not listed in the table are not offered for lease.')}{(' * ' + T('تنضم للمرحلة الثانية إذا استأجرها مستأجر الوحدة الملاصقة لها من الظهر.','Joins phase two if leased with the unit directly behind it.')) if any(r[4].endswith('*') for r in rs) else ''}</p></div></div>''')
+{''.join(f'<tr><td><bdi>{r[0]}</bdi></td><td>{html.escape(r[2])}</td><td class="nm">{r[3]}</td><td class="op">{short(r[5])}</td></tr>' for r in rs)}</tbody></table>
+<p class="small">{T('الألوان في المخطط تبيّن تصنيف الأنشطة. الوحدات غير الواردة في الجدول غير معروضة للإيجار.','Plan colours show the use mix. Units not listed in the table are not offered for lease.')}{(' * ' + T('تنضم للمرحلة الثانية إذا استأجرها مستأجر الوحدة الملاصقة لها من الظهر.','Joins phase two if leased with the unit directly behind it.')) if any(r[5].endswith('*') for r in rs) else ''}</p></div></div>''')
 
     # 12 steps + contact
     steps = [T('معاينة','Site visit'), T('عرض وتعاقد','Offer and lease'), T('استلام فني','Technical handover'), T('اعتماد تصميم الفرع','Store design approval'), T('تجهيز وافتتاح','Fit-out and opening')]

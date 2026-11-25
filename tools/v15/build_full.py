@@ -11,6 +11,7 @@ def t(ar, en):
 AR = str.maketrans('0123456789', '٠١٢٣٤٥٦٧٨٩')
 def num(x, d=2):
     return (f'{x:,.{d}f}').translate(AR).replace(',', '٬').replace('.', '٫')
+t('صالون وبيوتي سنتر', 'Salon & beauty centre')
 FLOOR = {'b1': t('البدروم', 'Basement'), 'g': t('الأرضي', 'Ground'), 'f1': t('الأول', 'First'), 'f2': t('الثاني', 'Second')}
 
 PHASE2 = ['G39', 'G40', 'G41', 'G42', 'G42-1', 'G26-28', 'G30-32', 'G34-36', 'G38',
@@ -67,7 +68,7 @@ for u in units:
     else:
         u['held'] = True; u['status'] = NOT
     u['note'] = (u.get('note') or '').strip() + ' ' + spec_text(u) + ' ' + (PH2 if u['id'] in PHASE2 else PHB.get(u['id'], PH3))
-assert sum(1 for u in units if not u['held']) == len(OFFER) == 59
+assert sum(1 for u in units if not u['held']) == len(OFFER)
 sfull = site[:i0] + json.dumps(units, ensure_ascii=False, separators=(',', ':')) + site[i1:]
 sfull = sfull.replace("'لوحة تصميم هايبر ماركت الحبيب'", "'" + t('لوحة تصميم الهايبر ماركت', 'Hypermarket design plan') + "'")
 sfull = sfull.replace('"المرحلة الثالثة · هايبر ماركت الحبيب"', '"' + t('المرحلة الثالثة · الهايبر ماركت', 'Phase three · the hypermarket') + '"')
@@ -84,8 +85,8 @@ def section(id_):
     i = s.index(f'id="{id_}"'); a = s.rfind('<section', 0, i); b = s.index('</section>', i) + len('</section>')
     return a, b
 
-rep('<script src="site.js?v=15k"></script>', '<script src="site-full.js?v=4"></script>')
-rep('<script src="i18n.js?v=15b"></script>', '<script src="i18n-en-full.js?v=4"></script><script src="i18n.js?v=15b"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-full.js?v=5"></script>')
+rep('<script src="i18n.js?v=15b"></script>', '<script src="i18n-en-full.js?v=5"></script><script src="i18n.js?v=15b"></script>')
 
 # phases section replaces the market study (same id)
 a, b = section('market')
@@ -125,15 +126,17 @@ table = ('<section class="section hp-units" id="units-list"><div class="wrap"><s
          f'<p class="hp-units-lead">{num(len(avail), 0)} ' + t('وحدة متاحة للإيجار بمساحة محمّلة إجمالية', 'units available for lease, with a total loaded area of')
          + f' {num(sum(x[1] for x in tot.values()))} م². ' + t('المساحات محمّلة، والإيجار يُحتسب على المساحة المحمّلة.', 'All areas are loaded areas; rent is charged on the loaded area.') + '</p>'
          + specs + f'<ul class="hp-units-sum">{summary}</ul>'
-         '<div class="hp-units-scroll"><table class="hp-units-table">' + TH('<th>' + t('التشغيل', 'Opening') + '</th>') + '<tbody>'
-         + ''.join(row(u, f'<td class="ph{2 if u["id"] in PHASE2 else 3}">{P2 if u["id"] in PHASE2 else P3 + ("*" if u["id"] in BACK else "")}</td>') for u in avail)
+         '<div class="hp-units-scroll"><table class="hp-units-table">' + TH('<th>' + t('التراس الخارجي م²', 'Outdoor terrace m²') + '</th><th>' + t('التشغيل', 'Opening') + '</th>') + '<tbody>'
+         + ''.join(row(u, (f'<td class="num">{num(u["extra"])}</td>' if u.get("extra") else '<td class="num">—</td>') + f'<td class="ph{2 if u["id"] in PHASE2 else 3}">{P2 if u["id"] in PHASE2 else P3 + ("*" if u["id"] in BACK else "")}</td>') for u in avail)
          + '</tbody></table></div><p class="hp-units-foot">* ' + t('تنضم للمرحلة الثانية (يونيو ٢٠٢٧) إذا استأجرها مستأجر الوحدة الملاصقة لها من الظهر.', 'Joins phase two (June 2027) if leased together with the unit directly behind it.') + '</p>'
          '<p class="hp-pack-row"><a class="action" href="Happiness_Plaza_Leasing_Pack.pdf" download>' + t('ملف التأجير PDF · عربي', 'Leasing Pack PDF · Arabic') + '</a> '
-         '<a class="secondary" href="Happiness_Plaza_Leasing_Pack_EN.pdf" download>Leasing Pack PDF · English</a></p></div></section>')
+         '<a class="secondary" href="Happiness_Plaza_Leasing_Pack_EN.pdf" download>Leasing Pack PDF · English</a> '
+         '<a class="action" href="Happiness_Plaza_Book.pdf" download>' + t('الدليل الكامل بالمراحل PDF · عربي', 'Complete book PDF · Arabic') + '</a> '
+         '<a class="secondary" href="Happiness_Plaza_Book_EN.pdf" download>Complete book PDF · English</a></p></div></section>')
 a, b = section('atlas'); s = s[:a] + table + s[a:]
 s = re.sub(r'<a class="hp-tile hp-gold" href="\?floor=g" data-route="plan/g"><strong>مخططات المحلات</strong><small>[^<]*</small></a>',
            '<a class="hp-tile hp-gold" href="./#units-list" data-route="units-list"><strong>' + t('الوحدات المتاحة', 'Available units') + '</strong><small>'
-           + t('٥٩ وحدة متاحة للإيجار والمخططات', '59 units for lease, with plans') + '</small></a>', s, count=1)
+           + t('٦١ وحدة متاحة للإيجار والمخططات', '61 units for lease, with plans') + '</small></a>', s, count=1)
 
 # menus and tiles that pointed at the market study
 rep('<strong>دراسة سوق قنا</strong><small>السكان والزيارات</small>', '<strong>' + t('مراحل التشغيل', 'Opening phases') + '</strong><small>' + t('المرحلة الثانية يونيو ٢٠٢٧', 'Phase two June 2027') + '</small>')
@@ -189,8 +192,9 @@ s = re.sub(r'<p>يعرض الملف جراجًا[^<]*</p>', lambda m: (
     '<p>' + t('جراج على مستويين يتسع لـ٢٠٠ سيارة بمساحة ٧٬٢٨٩ م² (٣٬٦٤٤ م² لكل مستوى). يشمل البرنامج مصلى ودورات مياه للرجال والسيدات وذوي الإعاقة وماكينة صراف آلي.',
               'A two-level garage for 200 cars, 7,289 m² (3,644 m² on each level). The programme includes a prayer room, toilets for men, women and people with disabilities, and an ATM.') + '</p>'), s, count=1)
 
-rep('مقصد التسوق الجديد لأهالي قنا · ١٤٤ وحدة تجارية للإيجار', t('مقصد التسوق الجديد لأهالي قنا · ٥٩ وحدة متاحة للإيجار', 'Qena’s new shopping destination · 59 units for lease'))
-s = s.replace('١٤٤ وحدة تجارية للإيجار', '٥٩ وحدة متاحة للإيجار').replace('144 retail units for lease', '59 units for lease')
+rep('مقصد التسوق الجديد لأهالي قنا · ١٤٤ وحدة تجارية للإيجار', t('مقصد التسوق الجديد لأهالي قنا · ٦١ وحدة متاحة للإيجار', 'Qena’s new shopping destination · 61 units for lease'))
+s = s.replace('١٤٤ وحدة تجارية للإيجار', '٦١ وحدة متاحة للإيجار').replace('144 retail units for lease', '61 units for lease')
+s = s.replace('<a class="sourceLink" download href="Happiness_Plaza_Leasing.pdf">عرض دليل الوحدات PDF</a>', '<a class="sourceLink" download href="Happiness_Plaza_Book.pdf">' + t('الدليل الكامل بالمراحل PDF', 'Complete book by phase PDF') + '</a>')
 for bad in ['هايبر ماركت الحبيب', 'يشغّلها الحبيب', 'يشغّله الحبيب', 'يشغّلها المالك', 'الحبيب ستور', 'ديسمبر ٢٠٢٦', 'دراسة سوق', 'زيارة في اليوم', 'سعة تصميمية', 'Qena_Market_and_Footfall']:
     assert bad not in s, bad
 DAILY = ['B01', 'G16-21', 'F16-20', 'G46']
@@ -206,9 +210,9 @@ groups = [
     ('fun', t('ترفيه وأطفال', 'Entertainment & kids'),
      lambda u: u['cat'] in ('ترفيه', 'منطقة أطفال وحضانة'),
      t('مساحتان للترفيه في الدور الثاني، ومنطقة أطفال وحضانة في البدروم.', 'Two entertainment spaces on the second floor and a kids’ area and nursery in the basement.')),
-    ('show', t('معارض وخدمات مالية وطبية', 'Showrooms, finance & medical'),
+    ('show', t('معارض وخدمات مالية وتجميل', 'Showrooms, finance & beauty'),
      lambda u: u['cat'] in ('معرض', 'خدمات مالية', 'صالون وبيوتي سنتر', 'صيدلية وخدمات طبية') and u['id'] not in DAILY,
-     t('معارض وفروع بنوك وخدمات طبية.', 'Showrooms, bank branches and medical services.')),
+     t('معارض وفروع بنوك وصالون وبيوتي سنتر وخدمات طبية.', 'Showrooms, bank branches, a salon and beauty centre and medical services.')),
     ('retail', t('محلات تجارية', 'Retail shops'), lambda u: True,
      t('محلات بمساحات متنوعة على الأدوار الأربعة.', 'Shops in a range of sizes across the four levels.')),
 ]
@@ -229,6 +233,32 @@ s = re.sub(r'<div class="story-mix">.*?</div><p class="story-note">',
            + t('المجموع: ١٤٤ وحدة تجارية على أربعة أدوار، إلى جانب فندق بلازا (١٤ غرفة وجناحًا) وأنشطة المرحلة الأولى.',
                'Total: 144 retail units on four levels, plus the Plaza Hotel (14 rooms) and the phase one leisure venues.')
            + '</p><p class="story-note">', s, count=1, flags=re.S)
+
+# ---- interactive phase sections (phase two June 2027, phase three December 2027) ----
+import importlib.util as _iu2
+_sp2 = _iu2.spec_from_file_location('phase_sections', __file__.rsplit('/', 1)[0] + '/phase_sections.py'); _ps = _iu2.module_from_spec(_sp2); _sp2.loader.exec_module(_ps)
+_PRE = ''
+_s2, _s3 = _ps.build(B, units, OFFER, PHASE2, BACK, t, num, FLOOR, pre=_PRE)
+i = s.index('id="market"'); b = s.index('</section>', i) + len('</section>')
+s = s[:b] + _s2 + _s3 + s[b:]
+_n2 = sum(1 for k in PHASE2 if k in set(OFFER)); _n3 = len(OFFER) - _n2
+_tiles = ('<a class="hp-tile" href="./#phase2" data-route="phase2"><strong>' + t('المرحلة الثانية', 'Phase two') + '</strong><small>'
+          + t('تشغيل يونيو ٢٠٢٧', 'Opening June 2027') + ' · ' + num(_n2, 0) + ' ' + t('وحدة', 'units') + '</small></a>'
+          '<a class="hp-tile" href="./#phase3" data-route="phase3"><strong>' + t('المرحلة الثالثة', 'Phase three') + '</strong><small>'
+          + t('تشغيل ديسمبر ٢٠٢٧', 'Opening December 2027') + ' · ' + num(_n3, 0) + ' ' + t('وحدة', 'units') + '</small></a>')
+s, _k = re.subn(r'<a class="hp-tile" href="[^"]*#market" data-route="market"><strong>مراحل التشغيل</strong><small>[^<]*</small></a>', _tiles, s, count=1)
+assert _k == 1, 'phase tile'
+s = s.replace('href="./#market" data-route="market"><span>المرحلة الثانية', 'href="./#phase2" data-route="phase2"><span>المرحلة الثانية')
+s = s.replace('data-route="plan/g"><span>المرحلة الثالثة', 'data-route="phase3"><span>المرحلة الثالثة').replace('href="?floor=g" data-route="phase3"', 'href="./#phase3" data-route="phase3"')
+_P2TXT = t('وحدات الأرضي المطلة على البلازا: المطاعم بتراساتها الخارجية، وواجهة الأزياء، والشوروم والبنوك، ومعها في الدور الأول الفود كورت والبنك والشوروم الدوبلكس.',
+           'The ground-floor units facing the plaza: restaurants with outdoor terraces, the fashion frontage, showrooms and banks, plus the first-floor food court and the duplex bank and showroom.')
+s = s.replace('مطاعم البلازا وواجهة الأزياء والمحلات المطلة على البلازا في الدور الأرضي، والوحدة F16-20 في الدور الأول.', _P2TXT)
+s = s.replace('<strong>مطاعم البلازا وواجهة الأزياء</strong>', '<strong>' + t('وحدات البلازا والفود كورت', 'Plaza units and the food court') + '</strong>')
+s, _k = re.subn(r'<h3>وحدات المرحلة الثانية المتاحة للإيجار</h3>.*?</table></div>',
+                '<p class="hp-pbtns"><a class="action" href="./#phase2" data-route="phase2">' + t('استكشف المرحلة الثانية', 'Explore phase two') + '</a>'
+                '<a class="secondary" href="./#phase3" data-route="phase3">' + t('استكشف المرحلة الثالثة', 'Explore phase three') + '</a></p>', s, count=1, flags=re.S)
+assert _k == 1, 'overview table'
+s = s.replace('<script src="launcher.js?v=15f"></script>', '<script src="launcher.js?v=15g"></script><script src="phases.js?v=1"></script>')
 
 import importlib.util as _iu
 _sp = _iu.spec_from_file_location('drive_fix', __file__.rsplit('/', 1)[0] + '/drive_fix.py'); _df = _iu.module_from_spec(_sp); _sp.loader.exec_module(_df)
