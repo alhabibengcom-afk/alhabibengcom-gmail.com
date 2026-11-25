@@ -44,6 +44,14 @@ for _f, (_ha, _he) in HEIGHT.items():
 PHASE2 = ['G39', 'G40', 'G41', 'G42', 'G42-1', 'G26-28', 'G30-32', 'G34-36', 'G38',
           'G06', 'G07-12', 'G08', 'G09', 'G11', 'G12-14', 'G13', 'G15', 'G16-21', 'F16-20']
 BACK = {'G25-27': 'G26-28', 'G29-31': 'G30-32', 'G33-35': 'G34-36', 'G37': 'G38'}  # phase two only if taken with the front unit
+
+# Optional overrides from the Drive sheet (written by tools/auto/sync_units.py): phase-two units and glass heights.
+import os as _os
+GLASS = {}
+if _os.path.exists(B + '/site-config.json'):
+    _cfg = json.load(open(B + '/site-config.json', encoding='utf-8'))
+    PHASE2 = _cfg.get('phase2') or PHASE2
+    GLASS = _cfg.get('glass') or {}
 P2 = t('يونيو ٢٠٢٧', 'June 2027'); P3 = t('ديسمبر ٢٠٢٧', 'December 2027')
 PH_NOTE2 = t('ضمن المرحلة الثانية، والتشغيل في يونيو ٢٠٢٧.', 'Part of phase two, opening in June 2027.')
 PH_NOTE3 = t('ضمن المرحلة الثالثة، والتشغيل في ديسمبر ٢٠٢٧.', 'Part of phase three, opening in December 2027.')
@@ -119,6 +127,8 @@ def spec_text(u):
               'f2': ('الارتفاع الداخلي ٣٫٦ م، ', 'Clear internal height 3.6 m; '), 'b1': ('', '')}[u['f']]
     plaza = u['id'] in PHASE2 and u['f'] == 'g'
     ga, ge = ('٣٫٢٠', '3.20') if plaza else ('٢٫٨٠', '2.80')
+    if u['id'] in GLASS:
+        g = float(GLASS[u['id']]); ge = f'{g:.2f}'; ga = ge.translate(str.maketrans('0123456789.', '٠١٢٣٤٥٦٧٨٩٫'))
     fb = u['cat'] in ('أغذية ومشروبات', 'فود كورت')
     ar = ha + ('و' if ha else '') + f'واجهة زجاجية بارتفاع {ga} م، ' + ('والكهرباء والمياه والصرف والغاز ودكت شفاط الهود جاهزة لأنها وحدة مطاعم.' if fb else 'والكهرباء جاهزة.')
     en = (he + 'glass shopfront' if he else 'Glass shopfront') + f' {ge} m high; ' + ('power, water, drainage, gas and a hood exhaust duct are in place as a food and beverage unit.' if fb else 'power is in place.')
