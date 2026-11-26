@@ -1,0 +1,90 @@
+{
+ "id": "./",
+ "name": "هابينس بلازا · الدليل الكامل",
+ "short_name": "Happiness Plaza",
+ "description": "الدليل التفاعلي الكامل لهابينس بلازا: المالك والموقع والمراحل الثلاث والوحدات المتاحة والمخططات.",
+ "lang": "ar",
+ "dir": "rtl",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "display_override": [
+  "window-controls-overlay",
+  "standalone",
+  "fullscreen"
+ ],
+ "orientation": "any",
+ "background_color": "#1f362d",
+ "theme_color": "#1f362d",
+ "icons": [
+  {
+   "src": "app/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "app/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "app/icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ],
+ "categories": [
+  "business"
+ ],
+ "shortcuts": [
+  {
+   "name": "المرحلة الثانية · يونيو ٢٠٢٧",
+   "short_name": "المرحلة الثانية",
+   "url": "./#phase2",
+   "icons": [
+    {
+     "src": "app/icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  },
+  {
+   "name": "المرحلة الثالثة · ديسمبر ٢٠٢٧",
+   "short_name": "المرحلة الثالثة",
+   "url": "./#phase3",
+   "icons": [
+    {
+     "src": "app/icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  },
+  {
+   "name": "الوحدات المتاحة",
+   "short_name": "الوحدات",
+   "url": "./#units-list",
+   "icons": [
+    {
+     "src": "app/icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  },
+  {
+   "name": "عرض على الشاشة",
+   "short_name": "عرض",
+   "url": "./?screen=1",
+   "icons": [
+    {
+     "src": "app/icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  }
+ ]
+}

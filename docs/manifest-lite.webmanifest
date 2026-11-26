@@ -1,0 +1,90 @@
+{
+ "id": "lite.html",
+ "name": "هابينس بلازا · للبراندات",
+ "short_name": "Happiness Brands",
+ "description": "دليل البراندات المختصر: المراحل الثلاث والوحدات المتاحة للإيجار والمخططات والتواصل مع فريق التأجير.",
+ "lang": "ar",
+ "dir": "rtl",
+ "start_url": "lite.html",
+ "scope": "./",
+ "display": "standalone",
+ "display_override": [
+  "window-controls-overlay",
+  "standalone",
+  "fullscreen"
+ ],
+ "orientation": "any",
+ "background_color": "#1f362d",
+ "theme_color": "#1f362d",
+ "icons": [
+  {
+   "src": "app/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "app/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "app/icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ],
+ "categories": [
+  "business"
+ ],
+ "shortcuts": [
+  {
+   "name": "المرحلة الثانية · يونيو ٢٠٢٧",
+   "short_name": "المرحلة الثانية",
+   "url": "lite.html#phase2",
+   "icons": [
+    {
+     "src": "app/icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  },
+  {
+   "name": "المرحلة الثالثة · ديسمبر ٢٠٢٧",
+   "short_name": "المرحلة الثالثة",
+   "url": "lite.html#phase3",
+   "icons": [
+    {
+     "src": "app/icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  },
+  {
+   "name": "الوحدات المتاحة",
+   "short_name": "الوحدات",
+   "url": "lite.html#units-list",
+   "icons": [
+    {
+     "src": "app/icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  },
+  {
+   "name": "عرض على الشاشة",
+   "short_name": "عرض",
+   "url": "lite.html?screen=1",
+   "icons": [
+    {
+     "src": "app/icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  }
+ ]
+}
