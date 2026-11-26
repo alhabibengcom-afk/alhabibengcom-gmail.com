@@ -12,10 +12,11 @@ def apply(s, t):
            'All phases of Happiness Plaza come together around a 1,857 m² open internal plaza with the restaurant terraces. The plaza links the stores, restaurants, hotel and leisure attractions.')),
         (r'<strong>٤٬٠٠٠ <span>م²</span></strong><p>مساحة البلازا المشتركة</p>', '<strong>١٬٨٥٧ <span>م²</span></strong><p>' + t('البلازا الداخلية مع تراسات المطاعم', 'Internal plaza with restaurant terraces') + '</p>'),
     ]
+    R.append((r'نسبة تعاقدية من صافي مبيعات الفرع، وفق آلية الحساب المتفق عليها\.', t('نسبة تعاقدية من مبيعات الفرع، وفق آلية الحساب المتفق عليها.', 'An agreed percentage of the branch’s sales, per the agreed calculation method.')))
     for a, b in R:
         s, n = re.subn(a, b, s)
     t('١٬٨٥٧', '1,857'); t('١٧٬٧٨٥ م²', '17,785 m²'); t('١٬٨٥٧ م²', '1,857 m²')
     body = re.sub(r'<script.*?</script>', '', s, flags=re.S)
-    for bad in ['٢٠٬٠٠٠ م²', '٤٬٠٠٠ م²', '>٤٬٠٠٠ <']:
+    for bad in ['٢٠٬٠٠٠ م²', '٤٬٠٠٠ م²', '>٤٬٠٠٠ <', 'صافي', 'الصافي']:
         assert bad not in body, bad
     return s

@@ -85,8 +85,8 @@ def section(id_):
     i = s.index(f'id="{id_}"'); a = s.rfind('<section', 0, i); b = s.index('</section>', i) + len('</section>')
     return a, b
 
-rep('<script src="site.js?v=15k"></script>', '<script src="site-full.js?v=5"></script>')
-rep('<script src="i18n.js?v=15b"></script>', '<script src="i18n-en-full.js?v=5"></script><script src="i18n.js?v=15b"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-full.js?v=6"></script>')
+rep('<script src="i18n.js?v=15c"></script>', '<script src="i18n-en-full.js?v=6"></script><script src="i18n.js?v=15c"></script>')
 
 # phases section replaces the market study (same id)
 a, b = section('market')
@@ -261,7 +261,7 @@ assert _k == 1, 'overview table'
 s = s.replace('<script src="launcher.js?v=15f"></script>', '<script src="launcher.js?v=15g"></script><script src="phases.js?v=1"></script>')
 
 # ---- app: install button, screen mode, own manifest ----
-s = s.replace('<script src="phases.js?v=1"></script>', '<script src="phases.js?v=1"></script><script src="app.js?v=1"></script>', 1)
+s = s.replace('<script src="phases.js?v=1"></script>', '<script src="phases.js?v=1"></script><script src="app.js?v=2"></script>', 1)
 s = s.replace('<div class="hp-mini">', '<div class="hp-mini"><a class="hp-screen-link" href="./?screen=1">' + t('عرض على الشاشة', 'Show on a screen') + ' <span aria-hidden="true">▶</span></a>'
               '<button type="button" class="hp-install">' + t('ثبّت التطبيق', 'Install the app') + ' <span aria-hidden="true">⤓</span></button>', 1)
 
@@ -273,5 +273,5 @@ s = _df.apply(s, t)
 open(B + '/index.html', 'w', encoding='utf-8').write(s)
 open(B + '/i18n-en-full.js', 'w', encoding='utf-8').write(
     '/* English for the detailed guide: phases, specs and edited sentences. Loaded after i18n-en.js. */\n'
-    '(function(){var D=window.HP_EN;if(!D)return;var A=' + json.dumps(EN, ensure_ascii=False, separators=(',', ':')) + ';for(var k in A)D[k]=A[k];})();\n')
+    '(function(){var D=window.HP_EN;if(!D)return;var A=' + json.dumps(EN, ensure_ascii=False, separators=(',', ':')) + ';for(var k in A)D[k]=A[k];for(var g in D){if(typeof D[g]==="string")D[g]=D[g].replace(/\\bLoaded\\b/g,"Gross").replace(/\\bloaded\\b/g,"gross").replace(/net area[^.;,]*/gi,"").replace(/\\bnet sales\\b/gi,"sales")}})();\n')
 print('full built:', len(avail), 'units for lease;', len(EN), 'English entries')

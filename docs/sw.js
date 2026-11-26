@@ -3,7 +3,7 @@
    Pages and code: network first, cached copy when offline.
    Images and fonts: cache first, filled as the visitor browses.
    Videos and PDFs are never cached (large files, range requests). */
-const VERSION = 'hp-v15-32';
+const VERSION = 'hp-v15-33';
 const SHELL = [
   './',
   'index.html',
@@ -11,8 +11,8 @@ const SHELL = [
   'unit-viewer.css?v=15',
   'location-view.css?v=15',
   'pro.css?v=15u',
-  'i18n-en.js?v=15n',
-  'i18n.js?v=15b',
+  'i18n-en.js?v=15o',
+  'i18n.js?v=15c',
   'unit-data.js?v=15',
   'corridor-view.js?v=15',
   'location-links.js?v=15c',
@@ -21,22 +21,22 @@ const SHELL = [
   'panorama.js?v=15',
   'unit-viewer.js?v=15b',
   'document-links.js?v=15',
-  'document-data.js?v=15',
-  'site-full.js?v=5',
-  'i18n-en-full.js?v=5',
+  'document-data.js?v=15b',
+  'site-full.js?v=6',
+  'i18n-en-full.js?v=6',
   'launcher.js?v=15g',
   'phases.js?v=1',
   'lite.js?v=15b',
   'documents.js?v=15f',
   'hospitality.js?v=15b',
   'lite.html',
-  'i18n-en-lite.js?v=12',
+  'i18n-en-lite.js?v=13',
   'unit-viewer-lite.js?v=1',
-  'site-lite.js?v=10',
+  'site-lite.js?v=11',
   'lite.js?v=4',
   'manifest.webmanifest',
   'manifest-lite.webmanifest',
-  'app.js?v=1',
+  'app.js?v=2',
   'app/icon-192.png',
   'assets/Happiness_Plaza_Opening.jpg'
 ];

@@ -91,7 +91,7 @@ def build(lang):
             (T('الكهرباء','Power'), T('جاهزة لكل وحدة','In place for every unit')), (T('دكت شفاط الهود','Hood exhaust duct'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court')),
             (T('المياه والصرف','Water and drainage'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court')), (T('الغاز','Gas'), T('للمطاعم والكافيهات والفود كورت','Restaurants, cafés and food court'))]
     models = [(T('إيجار ثابت','Fixed rent'), T('قيمة شهرية للمتر تُحسب على المساحة المحمّلة.','A monthly rate per m² on the loaded area.')),
-              (T('نسبة من المبيعات','Turnover rent'), T('نسبة تعاقدية من صافي مبيعات الفرع.','An agreed share of the store’s net sales.')),
+              (T('نسبة من المبيعات','Turnover rent'), T('نسبة تعاقدية من مبيعات الفرع.','An agreed share of the store’s sales.')),
               (T('إيجار مختلط','Hybrid'), T('حد أدنى مضمون مع نسبة من المبيعات.','A guaranteed minimum plus a share of sales.'))]
     page(f'''<div class="two"><div><div class="hd"><p class="ey">{T('المواصفات والتسليم','Specification and handover')}</p><h2>{T('كل وحدة جاهزة للتجهيز من أول يوم','Every unit is ready for fit-out from day one')}</h2></div>
 <table class="tb"><tbody>{''.join(f'<tr><td>{a}</td><td><b>{b}</b></td></tr>' for a,b in spec)}</tbody></table>
@@ -123,6 +123,7 @@ def build(lang):
 <p class="small lt">{T('هذا الملف للتعريف بالمشروع. التوافر النهائي والحجز والتعاقد تتم من خلال فريق التأجير، والمساحات المذكورة مساحات محمّلة.','This pack introduces the project. Final availability, reservation and leasing are handled by the leasing team; all areas are loaded areas.')}</p></div>''', 'cover last', False)
 
     if ar: pages[:] = [pg.replace(' · ', ' – ') for pg in pages]
+    if not ar: pages[:] = [re.sub(r'\bLoaded\b', 'Gross', re.sub(r'\bloaded\b', 'gross', pg)) for pg in pages]
     pages[:] = [re.sub(r'assets/([^"]+?)\.(webp|jpg)', r'pack-img/\1.jpg', pg) for pg in pages]
     css = open(B + '/pack.css', encoding='utf-8').read()
     return f'''<!doctype html><html lang="{lang}" dir="{'rtl' if ar else 'ltr'}"><head><meta charset="utf-8"><title>Happiness Plaza Leasing Pack</title><style>{css}</style></head><body class="{lang}">{''.join(pages)}</body></html>'''

@@ -209,10 +209,10 @@ s, nflag = re.subn(r'<script>\(function\(\)\{var (?:q=new URLSearchParams\(locat
            '<script>window.HP_LITE=true;document.documentElement.classList.add("hp-lite")</script>', s, count=1, flags=re.S)
 assert nflag == 1, 'lite flag not set'
 # English dictionary + lite overrides
-rep('document.write(\'<script src="i18n-en.js?v=15n"><\\/script>\')',
-    'document.write(\'<script src="i18n-en.js?v=15n"><\\/script><script src="i18n-en-lite.js?v=12"><\\/script>\')')
+rep('document.write(\'<script src="i18n-en.js?v=15o"><\\/script>\')',
+    'document.write(\'<script src="i18n-en.js?v=15o"><\\/script><script src="i18n-en-lite.js?v=13"><\\/script>\')')
 # own scripts
-rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=10"></script>')
+rep('<script src="site.js?v=15k"></script>', '<script src="site-lite.js?v=11"></script>')
 rep('<script src="unit-viewer.js?v=15b"></script>', '<script src="unit-viewer-lite.js?v=1"></script>')
 rep('<script src="lite.js?v=15b"></script>', '<script src="lite.js?v=4"></script>')
 rep('launcher.js?v=15f', 'launcher.js?v=15f')
@@ -503,7 +503,7 @@ assert _k == 1, 'overview table'
 s = s.replace('<script src="launcher.js?v=15f"></script>', '<script src="launcher.js?v=15g"></script><script src="phases.js?v=1"></script>')
 
 # ---- app: install button, screen mode, own manifest ----
-s = s.replace('<script src="phases.js?v=1"></script>', '<script src="phases.js?v=1"></script><script src="app.js?v=1"></script>', 1)
+s = s.replace('<script src="phases.js?v=1"></script>', '<script src="phases.js?v=1"></script><script src="app.js?v=2"></script>', 1)
 s = s.replace('<div class="hp-mini">', '<div class="hp-mini"><a class="hp-screen-link" href="lite.html?screen=1">' + t('عرض على الشاشة', 'Show on a screen') + ' <span aria-hidden="true">▶</span></a>'
               '<button type="button" class="hp-install">' + t('ثبّت التطبيق', 'Install the app') + ' <span aria-hidden="true">⤓</span></button>', 1)
 s = s.replace('<link rel="manifest" href="manifest.webmanifest">', '<link rel="manifest" href="manifest-lite.webmanifest">', 1)
@@ -521,5 +521,5 @@ for k in ['دليل الوحدات المتاحة للإيجار']:
 open(B + '/i18n-en-lite.js', 'w', encoding='utf-8').write(
     '/* English for the simple page: overrides and spelling (Alhabeeb). */\n'
     '(function(){var D=window.HP_EN;if(!D)return;var A=' + json.dumps(en, ensure_ascii=False, separators=(',', ':')) + ';'
-    'for(var k in A)D[k]=A[k];for(var k2 in D){if(typeof D[k2]==="string")D[k2]=D[k2].replace(/Al-Habeeb|Al Habeeb|Alhabib|AL-HABEEB/g,"Alhabeeb")}})();\n')
+    'for(var k in A)D[k]=A[k];for(var k2 in D){if(typeof D[k2]==="string")D[k2]=D[k2].replace(/Al-Habeeb|Al Habeeb|Alhabib|AL-HABEEB/g,"Alhabeeb")}for(var g in D){if(typeof D[g]==="string")D[g]=D[g].replace(/\\bLoaded\\b/g,"Gross").replace(/\\bloaded\\b/g,"gross").replace(/net area[^.;,]*/gi,"").replace(/\\bnet sales\\b/gi,"sales")}})();\n')
 print('lite built:', len(lite_units), 'units in the simple page,', len(avail), 'available;', counts)

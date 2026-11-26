@@ -143,7 +143,7 @@ def build(lang):
 <figure class="ph"><img src="assets/f0755181e1a7d4.webp" alt=""><figcaption>{T('مقتطف من لوحة الواجهات الداخلية','Extract from the internal elevations drawing')}</figcaption></figure></div>''')
     steps = [T('معاينة','Site visit'), T('عرض وتعاقد','Offer and lease'), T('استلام فني','Technical handover'), T('اعتماد تصميم الفرع','Store design approval'), T('تجهيز وافتتاح','Fit-out and opening')]
     models = [(T('إيجار ثابت','Fixed rent'), T('قيمة شهرية للمتر تُحسب على المساحة المحمّلة.','A monthly rate per m² on the loaded area.')),
-              (T('نسبة من المبيعات','Turnover rent'), T('نسبة تعاقدية من صافي مبيعات الفرع.','An agreed share of net sales.')),
+              (T('نسبة من المبيعات','Turnover rent'), T('نسبة تعاقدية من مبيعات الفرع.','An agreed share of sales.')),
               (T('إيجار مختلط','Hybrid'), T('حد أدنى مضمون مع نسبة من المبيعات.','A guaranteed minimum plus a share of sales.'))]
     page(f'''<div class="hd"><p class="ey">{T('نماذج التعاقد وخطوات الافتتاح','Lease models and steps to opening')}</p><h2>{T('الإيجار على المساحة المحمّلة','Rent is charged on the loaded area')}</h2></div>
 <div class="grid3 mb">{''.join(f'<div class="st"><b class="sm">{a}</b><span>{b}</span></div>' for a, b in models)}</div>
@@ -158,6 +158,7 @@ def build(lang):
 <p class="small lt">{T('التوافر النهائي والحجز والتعاقد تتم من خلال فريق التأجير، والمساحات المذكورة مساحات محمّلة حسب ملف الوحدات الموحد.','Final availability, reservation and leasing are handled by the leasing team; areas are loaded areas per the unified unit file.')}</p></div>''', 'cover last', False)
 
     if ar: pages[:] = [pg.replace(' · ', ' – ') for pg in pages]
+    if not ar: pages[:] = [re.sub(r'\bLoaded\b', 'Gross', re.sub(r'\bloaded\b', 'gross', pg)) for pg in pages]
     pages[:] = [re.sub(r'assets/([^"]+?)\.(webp|jpg)', r'pack-img/\1.jpg', pg) for pg in pages]
     css = open(B + '/pack.css', encoding='utf-8').read() + open(B + '/book.css', encoding='utf-8').read()
     return f'<!doctype html><html lang="{lang}" dir="{"rtl" if ar else "ltr"}"><head><meta charset="utf-8"><title>Happiness Plaza Book</title><style>{css}</style></head><body class="{lang}">{"".join(pages)}</body></html>'
