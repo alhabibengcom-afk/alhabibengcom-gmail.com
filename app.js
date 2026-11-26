@@ -1,6 +1,7 @@
 /* Happiness Plaza as an app: install button, and screen mode for TVs and display screens (?screen=1).
    Screen mode plays the guide by itself: each section in turn (both phases floor by floor), scrolling slowly. */
 (function () {
+  window.sheetLink = function () { return null; };  // old unit sheets are not published
   var lite = !!window.HP_LITE, base = lite ? 'lite.html' : './';
   var en = window.HP_LANG === 'en';
   var tr = function (a, e) { return en ? e : a; };
